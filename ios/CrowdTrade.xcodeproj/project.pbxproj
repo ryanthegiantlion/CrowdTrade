@@ -21,6 +21,8 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		146834051AC3E58100842450 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 146834041AC3E56700842450 /* libReact.a */; };
 		4765EEB73BA642229473C226 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5EE405C50A574B3FBA0C51A0 /* MaterialIcons.ttf */; };
+		641ED7861C838F0100C8B9D1 /* Fabric.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 641ED7841C838F0100C8B9D1 /* Fabric.framework */; };
+		641ED7871C838F0100C8B9D1 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 641ED7851C838F0100C8B9D1 /* Crashlytics.framework */; };
 		6D3088D03D58414D900B6B50 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF84642A89DA403FB1812810 /* Foundation.ttf */; };
 		74D81C4EF53D4B0E8E500F5D /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BADA32608220427B94FD7DEB /* Zocial.ttf */; };
 		7A6450C165B64078B0B95929 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CF0FC4FD0FAC42F98B00D41B /* Octicons.ttf */; };
@@ -142,6 +144,8 @@
 		146833FF1AC3E56700842450 /* React.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = React.xcodeproj; path = "../node_modules/react-native/React/React.xcodeproj"; sourceTree = "<group>"; };
 		4ABC5F18797D4DBB934C4832 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
 		5EE405C50A574B3FBA0C51A0 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
+		641ED7841C838F0100C8B9D1 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
+		641ED7851C838F0100C8B9D1 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
 		665A20CE0C474846AD0660AD /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		78C398B01ACF4ADC00677621 /* RCTLinking.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTLinking.xcodeproj; path = "../node_modules/react-native/Libraries/LinkingIOS/RCTLinking.xcodeproj"; sourceTree = "<group>"; };
 		832341B01AAA6A8300B99B32 /* RCTText.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTText.xcodeproj; path = "../node_modules/react-native/Libraries/Text/RCTText.xcodeproj"; sourceTree = "<group>"; };
@@ -167,6 +171,7 @@
 			files = (
 				146834051AC3E58100842450 /* libReact.a in Frameworks */,
 				00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */,
+				641ED7871C838F0100C8B9D1 /* Crashlytics.framework in Frameworks */,
 				00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */,
 				00C302E81ABCBA2D00DB3ED1 /* libRCTImage.a in Frameworks */,
 				133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */,
@@ -176,6 +181,7 @@
 				00C302EA1ABCBA2D00DB3ED1 /* libRCTVibration.a in Frameworks */,
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				C19F17517D264CE3B7050AA2 /* libRNVectorIcons.a in Frameworks */,
+				641ED7861C838F0100C8B9D1 /* Fabric.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -337,6 +343,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				641ED7841C838F0100C8B9D1 /* Fabric.framework */,
+				641ED7851C838F0100C8B9D1 /* Crashlytics.framework */,
 				13B07FAE1A68108700A75B9A /* CrowdTrade */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* CrowdTradeTests */,
@@ -385,6 +393,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
+				643419A91C838DB800ED4C1E /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -407,6 +416,9 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = 9TY93W4QE6;
 					};
 				};
 			};
@@ -597,6 +609,20 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\n../node_modules/react-native/packager/react-native-xcode.sh";
 		};
+		643419A91C838DB800ED4C1E /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Fabric.framework/run fbd389f04a954b135bb6d2a940d60858c73999be d5c61caf3733a8ca11f4d996d95cffb32295924f0abee39b6e1a9366040fd4b0";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -689,7 +715,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEAD_CODE_STRIPPING = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -700,6 +732,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrowdTrade;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -707,6 +740,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
@@ -717,6 +756,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = CrowdTrade;
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
