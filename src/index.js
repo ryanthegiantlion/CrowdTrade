@@ -43,10 +43,6 @@ function Init() {
     }
 
     handleMenuItemPress(route) {
-      console.log('pew')
-      console.log(route)
-      console.log(Routes[this.state.currentRoute])
-      console.log(Routes[this.state.currentRoute].Page)
       this.setState({isMenuShowing: false, currentRoute: route});
     }
 
@@ -68,7 +64,7 @@ function Init() {
 
       const CurrentPage = Routes[this.state.currentRoute].Page;
 
-      // console.log(Routes['trending'].Page)
+      // console.log(Routes['trending'].Page)r
 
       // Note that the render order is important here
       // The touch events don't work on menu unless it is rendered last
