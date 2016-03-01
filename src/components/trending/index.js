@@ -21,15 +21,18 @@ class Trending extends Component {
       pan: new Animated.ValueXY(),
       enter: new Animated.Value(0.5),
       business: Businesses[0],
+      nextBusiness: Businesses[1],
     }
   }
 
   _goToNextPerson() {
-    let currentPersonIdx = Businesses.indexOf(this.state.business);
-    let newIdx = currentPersonIdx + 1;
+    let currentBusinessIdx = Businesses.indexOf(this.state.business);
+    let newIdx = (currentBusinessIdx + 1) > Businesses.length - 1 ? 0 : (currentBusinessIdx + 1);
+    let nextBusinessIdx = (newIdx + 1) > Businesses.length - 1 ? 0 : (newIdx + 1)
 
     this.setState({
-      business: Businesses[newIdx > Businesses.length - 1 ? 0 : newIdx]
+      business: Businesses[newIdx],
+      nextBusiness: Businesses[nextBusinessIdx]
     });
   }
 
@@ -113,13 +116,22 @@ class Trending extends Component {
 
     return (
       <View style={styles.container}>
-        <Animated.View style={[styles.card, animatedCardStyles]} {...this._panResponder.panHandlers}>
-          <Image source={{uri: this.state.business.image}} style={styles.cardImage} />
-            <View style={styles.cardTextContainer}>
-              <Text style={styles.textLeft}>{this.state.business.name}</Text>
-              <Text style={styles.textRight}>55$</Text>
-            </View>
-        </Animated.View>
+        <View style={styles.cardsContainer}>
+          <View style={[styles.card, styles.nextCard]}>
+            <Image source={{uri: this.state.nextBusiness.image}} style={styles.cardImage} />
+              <View style={styles.cardTextContainer}>
+                <Text style={styles.textLeft}>{this.state.nextBusiness.name}</Text>
+                <Text style={styles.textRight}>55$</Text>
+              </View>
+          </View>
+          <Animated.View style={[styles.card, animatedCardStyles]} {...this._panResponder.panHandlers}>
+            <Image source={{uri: this.state.business.image}} style={styles.cardImage} />
+              <View style={styles.cardTextContainer}>
+                <Text style={styles.textLeft}>{this.state.business.name}</Text>
+                <Text style={styles.textRight}>55$</Text>
+              </View>
+          </Animated.View>
+        </View>
 
         <Animated.View style={[styles.nope, animatedNopeStyles]}>
           <Text style={styles.nopeText}>Nope!</Text>
@@ -143,6 +155,10 @@ var styles = StyleSheet.create({
   card: {
     width: 200,
     height: 200,
+  },
+  nextCard: {
+    position: 'absolute',
+    top: 0,
   },
   yup: {
     borderColor: 'green',
