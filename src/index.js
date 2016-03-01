@@ -16,11 +16,15 @@ import React, {
   Alert,
 } from 'react-native';
 
+window.React = React
+
 // TODO: Busy playing around with these guys, will delete the one I don't like
 import Drawer from 'react-native-drawer'
 import SideMenu from 'react-native-side-menu';
 import Menu from './components/menu/index';
 import Header from './components/header/index';
+import Routes from './routes';
+import Trending from './components/trending/index';
 
 function Init() {
   console.log('init');
@@ -32,21 +36,25 @@ function Init() {
       super(props); 
         this.state = {
           isMenuShowing: false,
-          currentView: 'Trending',
+          currentRoute: 'trending',
         };
         this.handleMenuToggle = this.handleMenuToggle.bind(this);
         this.handleMenuItemPress = this.handleMenuItemPress.bind(this);
     }
 
-    handleMenuItemPress(view) {
-      this.setState({isMenuShowing: false, currentView: view});
+    handleMenuItemPress(route) {
+      console.log('pew')
+      console.log(route)
+      console.log(Routes[this.state.currentRoute])
+      console.log(Routes[this.state.currentRoute].Page)
+      this.setState({isMenuShowing: false, currentRoute: route});
     }
 
     handleMenuToggle() {
       var currentMenuState = this.state.isMenuShowing;
       this.setState({
         isMenuShowing: !currentMenuState, 
-        currentView: this.state.currentView});
+        currentRoute: this.state.currentRoute});
     }
 
     render() {
@@ -58,6 +66,10 @@ function Init() {
           menu = undefined
         }
 
+      const CurrentPage = Routes[this.state.currentRoute].Page;
+
+      // console.log(Routes['trending'].Page)
+
       // Note that the render order is important here
       // The touch events don't work on menu unless it is rendered last
       return (
@@ -65,7 +77,7 @@ function Init() {
                 
                 <Header onMenuToggle={this.handleMenuToggle}/>
                 <View style={styles.bodyContainer}>
-                  <Text style={{fontSize:20}}>{this.state.currentView}</Text>  
+                  <CurrentPage />
                 </View>
                 {menu}
           </View>

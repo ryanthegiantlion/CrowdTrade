@@ -19,22 +19,33 @@ class Menu extends Component {
     }
 
     render() {
-      const pages = [
-        'Trending', 
-        'News', 
-        'Watch list', 
-        'Crowd choice', 
-        'Crowd chat',
-        'Settings'];
+      // TODO: pass these down as props
+      const routes = [
+        'trending', 
+        'news', 
+        'watchlist', 
+        'crowdchoice', 
+        'crowdchat',
+        'settings'];
+
+      // TODO: do we want to define text in global resource file as estee does?
+      const linkText = {
+        trending: 'Trending',
+        news: 'News',
+        watchlist: 'Watch list',
+        crowdchoice: 'Crowd choice',
+        crowdchat: 'Crowd chat',
+        settings: 'Settings'
+      }
 
       return (
           <View style={styles.menu}>
-            {pages.map(page =>
-              <TouchableHighlight key={page} onPress={() => {this.handleMenuItemPress(page)}}>
+            {routes.map(route =>
+              <TouchableHighlight key={route} onPress={() => {this.handleMenuItemPress(route)}}>
                 <View style={styles.menuItem}>
                   <Text
                     style={styles.menuItemText}
-                  >{page}</Text>
+                  >{linkText[route]}</Text>
                 </View>
               </TouchableHighlight>
             )}
