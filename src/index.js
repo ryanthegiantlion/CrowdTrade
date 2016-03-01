@@ -16,8 +16,6 @@ import React, {
   Alert,
 } from 'react-native';
 
-window.React = React
-
 // TODO: Busy playing around with these guys, will delete the one I don't like
 import Drawer from 'react-native-drawer'
 import SideMenu from 'react-native-side-menu';
