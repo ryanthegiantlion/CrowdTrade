@@ -41,8 +41,6 @@ function Init() {
     }
 
     handleMenuItemPress(route) {
-      console.log('yayaya');
-      console.log(route);
       this.setState({isMenuShowing: false, currentRoute: route});
     }
 
