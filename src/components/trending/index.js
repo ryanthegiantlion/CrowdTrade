@@ -46,7 +46,7 @@ const Stocks = [
   },
   {
     name: 'Amazon', 
-    image: 'http://www.turnerduckworth.com/media/filer_public/b4/ac/b4ac5dfe-b335-403c-83b2-ec69e01f94e6/td-amazon-hero.svg',
+    image: 'http://www.authormedia.com/wp-content/uploads/2015/03/amazon.jpg',
     low: 50.05,
     ave: 51.27,
     high: 52.87,
@@ -377,6 +377,15 @@ var styles = StyleSheet.create({
     left: 0,
     bottom: 0, 
     right: 0,
+    borderWidth: 1,
+    borderColor: '#BBB',
+    shadowRadius: 2,
+    shadowColor: '#BBB',
+    shadowOpacity: 0.8,
+    shadowOffset: {
+      height: 1,
+      width: 0,
+    }
   },
 
   cardImage: {
@@ -418,8 +427,8 @@ var styles = StyleSheet.create({
     height: 80,
     paddingLeft: 12,
     paddingRight: 12,
-    borderBottomWidth: 1,
-    borderColor: '#BBB',
+    //borderBottomWidth: 1,
+    //borderColor: '#BBB',
   },
   cardStockStatsContainer: {
     flexDirection: 'row',
