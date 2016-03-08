@@ -125,7 +125,6 @@ class Trending extends Component {
       ]),
 
       onPanResponderRelease: (e, {vx, vy}) => {
-        console.log('release');
         this.state.isUserDragging = false;
         this.state.pan.flattenOffset();
         var velocity;

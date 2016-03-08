@@ -1,9 +1,8 @@
 import Trending from './components/trending/index';
 import News from './components/news/index';
 import WatchList from './components/watchlist/index';
-import CrowdChoice from './components/crowdchoice/index';
 import CrowdChat from './components/crowdchat/index';
-import Settings from './components/settings/index';
+import VirtualPortfolio from './components/virtualportfolio/index';
 
 const Routes = {
   trending: {
@@ -15,15 +14,12 @@ const Routes = {
   watchlist: {
     Page: WatchList
   },
-  crowdchoice: {
-    Page: CrowdChoice
-  },
   crowdchat: {
     Page: CrowdChat
   },
-  settings: {
-    Page: Settings
-  }
+  virtualportfolio: {
+    Page: VirtualPortfolio
+  },
 };
 
 module.exports = Routes 

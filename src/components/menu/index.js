@@ -22,20 +22,18 @@ class Menu extends Component {
       // TODO: pass these down as props
       const routes = [
         'trending', 
-        'news', 
-        'watchlist', 
-        'crowdchoice', 
+        'watchlist',
         'crowdchat',
-        'settings'];
+        'news', 
+        'virtualportfolio'];
 
       // TODO: do we want to define text in global resource file as estee does?
       const linkText = {
         trending: 'Trending',
-        news: 'News',
         watchlist: 'Watch list',
-        crowdchoice: 'Crowd choice',
-        crowdchat: 'Crowd chat',
-        settings: 'Settings'
+        crowdchat: 'Crowd Chat',
+        news: 'News',
+        virtualportfolio: 'Virtual Portfolio'
       }
 
       return (

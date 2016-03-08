@@ -5,11 +5,11 @@ import React, {
   Text,
 } from 'react-native';
 
-class CrowdChoice extends Component {
+class VirtualPortfolio extends Component {
 
     render() {
       return (
-        <Text style={styles.title}>CrowdChoice</Text> 
+        <Text style={styles.title}>VirtualPortfolio</Text> 
       );
     }
 }
@@ -20,4 +20,4 @@ const styles = StyleSheet.create({
     },
   });
 
-module.exports = CrowdChoice
+module.exports = VirtualPortfolio
