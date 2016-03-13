@@ -356,15 +356,16 @@ var styles = StyleSheet.create({
 
   card: {
     position: 'absolute',
-    position: 'absolute',
     top: 0,
     left: 0,
     bottom: 0, 
     right: 0,
     borderWidth: 1,
-    borderColor: '#BBB',
+    borderColor: '#999',
+    borderBottomLeftRadius: 4,
+    borderBottomRightRadius: 4,
     shadowRadius: 2,
-    shadowColor: '#BBB',
+    shadowColor: '#999',
     shadowOpacity: 0.8,
     shadowOffset: {
       height: 1,
@@ -411,6 +412,7 @@ var styles = StyleSheet.create({
     height: 80,
     paddingLeft: 12,
     paddingRight: 12,
+    borderRadius: 4,
     //borderBottomWidth: 1,
     //borderColor: '#BBB',
   },
