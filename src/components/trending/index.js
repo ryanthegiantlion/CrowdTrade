@@ -329,7 +329,7 @@ var styles = StyleSheet.create({
   // the card expands to take up all the rest of the space
   responsiveContainer: {
     flex: 1,
-    paddingBottom: 150,
+    paddingBottom: 180,
   },
 
   // text styles for page
@@ -476,7 +476,7 @@ var styles = StyleSheet.create({
   // buttons
 
   buttonsContainer: {
-    height:150,
+    height:180,
     position: 'absolute',
     bottom: 0,
     left: 0,
