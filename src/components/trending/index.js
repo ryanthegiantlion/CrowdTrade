@@ -71,8 +71,78 @@ const Stocks = [
   
 ]
 
-// The card area expands to take up the space not used but the button area
+// How far the swipe need to go for a yes/ no to fire
 var SWIPE_THRESHOLD = 120;
+// To get the stack effect the lower card must pick out at the bottom and appear smaller
+var NEXT_CARD_POSITION_OFFSET = 2;
+var NEXT_CARD_SIZE_OFFSET = 8;
+
+class Card extends Component {
+  render() {
+    let stockTextColor = this.props.hasIncreased ? styles.greenText : styles.redText;
+    let stockDiffIcon = this.props.hasIncreased ? 'arrow-up-a' : 'arrow-down-a';
+
+    return (
+      <Animated.View style={[styles.cardContainer, this.props.animatedCardContainerStyles]}>
+        <Animated.View style={[styles.card, this.props.animatedCardStyles]} {...this.props.panResponder}>
+          <Image source={{uri: this.props.image}} style={styles.cardImage} resizeMode={Image.resizeMode.stretch}>
+            <Animated.View style={[styles.cardImageTextContainer, styles.cardImageYupContainer, this.props.animatedYupStyles]}>
+              <Icon name='close' style={[styles.cardImageText, styles.redText]}/>
+            </Animated.View>
+            <Animated.View style={[styles.cardImageTextContainer, styles.cardImageNopeContainer, this.props.animatedNopeStyles]}>
+              <Icon name='check' style={[styles.cardImageText, styles.greenText]}/>
+            </Animated.View>
+            <Text style={styles.cardImageName}>
+              {this.props.name}
+            </Text>
+          </Image>
+          <View style={styles.cardStockDetailsContainer}>
+            <View style={styles.cardStockStatsContainer}>
+              <View style={styles.cardStockStatContainer}>
+                <Text style={styles.cardStockStatLabel}>
+                  LOW
+                </Text>
+                <Text style={styles.cardStockStat}>
+                  {this.props.low}
+                </Text>
+              </View>
+              <View style={styles.cardStockStatContainer}>
+                <Text style={styles.cardStockStatLabel}>
+                  AVG
+                </Text>
+                <Text style={styles.cardStockStat}>
+                  {this.props.ave}
+                </Text>
+              </View>
+              <View style={styles.cardStockStatContainer}>
+                <Text style={styles.cardStockStatLabel}>
+                  HIGH
+                </Text>
+                <Text style={styles.cardStockStat}>
+                  {this.props.high}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.cardStockDiffContainer}>        
+              <IconIonicons name={stockDiffIcon} style={[styles.cardStockDiffImage, stockTextColor]} />
+              <View style={styles.cardStockDiffTextContainer}>
+                <Text style={[styles.cardStockDiffLabel, stockTextColor]}>
+                  KO
+                </Text>
+                <Text style={[styles.cardStockDiff, stockTextColor]}>
+                  {this.props.current}
+                </Text>
+                <Text style={[styles.cardStockPercentageChange, stockTextColor]}>
+                  {this.props.percentageChange}
+                </Text>
+              </View>
+            </View>
+          </View>
+        </Animated.View>
+      </Animated.View>
+    );
+  }
+}
 
 class Trending extends Component {
   constructor(props) {
@@ -80,23 +150,14 @@ class Trending extends Component {
 
     this.state = {
       pan: new Animated.ValueXY(),
-      enter: new Animated.Value(1),
-      nextCardOpacity: new Animated.Value(1),
-      currentStock: Stocks[0],
-      nextStock: Stocks[1],
-      isUserDragging: false,
+      cards: Stocks,
+      currentPosition: 0,
     }
   }
 
   _goTonextStock() {
-    let currentStockIdx = Stocks.indexOf(this.state.currentStock);
-    let newIdx = (currentStockIdx + 1) > Stocks.length - 1 ? 0 : (currentStockIdx + 1);
-    let nextStockIdx = (newIdx + 1) > Stocks.length - 1 ? 0 : (newIdx + 1)
-
-    this.setState({
-      currentStock: Stocks[newIdx],
-      nextStock: Stocks[nextStockIdx]
-    });
+    let nextPosition = (this.state.currentPosition + 1) % this.state.cards.length
+    this.setState({currentPosition: nextPosition});
   }
 
   componentDidMount() {
@@ -176,33 +237,54 @@ class Trending extends Component {
   }
 
   render() {
-    let { pan, enter, nextCardOpacity, currentStock, nextStock} = this.state;
+    let { pan, cards, currentPosition} = this.state;
 
     let [translateX, translateY] = [pan.x, pan.y];
 
-    let rotate = pan.x.interpolate({inputRange: [-200, 0, 200], outputRange: ["-30deg", "0deg", "30deg"]});
-    let scale = enter;
+    // card 0 animation
+    let rotate = pan.x.interpolate({inputRange: [-240, 0, 240], outputRange: ["-30deg", "0deg", "30deg"]});
 
-    let animatedCardStyles = {transform: [{translateX}, {translateY}, {rotate}, {scale}]};
+    let animatedCardStyles = {transform: [{translateX}, {translateY}, {rotate}]};
 
-    let yupOpacity = pan.x.interpolate({inputRange: [0, 150], outputRange: [0, 1]});
+    let yupOpacity = pan.x.interpolate({inputRange: [0, SWIPE_THRESHOLD], outputRange: [0, 1], extrapolate: 'clamp'});
     let animatedYupStyles = {opacity: yupOpacity}
 
-    let nopeOpacity = pan.x.interpolate({inputRange: [-150, 0], outputRange: [1, 0]});
+    let nopeOpacity = pan.x.interpolate({inputRange: [-SWIPE_THRESHOLD, 0], outputRange: [1, 0], extrapolate: 'clamp'});
     let animatedNopeStyles = {opacity: nopeOpacity}
 
-    let currentStockTextColor = currentStock.hasIncreased ? styles.greenText : styles.redText;
-    let nextStockTextColor = nextStock.hasIncreased ? styles.greenText : styles.redText;
-    
-    let currentStockDiffIcon = currentStock.hasIncreased ? 'arrow-up-a' : 'arrow-down-a';
-    let nextStockDiffIcon = nextStock.hasIncreased ? 'arrow-up-a' : 'arrow-down-a';
-    
-    // the rendering here is quite tricky. it was tricky getting all three correct at the same time . . .
+    let card0AnimatedStyles = {
+      animatedCardStyles: animatedCardStyles, 
+      animatedNopeStyles: animatedNopeStyles,
+      animatedYupStyles: animatedYupStyles
+    }
 
-    // 1. the card should always appear on top when being dragged so needs to be rendered near the end 
-    // (at least after the buttons)
-    // 2. the layout should be responsive
-    // 3. the buttons need to work ofc - we have to be careful about rendering a view on top of them
+    // card 1 animation
+    let card1BottomTranslation = pan.x.interpolate({inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD], outputRange: [0, -NEXT_CARD_POSITION_OFFSET, 0], extrapolate: 'clamp'});
+    let card1SideTranslation = pan.x.interpolate({inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD], outputRange: [0, NEXT_CARD_SIZE_OFFSET, 0], extrapolate: 'clamp'});
+    let card1TopTranslation = pan.x.interpolate({inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD], outputRange: [0, NEXT_CARD_POSITION_OFFSET+NEXT_CARD_SIZE_OFFSET, 0], extrapolate: 'clamp'});
+    let card1TranslationStyles = {top: card1TopTranslation, bottom: card1BottomTranslation, right: card1SideTranslation, left: card1SideTranslation}
+    let card1AnimatedStyles = {
+      animatedCardContainerStyles: card1TranslationStyles
+    }
+
+    // card 2 animation
+    let card2BottomTranslation = pan.x.interpolate({inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD], outputRange: [-NEXT_CARD_POSITION_OFFSET, -NEXT_CARD_POSITION_OFFSET*2, -NEXT_CARD_POSITION_OFFSET], extrapolate: 'clamp'});
+    let card2SideTranslation = pan.x.interpolate({inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD], outputRange: [NEXT_CARD_SIZE_OFFSET, NEXT_CARD_SIZE_OFFSET*2, NEXT_CARD_SIZE_OFFSET], extrapolate: 'clamp'});
+    let card2TopTranslation = pan.x.interpolate({inputRange: [-SWIPE_THRESHOLD, 0, SWIPE_THRESHOLD], outputRange: [NEXT_CARD_POSITION_OFFSET+NEXT_CARD_SIZE_OFFSET, (NEXT_CARD_POSITION_OFFSET+NEXT_CARD_SIZE_OFFSET)*2, NEXT_CARD_POSITION_OFFSET+NEXT_CARD_SIZE_OFFSET], extrapolate: 'clamp'});
+    let card2TranslationStyles = {top: card2TopTranslation, bottom: card2BottomTranslation, right: card2SideTranslation, left: card2SideTranslation}
+    let card2AnimatedStyles = {
+      animatedCardContainerStyles: card2TranslationStyles
+    }
+
+    let card3AnimatedStyles = {
+      animatedCardContainerStyles: {top: (NEXT_CARD_POSITION_OFFSET+NEXT_CARD_SIZE_OFFSET)*2, bottom: -NEXT_CARD_POSITION_OFFSET*2, right: NEXT_CARD_SIZE_OFFSET*2, left: NEXT_CARD_SIZE_OFFSET*2}
+    }
+
+
+    let stock0 = cards[currentPosition]
+    let stock1 = cards[(currentPosition+1) % cards.length]
+    let stock2 = cards[(currentPosition+2) % cards.length]
+    let stock3 = cards[(currentPosition+3) % cards.length]
 
     return (
       <View style={styles.bodyContainer}>
@@ -213,127 +295,21 @@ class Trending extends Component {
               <TouchableHighlight style={[styles.button]} underlayColor='#EEE' onPress={() => {this.handleNopePress()}}>
                   <Icon name='close' size={40} style={styles.redText} />
               </TouchableHighlight>
-              <Text style={[styles.likeNopeText, styles.redText]}>{this.state.currentStock.nopes}</Text>
+              <Text style={[styles.likeNopeText, styles.redText]}>{stock0.nopes}</Text>
             </View>
             <View style={styles.buttonContainer}>
               <TouchableHighlight style={[styles.button]} underlayColor='#EEE' onPress={() => {this.handleYupPress()}}>
                   <Icon name='check' size={40} style={styles.greenText}/>
               </TouchableHighlight>
-              <Text style={[styles.likeNopeText, styles.greenText]}>{this.state.currentStock.likes}</Text>
+              <Text style={[styles.likeNopeText, styles.greenText]}>{stock0.likes}</Text>
             </View>
           </View>
 
           <View style={styles.cardsContainer}>
-            <Animated.View key={this.state.nextStock.name} style={[styles.card]}>
-              <Image source={{uri: this.state.nextStock.image}} style={styles.cardImage}>
-                <Animated.View style={[styles.cardImageTextContainer, styles.cardImageYupContainer]}>
-                  <Text style={[styles.cardImageText, styles.cardImageYupText]}>LOVE</Text>
-                </Animated.View>
-                <Animated.View style={[styles.cardImageTextContainer, styles.cardImageNopeContainer]}>
-                  <Text style={[styles.cardImageText, styles.cardImageNopeText]}>NEIN</Text>
-                </Animated.View>
-                <Text style={styles.cardImageName}>
-                  {this.state.nextStock.name}
-                </Text>
-              </Image>
-              <View style={styles.cardStockDetailsContainer}>
-                <View style={styles.cardStockStatsContainer}>
-                  <View style={styles.cardStockStatContainer}>
-                    <Text style={styles.cardStockStatLabel}>
-                      LOW
-                    </Text>
-                    <Text style={styles.cardStockStat}>
-                      {this.state.nextStock.low}
-                    </Text>
-                  </View>
-                  <View style={styles.cardStockStatContainer}>
-                    <Text style={styles.cardStockStatLabel}>
-                      AVG
-                    </Text>
-                    <Text style={styles.cardStockStat}>
-                      {this.state.nextStock.ave}
-                    </Text>
-                  </View>
-                  <View style={styles.cardStockStatContainer}>
-                    <Text style={styles.cardStockStatLabel}>
-                      HIGH
-                    </Text>
-                    <Text style={styles.cardStockStat}>
-                      {this.state.nextStock.high}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.cardStockDiffContainer}>        
-                  <IconIonicons name={nextStockDiffIcon} style={[styles.cardStockDiffImage, nextStockTextColor]} />
-                  <View style={styles.cardStockDiffTextContainer}>
-                    <Text style={[styles.cardStockDiffLabel, nextStockTextColor]}>
-                      KO
-                    </Text>
-                    <Text style={[styles.cardStockDiff, nextStockTextColor]}>
-                      {this.state.nextStock.current}
-                    </Text>
-                    <Text style={[styles.cardStockPercentageChange, nextStockTextColor]}>
-                      {this.state.nextStock.percentageChange}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </Animated.View>
-            <Animated.View key={this.state.currentStock.name} style={[styles.card, animatedCardStyles]} {...this._panResponder.panHandlers}>
-              <Image source={{uri: this.state.currentStock.image}} style={styles.cardImage}>
-                <Animated.View style={[styles.cardImageTextContainer, styles.cardImageYupContainer, animatedYupStyles]}>
-                  <Icon name='close' style={[styles.cardImageText, styles.redText]}/>
-                </Animated.View>
-                <Animated.View style={[styles.cardImageTextContainer, styles.cardImageNopeContainer, animatedNopeStyles]}>
-                  <Icon name='check' style={[styles.cardImageText, styles.greenText]}/>
-                </Animated.View>
-                <Text style={styles.cardImageName}>
-                  {this.state.currentStock.name}
-                </Text>
-              </Image>
-              <View style={styles.cardStockDetailsContainer}>
-                <View style={styles.cardStockStatsContainer}>
-                  <View style={styles.cardStockStatContainer}>
-                    <Text style={styles.cardStockStatLabel}>
-                      LOW
-                    </Text>
-                    <Text style={styles.cardStockStat}>
-                      {this.state.currentStock.low}
-                    </Text>
-                  </View>
-                  <View style={styles.cardStockStatContainer}>
-                    <Text style={styles.cardStockStatLabel}>
-                      AVG
-                    </Text>
-                    <Text style={styles.cardStockStat}>
-                      {this.state.currentStock.ave}
-                    </Text>
-                  </View>
-                  <View style={styles.cardStockStatContainer}>
-                    <Text style={styles.cardStockStatLabel}>
-                      HIGH
-                    </Text>
-                    <Text style={styles.cardStockStat}>
-                      {this.state.currentStock.high}
-                    </Text>
-                  </View>
-                </View>
-                <View style={styles.cardStockDiffContainer}>        
-                  <IconIonicons name={currentStockDiffIcon} style={[styles.cardStockDiffImage, currentStockTextColor]} />
-                  <View style={styles.cardStockDiffTextContainer}>
-                    <Text style={[styles.cardStockDiffLabel, currentStockTextColor]}>
-                      KO
-                    </Text>
-                    <Text style={[styles.cardStockDiff, currentStockTextColor]}>
-                      {this.state.currentStock.current}
-                    </Text>
-                    <Text style={[styles.cardStockPercentageChange, currentStockTextColor]}>
-                      {this.state.currentStock.percentageChange}
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </Animated.View>
+            <Card key={stock3.name} {...stock3} {...card3AnimatedStyles}/>
+            <Card key={stock2.name} {...stock2} {...card2AnimatedStyles}/>
+            <Card key={stock1.name} {...stock1} {...card1AnimatedStyles} />
+            <Card key={stock0.name} {...stock0} {...card0AnimatedStyles} panResponder={this._panResponder.panHandlers}/>
           </View>
 
         </View>   
@@ -367,6 +343,15 @@ var styles = StyleSheet.create({
   // cards
   cardsContainer: {
     flex: 1,
+  },
+
+  cardContainer: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0, 
+    right: 0,
+    justifyContent: 'flex-end',
   },
 
   card: {
