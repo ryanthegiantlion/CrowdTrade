@@ -6,70 +6,8 @@ import Dimensions from 'Dimensions';
 
 var Icon = require('react-native-vector-icons/FontAwesome');
 var IconIonicons = require('react-native-vector-icons/Ionicons');
-
-const Stocks = [
-  {
-    name: 'Anglo American', 
-    image: 'http://www.iprocess.co.za/wp-content/uploads/2015/09/anglo.jpg',
-    low: 1.01,
-    ave: 2.27,
-    high: 10.87,
-    hasIncreased: false,
-    current: 1.05,
-    percentageChange: '-90.10%',
-    likes: '1.2 K',
-    nopes: '112.8 K',
-  },
-  {
-    name: 'Coca Cola', 
-    image: 'http://www.picgifs.com/wallpapers/wallpapers/coca-cola/Coca_Cola03.jpg',
-    low: 29.01,
-    ave: 31.27,
-    high: 32.87,
-    hasIncreased: true,
-    current: 32.21,
-    percentageChange: '+0.10%',
-    likes: '93.2 K',
-    nopes: '11.8 K',
-  },
-  {
-    name: 'Microsoft', 
-    image: 'http://research-methodology.net/wp-content/uploads/2015/05/Microsoft-PESTEL-Analysis.jpg',
-    low: 80.01,
-    ave: 81.57,
-    high: 82.87,
-    hasIncreased: false,
-    current: 80.05,
-    percentageChange: '-0.11%',
-    likes: '10.2 K',
-    nopes: '1.8 K',
-  },
-  {
-    name: 'Amazon', 
-    image: 'http://www.authormedia.com/wp-content/uploads/2015/03/amazon.jpg',
-    low: 50.05,
-    ave: 51.27,
-    high: 52.87,
-    hasIncreased: false,
-    current: 50.51,
-    percentageChange: '-0.12%',
-    likes: '3.2 K',
-    nopes: '12.8 K',
-  },
-  {
-    name: 'Google', 
-    image: 'http://www.betches.com/sites/default/files/article/list/images/google.jpg',
-    low: 22.05,
-    ave: 25.27,
-    high: 26.87,
-    hasIncreased: true,
-    current: 24.41,
-    percentageChange: '+0.12%',
-    likes: '31.2 K',
-    nopes: '32.8 K',
-  }
-  
-]
+import { connect } from 'react-redux'
+import { incrementTrendingCurrentPosition } from '../../store/actions'
 
 // How far the swipe need to go for a yes/ no to fire
 var SWIPE_THRESHOLD = 120;
@@ -123,7 +61,7 @@ class Card extends Component {
                 </Text>
               </View>
             </View>
-            <View style={styles.cardStockDiffContainer}>        
+            <View style={styles.cardStockDiffContainer}>
               <IconIonicons name={stockDiffIcon} style={[styles.cardStockDiffImage, stockTextColor]} />
               <View style={styles.cardStockDiffTextContainer}>
                 <Text style={[styles.cardStockDiffLabel, stockTextColor]}>
@@ -150,15 +88,15 @@ class Trending extends Component {
 
     this.state = {
       pan: new Animated.ValueXY(),
-      cards: Stocks,
-      currentPosition: 0,
+      //cards: this.props.cards,
+      //currentPosition: 0,
     }
   }
 
-  _goTonextStock() {
-    let nextPosition = (this.state.currentPosition + 1) % this.state.cards.length
-    this.setState({currentPosition: nextPosition});
-  }
+  // _goTonextStock() {
+  //   let nextPosition = (this.state.currentPosition + 1) % this.state.cards.length
+  //   this.setState({currentPosition: nextPosition});
+  // }
 
   componentDidMount() {
     this._animateEntrance();
@@ -214,8 +152,9 @@ class Trending extends Component {
   _resetState() {
     this.state.pan.setValue({x: 0, y: 0});
     //this.state.enter.setValue(0);
-    this._goTonextStock();
+    //this._goTonextStock();
     //this._animateEntrance();
+    this.props.onGoTonextStock();
   }
 
   handleNopePress() {
@@ -237,7 +176,9 @@ class Trending extends Component {
   }
 
   render() {
-    let { pan, cards, currentPosition} = this.state;
+    let { pan } = this.state;
+    let cards = this.props.cards
+    let currentPosition = this.props.currentPosition
 
     let [translateX, translateY] = [pan.x, pan.y];
 
@@ -253,7 +194,7 @@ class Trending extends Component {
     let animatedNopeStyles = {opacity: nopeOpacity}
 
     let card0AnimatedStyles = {
-      animatedCardStyles: animatedCardStyles, 
+      animatedCardStyles: animatedCardStyles,
       animatedNopeStyles: animatedNopeStyles,
       animatedYupStyles: animatedYupStyles
     }
@@ -312,7 +253,7 @@ class Trending extends Component {
             <Card key={stock0.name} {...stock0} {...card0AnimatedStyles} panResponder={this._panResponder.panHandlers}/>
           </View>
 
-        </View>   
+        </View>
       </View>
     );
   }
@@ -349,7 +290,7 @@ var styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    bottom: 0, 
+    bottom: 0,
     right: 0,
     justifyContent: 'flex-end',
   },
@@ -358,7 +299,7 @@ var styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     left: 0,
-    bottom: 0, 
+    bottom: 0,
     right: 0,
     borderWidth: 1,
     borderColor: '#999',
@@ -442,7 +383,7 @@ var styles = StyleSheet.create({
   },
   cardStockDiffContainer: {
     flexDirection: 'row',
-    flex: 3,  
+    flex: 3,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -472,7 +413,7 @@ var styles = StyleSheet.create({
     fontSize: 7,
     alignSelf: 'flex-start',
   },
-  
+
   // buttons
 
   buttonsContainer: {
@@ -506,4 +447,16 @@ var styles = StyleSheet.create({
 
 });
 
-module.exports = Trending
+function mapStateToProps(state) {
+  return {cards: state.trending.data, currentPosition: state.trending.currentPosition}
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onGoTonextStock: () => {
+      dispatch(incrementTrendingCurrentPosition())
+    },
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Trending);
