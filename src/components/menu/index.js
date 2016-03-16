@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
       position: 'absolute',
       left: 0,
       right: 0,
-      top: 48,
+      top: 64,
     },
     menuItem: {
       padding: 8,

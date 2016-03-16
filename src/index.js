@@ -6,6 +6,7 @@
 import React, {
   AppRegistry,
   Component,
+  StatusBarIOS,
 } from 'react-native';
 
 import { Provider } from 'react-redux'
@@ -16,6 +17,8 @@ import initialState from './store/initialState'
 const store = configureStore(initialState())
 
 export default function Init() {
+
+  StatusBarIOS.setStyle('light-content')
 
   class Root extends Component {
 
