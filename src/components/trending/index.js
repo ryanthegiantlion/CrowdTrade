@@ -25,10 +25,10 @@ class Card extends Component {
         <Animated.View style={[styles.card, this.props.animatedCardStyles]} {...this.props.panResponder}>
           <Image source={{uri: this.props.image}} style={styles.cardImage} resizeMode={Image.resizeMode.stretch}>
             <Animated.View style={[styles.cardImageTextContainer, styles.cardImageYupContainer, this.props.animatedYupStyles]}>
-              <Icon name='close' style={[styles.cardImageText, styles.redText]}/>
+              <Icon name='check' style={[styles.cardImageText, styles.greenText]}/>
             </Animated.View>
             <Animated.View style={[styles.cardImageTextContainer, styles.cardImageNopeContainer, this.props.animatedNopeStyles]}>
-              <Icon name='check' style={[styles.cardImageText, styles.greenText]}/>
+              <Icon name='close' style={[styles.cardImageText, styles.redText]}/>
             </Animated.View>
             <Text style={styles.cardImageName}>
               {this.props.name}
