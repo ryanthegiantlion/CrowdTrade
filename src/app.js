@@ -31,13 +31,12 @@ class App extends Component {
   }
 
   render() {
-    var menu;
-      if (this.props.isMenuShowing) {
-        menu = <Menu/>
-      }
-      else {
-        menu = undefined
-      }
+    var menu = undefined;
+    var overlay = undefined;
+    if (this.props.isMenuShowing) {
+      overlay = <View style={styles.overlay}></View>
+      menu = <Menu/>
+    }
 
     const CurrentPage = Routes[this.props.currentRoute].Page;
 
@@ -50,6 +49,7 @@ class App extends Component {
               <View style={styles.bodyContainer}>
                 <CurrentPage />
               </View>
+              {overlay}
               {menu}
         </View>
     );
@@ -64,6 +64,15 @@ const styles = StyleSheet.create({
   bodyContainer: {
     flex: 1,
   },
+  overlay : {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 48,
+    bottom: 0,
+    backgroundColor: 'black',
+    opacity: 0.4,
+  }
 });
 
 function mapStateToProps(state) {
