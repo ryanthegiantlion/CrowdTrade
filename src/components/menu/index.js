@@ -7,46 +7,41 @@ import React, {
   TouchableHighlight,
 } from 'react-native';
 
+import { connect } from 'react-redux'
+import { changeRoute } from '../../store/actions'
+
+class MenuItem extends Component {
+  render() {
+    return (
+      <TouchableHighlight key={this.props.route} onPress={() => {this.props.onMenuItemPress(this.props.route)}}>
+        <View style={styles.menuItem}>
+          <Text
+            style={styles.menuItemText}
+          >{this.props.children}</Text>
+        </View>
+      </TouchableHighlight>
+    )
+  }
+}
 
 class Menu extends Component {
     constructor(props) {
-      super(props); 
+      super(props);
         this.handleMenuItemPress = this.handleMenuItemPress.bind(this);
     }
 
     handleMenuItemPress(page) {
-      this.props.onMenuItemPress(page);
+      this.props.onMenuItemSelect(page);
     }
 
     render() {
-      // TODO: pass these down as props
-      const routes = [
-        'trending', 
-        'watchlist',
-        'crowdchat',
-        'news', 
-        'virtualportfolio'];
-
-      // TODO: do we want to define text in global resource file as estee does?
-      const linkText = {
-        trending: 'Trending',
-        watchlist: 'Watch list',
-        crowdchat: 'Crowd Chat',
-        news: 'News',
-        virtualportfolio: 'Virtual Portfolio'
-      }
-
       return (
           <View style={styles.menu}>
-            {routes.map(route =>
-              <TouchableHighlight key={route} onPress={() => {this.handleMenuItemPress(route)}}>
-                <View style={styles.menuItem}>
-                  <Text
-                    style={styles.menuItemText}
-                  >{linkText[route]}</Text>
-                </View>
-              </TouchableHighlight>
-            )}
+            <MenuItem route='trending' onMenuItemPress={this.props.onMenuItemPress}>Trending</MenuItem>
+            <MenuItem route='watchlist' onMenuItemPress={this.props.onMenuItemPress}>Watch list</MenuItem>
+            <MenuItem route='crowdchat' onMenuItemPress={this.props.onMenuItemPress}>Crowd Chat</MenuItem>
+            <MenuItem route='news' onMenuItemPress={this.props.onMenuItemPress}>News</MenuItem>
+            <MenuItem route='virtualportfolio' onMenuItemPress={this.props.onMenuItemPress}>Virtual Portfolio</MenuItem>
           </View>
       );
     }
@@ -70,4 +65,16 @@ const styles = StyleSheet.create({
     },
   });
 
-module.exports = Menu;
+function mapStateToProps(state) {
+  return state.ui
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onMenuItemPress: (route) => {
+      dispatch(changeRoute(route))
+    },
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Menu);

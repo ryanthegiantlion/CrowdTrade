@@ -1,7 +1,24 @@
 import { combineReducers } from 'redux'
 import * as actions from './actions';
 
-function trending(state = {data: [], currentPosition: 0}, action) {
+function ui(state={isMenuShowing: false, currentRoute: 'trending'}, action) {
+  switch (action.type) {
+    case actions.TOGGLE_MENU:
+      return {
+        isMenuShowing: !state.isMenuShowing,
+        currentRoute: state.currentRoute
+      }
+    case actions.CHANGE_ROUTE:
+      return {
+        isMenuShowing: false,
+        currentRoute: action.route
+      }
+    default:
+      return state
+  }
+}
+
+function trending(state={data: [], currentPosition: 0}, action) {
   switch (action.type) {
     case actions.INCREMENT_TRENDING_CURRENT_POSITION:
       return {
@@ -14,6 +31,7 @@ function trending(state = {data: [], currentPosition: 0}, action) {
 }
 
 const rootReducer = combineReducers({
+  ui,
   trending,
 })
 

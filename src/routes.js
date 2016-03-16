@@ -3,6 +3,7 @@ import News from './components/news/index';
 import WatchList from './components/watchlist/index';
 import CrowdChat from './components/crowdchat/index';
 import VirtualPortfolio from './components/virtualportfolio/index';
+import Settings from './components/settings/index';
 
 const Routes = {
   trending: {
@@ -20,6 +21,9 @@ const Routes = {
   virtualportfolio: {
     Page: VirtualPortfolio
   },
+  settings: {
+    Page: Settings
+  }
 };
 
-module.exports = Routes 
+module.exports = Routes

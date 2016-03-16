@@ -88,15 +88,8 @@ class Trending extends Component {
 
     this.state = {
       pan: new Animated.ValueXY(),
-      //cards: this.props.cards,
-      //currentPosition: 0,
     }
   }
-
-  // _goTonextStock() {
-  //   let nextPosition = (this.state.currentPosition + 1) % this.state.cards.length
-  //   this.setState({currentPosition: nextPosition});
-  // }
 
   componentDidMount() {
     this._animateEntrance();
@@ -151,9 +144,6 @@ class Trending extends Component {
 
   _resetState() {
     this.state.pan.setValue({x: 0, y: 0});
-    //this.state.enter.setValue(0);
-    //this._goTonextStock();
-    //this._animateEntrance();
     this.props.onGoTonextStock();
   }
 

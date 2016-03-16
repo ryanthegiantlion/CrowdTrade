@@ -23,41 +23,23 @@ import Menu from './components/menu/index';
 import Header from './components/header/index';
 import Routes from './routes';
 import Trending from './components/trending/index';
+import { connect } from 'react-redux'
 
-export default class App extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
-      this.state = {
-        isMenuShowing: false,
-        currentRoute: 'trending',
-      };
-      this.handleMenuToggle = this.handleMenuToggle.bind(this);
-      this.handleMenuItemPress = this.handleMenuItemPress.bind(this);
-  }
-
-  handleMenuItemPress(route) {
-    this.setState({isMenuShowing: false, currentRoute: route});
-  }
-
-  handleMenuToggle() {
-    var currentMenuState = this.state.isMenuShowing;
-    this.setState({
-      isMenuShowing: !currentMenuState,
-      currentRoute: this.state.currentRoute});
   }
 
   render() {
     var menu;
-      if (this.state.isMenuShowing) {
-        menu = <Menu onMenuItemPress={this.handleMenuItemPress}/>
+      if (this.props.isMenuShowing) {
+        menu = <Menu/>
       }
       else {
         menu = undefined
       }
 
-    const CurrentPage = Routes[this.state.currentRoute].Page;
-
-    // console.log(Routes['trending'].Page)r
+    const CurrentPage = Routes[this.props.currentRoute].Page;
 
     // Note that the render order is important here
     // The touch events don't work on menu unless it is rendered last
@@ -83,3 +65,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 });
+
+function mapStateToProps(state) {
+  return state.ui
+}
+module.exports = connect(mapStateToProps)(App);
