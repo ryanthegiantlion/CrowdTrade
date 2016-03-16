@@ -12,6 +12,7 @@ import { connect } from 'react-redux'
 import { toggleMenu, changeRoute } from '../../store/actions'
 
 var Icon = require('react-native-vector-icons/FontAwesome');
+var IoniconIcon = require('react-native-vector-icons/Ionicons')
 
 class Header extends Component {
     constructor(props) {
@@ -29,7 +30,7 @@ class Header extends Component {
           <View style={styles.header}>
             <TouchableHighlight onPress={this.props.onHandleMenuToggle}>
               <View style={styles.menuIconContainer}>
-                <Icon name="navicon" size={24} color="white" />
+                <IoniconIcon name="navicon-round" size={24} color="white" />
               </View>
             </TouchableHighlight>
             <View style={styles.headerTitle}>
@@ -37,7 +38,7 @@ class Header extends Component {
             </View>
             <TouchableHighlight onPress={this.props.onSettingsPress}>
               <View style={styles.menuIconContainer}>
-                <Icon name="cog" size={24} color="white" />
+                <IoniconIcon name="gear-a" size={24} color="white" />
               </View>
             </TouchableHighlight>
           </View>
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
       backgroundColor: 'black',
       flexDirection: 'row',
       //padding: 10,
-      height: 50,
+      height: 44,
       alignItems: 'center',
     },
     headerTitle: {
@@ -62,7 +63,7 @@ const styles = StyleSheet.create({
       width: 150,
     },
     menuIconContainer: {
-      height: 50,
+      height: 44,
       width: 40,
       alignItems: 'center',
       justifyContent: 'center',
