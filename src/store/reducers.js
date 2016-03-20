@@ -30,9 +30,14 @@ function trending(state={data: [], currentPosition: 0}, action) {
   }
 }
 
+function watchList(state={data: []}, action) {
+  return state
+}
+
 const rootReducer = combineReducers({
   ui,
   trending,
+  watchList,
 })
 
 module.exports = rootReducer;
