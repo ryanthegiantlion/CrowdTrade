@@ -163,7 +163,6 @@ class Trending extends Component {
     return (
       <View style={styles.bodyContainer}>
         <View style={styles.responsiveContainer}>
-
           <View style={styles.buttonsContainer}>
             <View style={styles.buttonContainer}>
               <TouchableHighlight style={[styles.button]} underlayColor='#EEE' onPress={() => {this.handleNopePress()}}>
@@ -183,11 +182,10 @@ class Trending extends Component {
             <Card key={stock3.name} {...stock3} {...card3AnimatedStyles}/>
             <Card key={stock2.name} {...stock2} {...card2AnimatedStyles}/>
             <Card key={stock1.name} {...stock1} {...card1AnimatedStyles}/>
-            <Card key={stock0.name} {...stock0} {...card0AnimatedStyles} panResponder={this._panResponder.panHandlers} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>
-            {dropDown}
+            <Card key={stock0.name} {...stock0} {...card0AnimatedStyles} panResponder={this._panResponder.panHandlers} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>   
           </View>
-
         </View>
+        {dropDown}
       </View>
     );
   }
@@ -205,15 +203,6 @@ var styles = StyleSheet.create({
   responsiveContainer: {
     flex: 1,
     paddingBottom: 180,
-  },
-
-  // drop down styles
-  cardDropDown: {
-    position: 'absolute',
-    top: 0,
-    height: 200,
-    width: 100,
-
   },
 
   // text styles for page

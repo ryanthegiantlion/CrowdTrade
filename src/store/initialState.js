@@ -4,7 +4,7 @@ export default function initialState() {
 
   return {
     ui: {isMenuShowing: false, currentRoute: 'trending'},
-    uiTrending: {currentPosition: 0, isDropDownDisplayed: false},
+    uiTrending: {currentPosition: 0, isDropDownDisplayed: true},
     trending: {data: trendingData},
     watchList: {data: watchListData},
   }
