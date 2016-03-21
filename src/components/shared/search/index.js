@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     //backgroundColor: 'blue',
     height: 20,
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: 'bold',
   },
 });

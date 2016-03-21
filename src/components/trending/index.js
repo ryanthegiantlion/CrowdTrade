@@ -7,80 +7,15 @@ import Dimensions from 'Dimensions';
 var Icon = require('react-native-vector-icons/FontAwesome');
 var IconIonicons = require('react-native-vector-icons/Ionicons');
 import { connect } from 'react-redux'
-import { incrementTrendingCurrentPosition } from '../../store/actions'
+import { incrementTrendingCurrentPosition, toggleIsTrendingDropDownDisplayed } from '../../store/actions'
+import Card from './card'
+import CardDropDown from './cardDropDown'
 
 // How far the swipe need to go for a yes/ no to fire
 var SWIPE_THRESHOLD = 120;
 // To get the stack effect the lower card must pick out at the bottom and appear smaller
 var NEXT_CARD_POSITION_OFFSET = 2;
 var NEXT_CARD_SIZE_OFFSET = 8;
-
-class Card extends Component {
-  render() {
-    let stockTextColor = this.props.hasIncreased ? styles.greenText : styles.redText;
-    let stockDiffIcon = this.props.hasIncreased ? 'arrow-up-a' : 'arrow-down-a';
-
-    return (
-      <Animated.View style={[styles.cardContainer, this.props.animatedCardContainerStyles]}>
-        <Animated.View style={[styles.card, this.props.animatedCardStyles]} {...this.props.panResponder}>
-          <Image source={{uri: this.props.image}} style={styles.cardImage} resizeMode={Image.resizeMode.cover}>
-            <Animated.View style={[styles.cardImageTextContainer, styles.cardImageYupContainer, this.props.animatedYupStyles]}>
-              <Icon name='check' style={[styles.cardImageText, styles.greenText]}/>
-            </Animated.View>
-            <Animated.View style={[styles.cardImageTextContainer, styles.cardImageNopeContainer, this.props.animatedNopeStyles]}>
-              <Icon name='close' style={[styles.cardImageText, styles.redText]}/>
-            </Animated.View>
-            <Text style={styles.cardImageName}>
-              {this.props.name}
-            </Text>
-          </Image>
-          <View style={styles.cardStockDetailsContainer}>
-            <View style={styles.cardStockStatsContainer}>
-              <View style={styles.cardStockStatContainer}>
-                <Text style={styles.cardStockStatLabel}>
-                  LOW
-                </Text>
-                <Text style={styles.cardStockStat}>
-                  {this.props.low}
-                </Text>
-              </View>
-              <View style={styles.cardStockStatContainer}>
-                <Text style={styles.cardStockStatLabel}>
-                  AVG
-                </Text>
-                <Text style={styles.cardStockStat}>
-                  {this.props.ave}
-                </Text>
-              </View>
-              <View style={styles.cardStockStatContainer}>
-                <Text style={styles.cardStockStatLabel}>
-                  HIGH
-                </Text>
-                <Text style={styles.cardStockStat}>
-                  {this.props.high}
-                </Text>
-              </View>
-            </View>
-            <View style={styles.cardStockDiffContainer}>
-              <IconIonicons name={stockDiffIcon} style={[styles.cardStockDiffImage, stockTextColor]} />
-              <View style={styles.cardStockDiffTextContainer}>
-                <Text style={[styles.cardStockDiffLabel, stockTextColor]}>
-                  KO
-                </Text>
-                <Text style={[styles.cardStockDiff, stockTextColor]}>
-                  {this.props.current}
-                </Text>
-                <Text style={[styles.cardStockPercentageChange, stockTextColor]}>
-                  {this.props.percentageChange}
-                </Text>
-              </View>
-            </View>
-          </View>
-        </Animated.View>
-      </Animated.View>
-    );
-  }
-}
 
 class Trending extends Component {
   constructor(props) {
@@ -107,6 +42,7 @@ class Trending extends Component {
       onMoveShouldSetPanResponderCapture: () => true,
 
       onPanResponderGrant: (e, gestureState) => {
+        console.log('grant')
         this.state.pan.setOffset({x: this.state.pan.x._value, y: this.state.pan.y._value});
         this.state.pan.setValue({x: 0, y: 0});
         this.state.isUserDragging = true;
@@ -117,6 +53,7 @@ class Trending extends Component {
       ]),
 
       onPanResponderRelease: (e, {vx, vy}) => {
+        console.log('release')
         this.state.isUserDragging = false;
         this.state.pan.flattenOffset();
         var velocity;
@@ -144,7 +81,7 @@ class Trending extends Component {
 
   _resetState() {
     this.state.pan.setValue({x: 0, y: 0});
-    this.props.onGoTonextStock();
+    this.props.onGoTonextStock((this.props.currentPosition+1)%this.props.cards.length);
   }
 
   handleNopePress() {
@@ -217,6 +154,12 @@ class Trending extends Component {
     let stock2 = cards[(currentPosition+2) % cards.length]
     let stock3 = cards[(currentPosition+3) % cards.length]
 
+    let dropDown = undefined
+    if (this.props.isDropDownDisplayed)
+    {
+      dropDown = <CardDropDown {...stock0}/>
+    }
+
     return (
       <View style={styles.bodyContainer}>
         <View style={styles.responsiveContainer}>
@@ -239,8 +182,9 @@ class Trending extends Component {
           <View style={styles.cardsContainer}>
             <Card key={stock3.name} {...stock3} {...card3AnimatedStyles}/>
             <Card key={stock2.name} {...stock2} {...card2AnimatedStyles}/>
-            <Card key={stock1.name} {...stock1} {...card1AnimatedStyles} />
-            <Card key={stock0.name} {...stock0} {...card0AnimatedStyles} panResponder={this._panResponder.panHandlers}/>
+            <Card key={stock1.name} {...stock1} {...card1AnimatedStyles}/>
+            <Card key={stock0.name} {...stock0} {...card0AnimatedStyles} panResponder={this._panResponder.panHandlers} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>
+            {dropDown}
           </View>
 
         </View>
@@ -263,6 +207,15 @@ var styles = StyleSheet.create({
     paddingBottom: 180,
   },
 
+  // drop down styles
+  cardDropDown: {
+    position: 'absolute',
+    top: 0,
+    height: 200,
+    width: 100,
+
+  },
+
   // text styles for page
   greenText: {
     color: '#00a060',
@@ -274,134 +227,6 @@ var styles = StyleSheet.create({
   // cards
   cardsContainer: {
     flex: 1,
-  },
-
-  cardContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    justifyContent: 'flex-end',
-  },
-
-  card: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    borderWidth: 1,
-    borderColor: '#999',
-    borderBottomLeftRadius: 4,
-    borderBottomRightRadius: 4,
-    shadowRadius: 2,
-    shadowColor: '#999',
-    shadowOpacity: 0.8,
-    shadowOffset: {
-      height: 1,
-      width: 0,
-    }
-  },
-
-  cardImage: {
-    flex: 1,
-  },
-
-  cardImageTextContainer: {
-    position: 'absolute',
-    opacity: 0,
-  },
-  cardImageYupContainer : {
-    top: 20,
-    left: 20,
-    transform:[{rotate: '-10deg'}],
-  },
-  cardImageNopeContainer : {
-    top: 20,
-    right: 20,
-    transform:[{rotate: '10deg'}],
-  },
-  cardImageText: {
-    fontSize: 50,
-    fontWeight: 'bold',
-    backgroundColor: 'rgba(0,0,0,0)',
-  },
-  cardImageName: {
-    color: 'white',
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: 'rgba(30,30,30,0.8)',
-    padding: 4,
-    paddingLeft: 8,
-  },
-
-  cardStockDetailsContainer: {
-    backgroundColor: '#FFF',
-    height: 80,
-    paddingLeft: 12,
-    paddingRight: 12,
-    borderRadius: 4,
-    //borderBottomWidth: 1,
-    //borderColor: '#BBB',
-  },
-  cardStockStatsContainer: {
-    flexDirection: 'row',
-    flex: 2,
-    borderBottomWidth: 1,
-    borderColor: '#BBB',
-    alignItems: 'flex-end',
-  },
-  cardStockStatContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    marginBottom: 4,
-  },
-  cardStockStatLabel: {
-    fontSize: 7,
-    marginRight: 4,
-    color: '#666',
-    fontWeight: '500',
-  },
-  cardStockStat: {
-    fontSize: 10,
-    fontWeight: 'bold',
-  },
-  cardStockDiffContainer: {
-    flexDirection: 'row',
-    flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  cardStockDiffImage: {
-    marginRight: 2,
-  },
-  cardStockDiffTextContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    //height: 14,
-  },
-  cardStockDiffImage: {
-    fontSize: 24,
-    marginRight: 8,
-  },
-  cardStockDiffLabel: {
-    fontSize: 7,
-    marginRight: 2,
-    paddingBottom: 2,
-  },
-  cardStockDiff: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    marginRight: 6,
-  },
-  cardStockPercentageChange: {
-    fontSize: 7,
-    alignSelf: 'flex-start',
   },
 
   // buttons
@@ -438,14 +263,17 @@ var styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {cards: state.trending.data, currentPosition: state.trending.currentPosition}
+  return {cards: state.trending.data, currentPosition: state.uiTrending.currentPosition, isDropDownDisplayed: state.uiTrending.isDropDownDisplayed}
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onGoTonextStock: () => {
-      dispatch(incrementTrendingCurrentPosition())
+    onGoTonextStock: (position) => {
+      dispatch(incrementTrendingCurrentPosition(position))
     },
+    onToggleIsDropDownDisplayed: () => {
+      dispatch(toggleIsTrendingDropDownDisplayed())
+    }
   }
 }
 

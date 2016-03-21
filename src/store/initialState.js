@@ -3,8 +3,9 @@ export default function initialState() {
   var watchListData = require('./data/watchlist/stocks.json')
 
   return {
-    ui: {isMenuShowing: false, currentRoute: 'watchlist'},
-    trending: {data: trendingData, currentPosition: 0},
+    ui: {isMenuShowing: false, currentRoute: 'trending'},
+    uiTrending: {currentPosition: 0, isDropDownDisplayed: false},
+    trending: {data: trendingData},
     watchList: {data: watchListData},
   }
 }
