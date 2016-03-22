@@ -7,6 +7,7 @@ import React, {
   AppRegistry,
   Component,
   StatusBarIOS,
+  Platform
 } from 'react-native';
 
 import { Provider } from 'react-redux'
@@ -18,7 +19,9 @@ const store = configureStore(initialState())
 
 export default function Init() {
 
-  StatusBarIOS.setStyle('light-content')
+  if (Platform.OS === 'ios') {
+    StatusBarIOS.setStyle('light-content')
+  }
 
   class Root extends Component {
 
