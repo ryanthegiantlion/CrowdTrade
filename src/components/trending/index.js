@@ -159,7 +159,7 @@ class Trending extends Component {
     if (this.props.isDropDownDisplayed)
     {
       overlay = <View style={styles.overlay} />
-      dropDown = <CardDropDown {...stock0}/>
+      dropDown = <CardDropDown {...stock0} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>
     }
 
     return (

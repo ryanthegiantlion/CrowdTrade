@@ -6,7 +6,7 @@ import StockNews from './stockNews'
 var IconIonicons = require('react-native-vector-icons/Ionicons');
 var ScrollableTabView = require('react-native-scrollable-tab-view');
 
-const SWIPE_THRESHOLD = 40
+const SWIPE_THRESHOLD = 20
 
 export default class CardDropDown extends Component {
   constructor(props) {
@@ -25,7 +25,7 @@ export default class CardDropDown extends Component {
   }
 
   _resetState() {
-
+    this.props.onToggleIsDropDownDisplayed();
   }
 
   componentWillMount() {
@@ -55,17 +55,19 @@ export default class CardDropDown extends Component {
         this.state.pan.flattenOffset();
         var velocity;
 
-        if (vx >= 0) {
-          velocity = clamp(vx, 3, 5);
-        } else if (vx < 0) {
-          velocity = clamp(vx * -1, 3, 5) * -1;
+        if (vy >= 0) {
+          velocity = clamp(vy, 3, 5);
+        } else if (vy < 0) {
+          velocity = clamp(vy * -1, 3, 5) * -1;
         }
+
+        console.log(velocity)
 
         if (Math.abs(this.state.pan.y._value) > SWIPE_THRESHOLD) {
           console.log('here');
           Animated.decay(this.state.pan, {
-            velocity: {x: velocity, y: vy},
-            deceleration: 0.97
+            velocity: {x: vx, y: velocity},
+            deceleration: 0.997
           }).start(this._resetState.bind(this))
         } else {
           // Animated.spring(this.state.pan, {
@@ -82,7 +84,7 @@ export default class CardDropDown extends Component {
   }
 
   render() {
-    let translateY = this.state.pan.y.interpolate({inputRange: [-200, 0], outputRange: [-200, 0], extrapolate: 'clamp'});
+    let translateY = this.state.pan.y.interpolate({inputRange: [-400, 0], outputRange: [-400, 0], extrapolate: 'clamp'});
     var animatedDropDownStyles = {transform: [{translateY: translateY}], bottom: this.state.bottom}
 
     return (
