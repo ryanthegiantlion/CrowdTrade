@@ -194,6 +194,19 @@ class Trending extends Component {
   }
 }
 
+// Phone Dimenstions
+// iphone 6 667, 375
+// iphone 6 plus 736, 414
+// iphone 5 568, 320
+
+// My hacky version of media queries
+let screenHeight = Dimensions.get('window').height
+var buttonContainerHeight = 140
+if (screenHeight > 600)
+{
+  buttonContainerHeight = 170
+}
+
 var styles = StyleSheet.create({
   // main container
   bodyContainer: {
@@ -214,7 +227,7 @@ var styles = StyleSheet.create({
   // the card expands to take up all the rest of the space
   responsiveContainer: {
     flex: 1,
-    paddingBottom: 180,
+    paddingBottom: buttonContainerHeight,
   },
 
   // text styles for page
@@ -233,7 +246,7 @@ var styles = StyleSheet.create({
   // buttons
 
   buttonsContainer: {
-    height:180,
+    height: buttonContainerHeight,
     position: 'absolute',
     bottom: 0,
     left: 0,
