@@ -9,7 +9,7 @@ function configureStore(initialState) {
     rootReducer,
     initialState,
     applyMiddleware(
-      loggerMiddleware
+      //loggerMiddleware
     )
   )
 }

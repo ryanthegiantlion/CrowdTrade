@@ -50,9 +50,13 @@ const styles = StyleSheet.create({
     header: {
       backgroundColor: 'black',
       flexDirection: 'row',
-      //padding: 10,
-      height: 44,
+      height: 50,
       alignItems: 'center',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      paddingTop: 20,
     },
     headerTitle: {
       flex: 1,

@@ -45,10 +45,11 @@ class App extends Component {
     return (
         <View style={styles.container}>
 
-              <Header onMenuToggle={this.handleMenuToggle}/>
+              
               <View style={styles.bodyContainer}>
                 <CurrentPage />
               </View>
+              <Header onMenuToggle={this.handleMenuToggle}/>
               {overlay}
               {menu}
         </View>
@@ -64,6 +65,7 @@ const styles = StyleSheet.create({
   },
   bodyContainer: {
     flex: 1,
+    marginTop: 44,
     backgroundColor: 'white',
   },
   overlay : {

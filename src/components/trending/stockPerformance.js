@@ -19,7 +19,7 @@ export default class StockPerformance extends Component {
       		<TouchableHighlight style={styles.timeSpan}><Text style={styles.timeSpanText}>1y</Text></TouchableHighlight>
       		<TouchableHighlight style={styles.timeSpan}><Text style={styles.timeSpanText}>2y</Text></TouchableHighlight>
       	</View>
-      	<Image source={require('../../store/data/trending/stock_graph/1d.jpeg')} style={[styles.graph, {width: screenwidth}]} resizeMode={Image.resizeMode.stretch}/>
+      	<Image source={require('../../store/data/trending/stock_graph/1m.jpeg')} style={[styles.graph, {width: screenwidth}]} resizeMode={Image.resizeMode.stretch}/>
       	<View style={styles.cardStockDetailsContainer}>
             <View style={styles.cardStockStatsContainer}>
               <View style={styles.cardStockStatContainer}>
@@ -76,7 +76,6 @@ var styles = StyleSheet.create({
   },
 
   stockPerformanceContainer: {
-    borderWidth: 2,
     //flex: 1,
     backgroundColor: 'green',
     //position: 'relative',

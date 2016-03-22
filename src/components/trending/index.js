@@ -155,8 +155,10 @@ class Trending extends Component {
     let stock3 = cards[(currentPosition+3) % cards.length]
 
     let dropDown = undefined
+    let overlay = undefined
     if (this.props.isDropDownDisplayed)
     {
+      overlay = <View style={styles.overlay} />
       dropDown = <CardDropDown {...stock0}/>
     }
 
@@ -185,6 +187,7 @@ class Trending extends Component {
             <Card key={stock0.name} {...stock0} {...card0AnimatedStyles} panResponder={this._panResponder.panHandlers} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>   
           </View>
         </View>
+        {overlay}
         {dropDown}
       </View>
     );
@@ -196,6 +199,15 @@ var styles = StyleSheet.create({
   bodyContainer: {
     flex: 1,
     backgroundColor: '#FFFFFF',
+  },
+
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    right: 0,
+    left: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.5)',
   },
 
   // we keep the bottom button sections at height 100
