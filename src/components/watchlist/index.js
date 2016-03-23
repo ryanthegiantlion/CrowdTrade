@@ -77,7 +77,6 @@ const styles = StyleSheet.create({
   itemContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1,
   },
   stockButton: {
     height: 70,
