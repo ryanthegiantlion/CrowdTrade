@@ -23,6 +23,7 @@ class Trending extends Component {
 
     this.state = {
       pan: new Animated.ValueXY(),
+      dropDownOffset: new Animated.Value(0),
     }
   }
 
@@ -38,8 +39,12 @@ class Trending extends Component {
 
   componentWillMount() {
     this._panResponder = PanResponder.create({
-      onMoveShouldSetResponderCapture: () => true,
-      onMoveShouldSetPanResponderCapture: () => true,
+      onMoveShouldSetResponderCapture: () => {
+        return !this.props.isDropDownDisplayed
+      },
+      onMoveShouldSetPanResponderCapture: () => {
+        return !this.props.isDropDownDisplayed
+      },
 
       onPanResponderGrant: (e, gestureState) => {
         console.log('grant')
@@ -102,8 +107,17 @@ class Trending extends Component {
       }).start(this._resetState.bind(this))
   }
 
+  onToggleIsDropDownDisplayed() {
+    this.props.onToggleIsDropDownDisplayed();
+    Animated.timing(this.state.dropDownOffset, {
+            toValue: 120,
+            duration: 200,
+            delay: 100,
+      }).start()
+  }
+
   render() {
-    let { pan } = this.state;
+    let { pan, dropDownOffset } = this.state;
     let cards = this.props.cards
     let currentPosition = this.props.currentPosition
 
@@ -111,8 +125,11 @@ class Trending extends Component {
 
     // card 0 animation
     let rotate = pan.x.interpolate({inputRange: [-240, 0, 240], outputRange: ["-30deg", "0deg", "30deg"]});
+    let cardBottom = dropDownOffset.interpolate({inputRange: [0, 80], outputRange: [0, -80]})
+    let stockDetailHeight = dropDownOffset.interpolate({inputRange: [0, 80], outputRange: [80, 160]})
 
-    let animatedCardStyles = {transform: [{translateX}, {translateY}, {rotate}]};
+    let animatedCardStyles = {transform: [{translateX}, {translateY}, {rotate}], bottom: cardBottom};
+    let animatedStockDetailHeight = {height: stockDetailHeight}
 
     let yupOpacity = pan.x.interpolate({inputRange: [0, SWIPE_THRESHOLD], outputRange: [0, 1], extrapolate: 'clamp'});
     let animatedYupStyles = {opacity: yupOpacity}
@@ -123,7 +140,8 @@ class Trending extends Component {
     let card0AnimatedStyles = {
       animatedCardStyles: animatedCardStyles,
       animatedNopeStyles: animatedNopeStyles,
-      animatedYupStyles: animatedYupStyles
+      animatedYupStyles: animatedYupStyles,
+      animatedStockDetailHeight: animatedStockDetailHeight,
     }
 
     // card 1 animation
@@ -158,8 +176,8 @@ class Trending extends Component {
     let overlay = undefined
     if (this.props.isDropDownDisplayed)
     {
-      overlay = <View style={styles.overlay} />
-      dropDown = <CardDropDown {...stock0} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>
+      //overlay = <View style={styles.overlay} />
+      //dropDown = <CardDropDown {...stock0} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>
     }
 
     return (
@@ -179,15 +197,16 @@ class Trending extends Component {
               <Text style={[styles.likeNopeText, styles.greenText]}>{stock0.likes}</Text>
             </View>
           </View>
+          {overlay}
 
           <View style={styles.cardsContainer}>
             <Card key={stock3.name} {...stock3} {...card3AnimatedStyles}/>
             <Card key={stock2.name} {...stock2} {...card2AnimatedStyles}/>
             <Card key={stock1.name} {...stock1} {...card1AnimatedStyles}/>
-            <Card key={stock0.name} {...stock0} {...card0AnimatedStyles} panResponder={this._panResponder.panHandlers} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>   
+            <Card key={stock0.name} {...stock0} {...card0AnimatedStyles} isDropDownDisplayed={this.props.isDropDownDisplayed} dropDownOffset={dropDownOffset} panResponder={this._panResponder.panHandlers} onToggleIsDropDownDisplayed={this.onToggleIsDropDownDisplayed.bind(this)}/>   
           </View>
         </View>
-        {overlay}
+        
         {dropDown}
       </View>
     );

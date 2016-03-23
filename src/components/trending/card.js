@@ -2,72 +2,133 @@ import React, { StyleSheet, Text, View, Animated, Component, PanResponder, Image
 
 var Icon = require('react-native-vector-icons/FontAwesome');
 var IconIonicons = require('react-native-vector-icons/Ionicons');
+import CardDropDown from './cardDropDown'
 
-export default class Card extends Component {
+class StockStatLineItem extends Component {
   render() {
     let stockTextColor = this.props.hasIncreased ? styles.greenText : styles.redText;
     let stockDiffIcon = this.props.hasIncreased ? 'arrow-up-a' : 'arrow-down-a';
-    console.log('dgdgdfgdfgdgdfgdfgdfgdfg')
-    console.log(this.props)
 
+    return (
+      <View style={styles.cardStockStatsContainer}>
+        <View style={styles.cardStockStatContainer}>
+          <Text style={styles.cardStockStatLabel}>
+            LOW
+          </Text>
+          <Text style={styles.cardStockStat}>
+            22.05
+          </Text>
+        </View>
+        <View style={styles.cardStockStatContainer}>
+          <Text style={styles.cardStockStatLabel}>
+            AVG
+          </Text>
+          <Text style={styles.cardStockStat}>
+            25.27
+          </Text>
+        </View>
+        <View style={styles.cardStockStatContainer}>
+          <Text style={styles.cardStockStatLabel}>
+            HIGH
+          </Text>
+          <Text style={styles.cardStockStat}>
+            26.87
+          </Text>
+        </View>
+      </View>
+    );
+  }
+}
+
+class StockDetails extends Component {
+  render() {
+    let stockTextColor = this.props.hasIncreased ? styles.greenText : styles.redText;
+    let stockDiffIcon = this.props.hasIncreased ? 'arrow-up-a' : 'arrow-down-a';
+
+    return (
+      <View style={[styles.cardStockDetailsContainer]}>
+        <StockStatLineItem />
+        <StockStatLineItem />
+        <StockStatLineItem />
+        <StockStatLineItem />
+        <View style={styles.cardStockStatsContainer}>
+          <View style={styles.cardStockStatContainer}>
+            <Text style={styles.cardStockStatLabel}>
+              LOW
+            </Text>
+            <Text style={styles.cardStockStat}>
+              {this.props.low}
+            </Text>
+          </View>
+          <View style={styles.cardStockStatContainer}>
+            <Text style={styles.cardStockStatLabel}>
+              AVG
+            </Text>
+            <Text style={styles.cardStockStat}>
+              {this.props.ave}
+            </Text>
+          </View>
+          <View style={styles.cardStockStatContainer}>
+            <Text style={styles.cardStockStatLabel}>
+              HIGH
+            </Text>
+            <Text style={styles.cardStockStat}>
+              {this.props.high}
+            </Text>
+          </View>
+        </View>
+        <View style={styles.cardStockDiffContainer}>
+          <IconIonicons name={stockDiffIcon} style={[styles.cardStockDiffImage, stockTextColor]} />
+          <View style={styles.cardStockDiffTextContainer}>
+            <Text style={[styles.cardStockDiffLabel, stockTextColor]}>
+              KO
+            </Text>
+            <Text style={[styles.cardStockDiff, stockTextColor]}>
+              {this.props.current}
+            </Text>
+            <Text style={[styles.cardStockPercentageChange, stockTextColor]}>
+              {this.props.percentageChange}
+            </Text>
+          </View>
+        </View>
+      </View>
+    );
+  }
+}
+
+class CardImage extends Component {
+  render() {
+    return (
+      <TouchableHighlight style={styles.cardImage} onPress={this.props.onToggleIsDropDownDisplayed}>
+        <Image source={{uri: this.props.image}} style={styles.cardImage} resizeMode={Image.resizeMode.cover}>
+          <Animated.View style={[styles.cardImageTextContainer, styles.cardImageYupContainer, this.props.animatedYupStyles]}>
+            <Icon name='check' style={[styles.cardImageText, styles.greenText]}/>
+          </Animated.View>
+          <Animated.View style={[styles.cardImageTextContainer, styles.cardImageNopeContainer, this.props.animatedNopeStyles]}>
+            <Icon name='close' style={[styles.cardImageText, styles.redText]}/>
+          </Animated.View>
+          <Text style={styles.cardImageName}>
+            {this.props.name}
+          </Text>
+        </Image>
+      </TouchableHighlight>
+    );
+  }
+}
+
+export default class Card extends Component {
+  render() {
+    let cardImage=<CardImage {...this.props}/>
+    if (this.props.isDropDownDisplayed) {
+      cardImage=<CardDropDown {...this.props} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>
+    }
     return (
       <Animated.View style={[styles.cardContainer, this.props.animatedCardContainerStyles]}>
         <Animated.View style={[styles.card, this.props.animatedCardStyles]} {...this.props.panResponder}>
-          <TouchableHighlight style={styles.cardImage} onPress={this.props.onToggleIsDropDownDisplayed}>
-            <Image source={{uri: this.props.image}} style={styles.cardImage} resizeMode={Image.resizeMode.cover}>
-              <Animated.View style={[styles.cardImageTextContainer, styles.cardImageYupContainer, this.props.animatedYupStyles]}>
-                <Icon name='check' style={[styles.cardImageText, styles.greenText]}/>
-              </Animated.View>
-              <Animated.View style={[styles.cardImageTextContainer, styles.cardImageNopeContainer, this.props.animatedNopeStyles]}>
-                <Icon name='close' style={[styles.cardImageText, styles.redText]}/>
-              </Animated.View>
-              <Text style={styles.cardImageName}>
-                {this.props.name}
-              </Text>
-            </Image>
-          </TouchableHighlight>
-          <View style={styles.cardStockDetailsContainer}>
-            <View style={styles.cardStockStatsContainer}>
-              <View style={styles.cardStockStatContainer}>
-                <Text style={styles.cardStockStatLabel}>
-                  LOW
-                </Text>
-                <Text style={styles.cardStockStat}>
-                  {this.props.low}
-                </Text>
-              </View>
-              <View style={styles.cardStockStatContainer}>
-                <Text style={styles.cardStockStatLabel}>
-                  AVG
-                </Text>
-                <Text style={styles.cardStockStat}>
-                  {this.props.ave}
-                </Text>
-              </View>
-              <View style={styles.cardStockStatContainer}>
-                <Text style={styles.cardStockStatLabel}>
-                  HIGH
-                </Text>
-                <Text style={styles.cardStockStat}>
-                  {this.props.high}
-                </Text>
-              </View>
-            </View>
-            <View style={styles.cardStockDiffContainer}>
-              <IconIonicons name={stockDiffIcon} style={[styles.cardStockDiffImage, stockTextColor]} />
-              <View style={styles.cardStockDiffTextContainer}>
-                <Text style={[styles.cardStockDiffLabel, stockTextColor]}>
-                  KO
-                </Text>
-                <Text style={[styles.cardStockDiff, stockTextColor]}>
-                  {this.props.current}
-                </Text>
-                <Text style={[styles.cardStockPercentageChange, stockTextColor]}>
-                  {this.props.percentageChange}
-                </Text>
-              </View>
-            </View>
-          </View>
+          <StockDetails {...this.props}/>
+          {cardImage}
+          <Animated.View style={[styles.stockDetailsPlaceHolder, this.props.animatedStockDetailHeight]}>
+          </Animated.View>
         </Animated.View>
       </Animated.View>
     );
@@ -114,6 +175,7 @@ var styles = StyleSheet.create({
 
   cardImage: {
     flex: 1,
+    backgroundColor: 'white',
   },
 
   cardImageTextContainer: {
@@ -146,18 +208,25 @@ var styles = StyleSheet.create({
     paddingLeft: 8,
   },
 
+  stockDetailsPlaceHolder: {
+    height: 80,
+  },
   cardStockDetailsContainer: {
     backgroundColor: '#FFF',
-    height: 80,
+    //height: 80,
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
     paddingLeft: 12,
     paddingRight: 12,
     borderRadius: 4,
-    //borderBottomWidth: 1,
-    //borderColor: '#BBB',
+    //overflow: 'hidden',
   },
   cardStockStatsContainer: {
     flexDirection: 'row',
-    flex: 2,
+    height: 30,
+    //flex: 2,
     borderBottomWidth: 1,
     borderColor: '#BBB',
     alignItems: 'flex-end',
@@ -181,7 +250,8 @@ var styles = StyleSheet.create({
   },
   cardStockDiffContainer: {
     flexDirection: 'row',
-    flex: 3,
+    //flex: 3,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
   },

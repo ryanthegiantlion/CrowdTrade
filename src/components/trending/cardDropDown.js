@@ -19,9 +19,9 @@ export default class CardDropDown extends Component {
   }
 
   _animateEntrance() {
-    Animated.timing(this.state.bottom, {
-             toValue: 0,
-       }).start()
+    // Animated.timing(this.state.bottom, {
+    //          toValue: 0,
+    //    }).start()
   }
 
   _resetState() {
@@ -31,12 +31,12 @@ export default class CardDropDown extends Component {
   componentWillMount() {
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: () => false,
-      onStartShouldSetResponderCapture: () => true,
+      onStartShouldSetResponderCapture: () => false,
       onMoveShouldSetPanResponder: (evt, gestureState) => {
-        if (Math.abs(gestureState.vy) > Math.abs(gestureState.vx))
-        {
-          return true;
-        }
+        // if (Math.abs(gestureState.vy) > Math.abs(gestureState.vx))
+        // {
+        //   return true;
+        // }
 
         return false;
       },
@@ -85,11 +85,11 @@ export default class CardDropDown extends Component {
 
   render() {
     let translateY = this.state.pan.y.interpolate({inputRange: [-400, 0], outputRange: [-400, 0], extrapolate: 'clamp'});
-    var animatedDropDownStyles = {transform: [{translateY: translateY}], bottom: this.state.bottom}
-
+    //var animatedDropDownStyles = {transform: [{translateY: translateY}], bottom: this.state.bottom}
+    var animatedDropDownStyles = {}
     return (
       <Animated.View style={[styles.cardDropDown, animatedDropDownStyles]} {...this._panResponder.panHandlers}>
-        <ScrollableTabView contentProps={{bounces: false}} initialPage={0} locked={false} renderTabBar={() => <View />}>
+        <ScrollableTabView contentProps={{bounces: false}} initialPage={0} locked={false} renderTabBar={() => <View/>}>
           <StockPerformance {...this.props}/>
           <StockNews {...this.props}/>
         </ScrollableTabView >
@@ -100,10 +100,12 @@ export default class CardDropDown extends Component {
 
 var styles = StyleSheet.create({
   cardDropDown: {
-    position: 'absolute',
-    top: 0,
-    right: 0,
-    left: 0,
+    //position: 'absolute',
+    //top: 0,
+    //right: 0,
+    //left: 0,
+    flex: 1,
+    backgroundColor: 'white',
   },
   horizontalScrollView: {
   },
