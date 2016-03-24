@@ -14,7 +14,7 @@ export default class CardDropDown extends Component {
 
     this.state = {
       pan: new Animated.ValueXY(),
-      bottom: new Animated.Value(Dimensions.get('window').height)
+      bottom: new Animated.Value(Dimensions.get('window').height),
     }
   }
 
@@ -90,9 +90,9 @@ export default class CardDropDown extends Component {
     return (
       <Animated.View style={[styles.cardDropDown, animatedDropDownStyles]} {...this._panResponder.panHandlers}>
         <ScrollableTabView contentProps={{bounces: false}} initialPage={0} locked={false} renderTabBar={() => <View/>}>
-          <StockPerformance {...this.props}/>
-          <StockNews news={this.props.news}/>
-        </ScrollableTabView >
+          <StockPerformance {...this.props} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>
+          <StockNews news={this.props.news} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>
+        </ScrollableTabView>
       </Animated.View>
     )
   }

@@ -8,8 +8,8 @@ let staticContainer = 'https://s3-eu-west-1.amazonaws.com/crowdtrade-stock-logos
 
 class StockStatLineItem extends Component {
   render() {
-    stockStats = this.props.stats.map((item) => (
-      <View style={styles.cardStockStatContainer}>
+    stockStats = this.props.stats.map((item, index) => (
+      <View key={index} style={styles.cardStockStatContainer}>
         <Text style={styles.cardStockStatLabel}>
           {item.name}
         </Text>

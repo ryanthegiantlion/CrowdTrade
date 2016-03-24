@@ -24,6 +24,7 @@ class Trending extends Component {
     this.state = {
       pan: new Animated.ValueXY(),
       dropDownOffset: new Animated.Value(0),
+      overlay: false,
     }
   }
 
@@ -109,11 +110,22 @@ class Trending extends Component {
 
   onToggleIsDropDownDisplayed() {
     this.props.onToggleIsDropDownDisplayed();
-    Animated.timing(this.state.dropDownOffset, {
-            toValue: 120,
-            duration: 200,
-            delay: 100,
-      }).start()
+    if (this.state.dropDownOffset._value == 0)
+    {
+      Animated.timing(this.state.dropDownOffset, {
+              toValue: 120,
+              duration: 200,
+              delay: 100,
+        }).start(function() {this.setState({overlay:true});}.bind(this))
+    }
+    else
+    {
+      Animated.timing(this.state.dropDownOffset, {
+              toValue: 0,
+              duration: 200,
+              delay: 100,
+        }).start(function() {this.setState({overlay:false});}.bind(this))
+    }
   }
 
   render() {
@@ -176,12 +188,10 @@ class Trending extends Component {
     let stock2News = this.props.news.filter((item) => {return item.symbol == stock2.symbol})
     let stock3News = this.props.news.filter((item) => {return item.symbol == stock3.symbol})
 
-    let dropDown = undefined
     let overlay = undefined
-    if (this.props.isDropDownDisplayed)
+    if (this.state.overlay)
     {
-      //overlay = <View style={styles.overlay} />
-      //dropDown = <CardDropDown {...stock0} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>
+      overlay = <TouchableHighlight underlayColor='rgba(0,0,0,0.5)' style={styles.overlay} onPress={this.onToggleIsDropDownDisplayed.bind(this)}><View style={styles.overlay} /></TouchableHighlight>
     }
 
     return (
@@ -218,8 +228,6 @@ class Trending extends Component {
               news={stock0News}/>   
           </View>
         </View>
-        
-        {dropDown}
       </View>
     );
   }
