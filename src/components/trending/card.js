@@ -122,7 +122,7 @@ export default class Card extends Component {
   render() {
     let cardImage=<CardImage {...this.props}/>
     if (this.props.isDropDownDisplayed) {
-      cardImage=<CardDropDown {...this.props} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>
+      cardImage=<CardDropDown {...this.props} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed} news={this.props.news}/>
     }
     return (
       <Animated.View style={[styles.cardContainer, this.props.animatedCardContainerStyles]}>

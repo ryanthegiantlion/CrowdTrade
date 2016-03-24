@@ -171,6 +171,10 @@ class Trending extends Component {
     let stock1 = cards[(currentPosition+1) % cards.length]
     let stock2 = cards[(currentPosition+2) % cards.length]
     let stock3 = cards[(currentPosition+3) % cards.length]
+    let stock0News = this.props.news.filter((item) => {return item.symbol == stock0.symbol})
+    let stock1News = this.props.news.filter((item) => {return item.symbol == stock1.symbol})
+    let stock2News = this.props.news.filter((item) => {return item.symbol == stock2.symbol})
+    let stock3News = this.props.news.filter((item) => {return item.symbol == stock3.symbol})
 
     let dropDown = undefined
     let overlay = undefined
@@ -200,10 +204,18 @@ class Trending extends Component {
           {overlay}
 
           <View style={styles.cardsContainer}>
-            <Card key={stock3.name} {...stock3} {...card3AnimatedStyles}/>
-            <Card key={stock2.name} {...stock2} {...card2AnimatedStyles}/>
-            <Card key={stock1.name} {...stock1} {...card1AnimatedStyles}/>
-            <Card key={stock0.name} {...stock0} {...card0AnimatedStyles} isDropDownDisplayed={this.props.isDropDownDisplayed} dropDownOffset={dropDownOffset} panResponder={this._panResponder.panHandlers} onToggleIsDropDownDisplayed={this.onToggleIsDropDownDisplayed.bind(this)}/>   
+            <Card key={stock3.name} {...stock3} {...card3AnimatedStyles} news={stock3News}/>
+            <Card key={stock2.name} {...stock2} {...card2AnimatedStyles} news={stock2News}/>
+            <Card key={stock1.name} {...stock1} {...card1AnimatedStyles} news={stock1News}/>
+            <Card 
+              key={stock0.name} 
+              {...stock0} 
+              {...card0AnimatedStyles} 
+              isDropDownDisplayed={this.props.isDropDownDisplayed} 
+              dropDownOffset={dropDownOffset} 
+              panResponder={this._panResponder.panHandlers} 
+              onToggleIsDropDownDisplayed={this.onToggleIsDropDownDisplayed.bind(this)} 
+              news={stock0News}/>   
           </View>
         </View>
         
@@ -296,7 +308,12 @@ var styles = StyleSheet.create({
 });
 
 function mapStateToProps(state) {
-  return {cards: state.trending.data, currentPosition: state.uiTrending.currentPosition, isDropDownDisplayed: state.uiTrending.isDropDownDisplayed}
+  return {
+    cards: state.trending.data, 
+    currentPosition: state.uiTrending.currentPosition, 
+    isDropDownDisplayed: state.uiTrending.isDropDownDisplayed,
+    news: state.news.data,
+  }
 }
 
 const mapDispatchToProps = (dispatch) => {

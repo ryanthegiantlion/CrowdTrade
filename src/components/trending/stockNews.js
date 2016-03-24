@@ -6,16 +6,19 @@ import Linking from 'Linking';
 var IconIonicons = require('react-native-vector-icons/Ionicons');
 
 class NewsItem extends Component {
-  openNewsItem() {
-    Linking.openURL("http://finance.yahoo.com/news/smaller-iphone-expected-monday-apple-070343620.html")
+  openNewsItem(url) {
+    Linking.openURL(url)
   }
 
   render() {
     return (
-      <TouchableHighlight onPress={() => {this.openNewsItem()}}>
+      <TouchableHighlight onPress={() => {this.openNewsItem(this.props.url)}}>
         <View style={styles.itemContainer}>
           <Text style={styles.title}>{this.props.title}</Text>
-          <Text style={styles.description}>{this.props.description}</Text>
+          <View style={styles.detailsContainer}>
+            <Text style={styles.source}>{this.props.source}</Text>
+            <Text style={styles.date}>{this.props.date}</Text>
+          </View>
         </View>
       </TouchableHighlight>
     );
@@ -26,22 +29,9 @@ export default class StockNews extends Component {
   constructor(props) {
     super(props);
 
-    var newsItem = {title: 'Some Title', description: 'some description'}
-    newsItems = []
-    newsItems.push(newsItem)
-    newsItems.push(newsItem)
-    newsItems.push(newsItem)
-    newsItems.push(newsItem)
-    newsItems.push(newsItem)
-    newsItems.push(newsItem)
-    newsItems.push(newsItem)
-    newsItems.push(newsItem)
-    newsItems.push(newsItem)
-    newsItems.push(newsItem)
-
     var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
     this.state = {
-      dataSource: ds.cloneWithRows(newsItems),
+      dataSource: ds.cloneWithRows(this.props.news),
     };
   }
 
@@ -51,7 +41,12 @@ export default class StockNews extends Component {
       <View style={[styles.stockPerformanceContainer, {width: screenwidth}]}>
         <ListView contentContainerStyle={styles.list}
         dataSource={this.state.dataSource}
-        renderRow={(rowData) => <NewsItem title={rowData.title} description={rowData.description}/>}/>
+        renderRow={(rowData) => <NewsItem 
+          title={rowData.title} 
+          description={rowData.description} 
+          date={rowData.date} 
+          source={rowData.source}
+          url={rowData.url}/>}/>
       </View>
     )
   }
@@ -69,8 +64,15 @@ var styles = StyleSheet.create({
   },
   title: {
     color: 'white',
+    fontWeight: 'bold',
   },
-  description: {
+  detailsContainer: {
+    flexDirection: 'row',
+  },
+  source: {
+    color:'white',
+  },
+  date: {
     color: 'white',
   },
 });

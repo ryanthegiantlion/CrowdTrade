@@ -91,7 +91,7 @@ export default class CardDropDown extends Component {
       <Animated.View style={[styles.cardDropDown, animatedDropDownStyles]} {...this._panResponder.panHandlers}>
         <ScrollableTabView contentProps={{bounces: false}} initialPage={0} locked={false} renderTabBar={() => <View/>}>
           <StockPerformance {...this.props}/>
-          <StockNews {...this.props}/>
+          <StockNews news={this.props.news}/>
         </ScrollableTabView >
       </Animated.View>
     )

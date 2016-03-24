@@ -46,7 +46,15 @@ def getSource(url):
 
 
 def shape(item, filename):
-	return [{'symbol': os.path.splitext(filename)[0][2:],'title': i['title'], 'description': i['description'], 'url': stripUrl(i['link']), 'source': getSource(i['link'])} for i in item['rss']['channel']['item']]
+	shapedData = [{
+		'symbol': os.path.splitext(filename)[0][2:],
+		'title': i['title'], 
+		'description': i['description'], 
+		'url': stripUrl(i['link']), 
+		'source': getSource(i['link']),
+		'date': i['pubDate']} for i in item['rss']['channel']['item']]
+	# print shapedData
+	return shapedData
 
 items = []
 for line in sys.stdin:
@@ -55,7 +63,7 @@ for line in sys.stdin:
 	o = xmltodict.parse(xmlFile.read())
 	xmlFile.close()
 	# jsonStr = json.dumps(o) 
-	items.append(shape(o, line))
+	items.extend(shape(o, line))
 
 jsonFile = open('news.json', 'w')
 jsonFile.write(json.dumps(items))

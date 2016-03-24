@@ -43,11 +43,16 @@ function watchList(state={data: []}, action) {
   return state
 }
 
+function news(state={data: []}, action) {
+  return state
+}
+
 const rootReducer = combineReducers({
   ui,
   uiTrending,
   trending,
   watchList,
+  news,
 })
 
 module.exports = rootReducer;
