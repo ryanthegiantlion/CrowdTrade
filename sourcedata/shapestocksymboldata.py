@@ -14,6 +14,15 @@ def shape(item):
 	    "percentageChange": item['ChangeinPercent'],
 	    "likes": "{0:.1f} K".format(uniform(1, 100)),
 	    "nopes": "{0:.1f} K".format(uniform(1, 100)),
+	    "pe": item["PERatio"],
+	    "eps": item["EarningsShare"],
+	    "yield": item["DividendYield"] or "n/a",
+	    "yearLow": item["YearLow"],
+	    "yearHigh": item["YearHigh"],
+	    "marketCapitalization": item["MarketCapitalization"],
+	    "volume": item["Volume"],
+	    "averageDailyVolume": item["AverageDailyVolume"],
+	    "isWatched": uniform(1, 100) < 30
 	  }
 
 

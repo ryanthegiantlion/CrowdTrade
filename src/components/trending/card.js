@@ -8,35 +8,20 @@ let staticContainer = 'https://s3-eu-west-1.amazonaws.com/crowdtrade-stock-logos
 
 class StockStatLineItem extends Component {
   render() {
-    let stockTextColor = this.props.hasIncreased ? styles.greenText : styles.redText;
-    let stockDiffIcon = this.props.hasIncreased ? 'arrow-up-a' : 'arrow-down-a';
+    stockStats = this.props.stats.map((item) => (
+      <View style={styles.cardStockStatContainer}>
+        <Text style={styles.cardStockStatLabel}>
+          {item.name}
+        </Text>
+        <Text style={styles.cardStockStat}>
+          {item.value}
+        </Text>
+      </View>
+    ));
 
     return (
       <View style={styles.cardStockStatsContainer}>
-        <View style={styles.cardStockStatContainer}>
-          <Text style={styles.cardStockStatLabel}>
-            LOW
-          </Text>
-          <Text style={styles.cardStockStat}>
-            22.05
-          </Text>
-        </View>
-        <View style={styles.cardStockStatContainer}>
-          <Text style={styles.cardStockStatLabel}>
-            AVG
-          </Text>
-          <Text style={styles.cardStockStat}>
-            25.27
-          </Text>
-        </View>
-        <View style={styles.cardStockStatContainer}>
-          <Text style={styles.cardStockStatLabel}>
-            HIGH
-          </Text>
-          <Text style={styles.cardStockStat}>
-            26.87
-          </Text>
-        </View>
+        {stockStats}
       </View>
     );
   }
@@ -49,36 +34,26 @@ class StockDetails extends Component {
 
     return (
       <View style={[styles.cardStockDetailsContainer]}>
-        <StockStatLineItem />
-        <StockStatLineItem />
-        <StockStatLineItem />
-        <StockStatLineItem />
-        <View style={styles.cardStockStatsContainer}>
-          <View style={styles.cardStockStatContainer}>
-            <Text style={styles.cardStockStatLabel}>
-              LOW
-            </Text>
-            <Text style={styles.cardStockStat}>
-              {this.props.low}
-            </Text>
-          </View>
-          <View style={styles.cardStockStatContainer}>
-            <Text style={styles.cardStockStatLabel}>
-              AVG
-            </Text>
-            <Text style={styles.cardStockStat}>
-              {this.props.ave}
-            </Text>
-          </View>
-          <View style={styles.cardStockStatContainer}>
-            <Text style={styles.cardStockStatLabel}>
-              HIGH
-            </Text>
-            <Text style={styles.cardStockStat}>
-              {this.props.high}
-            </Text>
-          </View>
-        </View>
+        <StockStatLineItem stats={[
+          {name: "52W Low", value: this.props.yearLow},
+          {},
+          {name: "52W High", value: this.props.yearHigh}]}/>
+        <StockStatLineItem stats={[
+          {name: "VOL", value: this.props.volume},
+          {},
+          {name: "AVG VOL", value: this.props.averageDailyVolume}]}/>
+        <StockStatLineItem stats={[
+          {name: "P/E", value: this.props.pe},
+          {},
+          {name: "EPS", value: this.props.eps}]}/>
+        <StockStatLineItem stats={[
+          {name: "YIELD", value: this.props.yield },
+          {},
+          {name: "MKT CAP", value: this.props.marketCapitalization}]}/>
+        <StockStatLineItem stats={[
+          {name: "LOW", value: this.props.low}, 
+          {name: "AVG", value: this.props.ave}, 
+          {name: "HIGH", value: this.props.high}]}/>
         <View style={styles.cardStockDiffContainer}>
           <IconIonicons name={stockDiffIcon} style={[styles.cardStockDiffImage, stockTextColor]} />
           <View style={styles.cardStockDiffTextContainer}>
@@ -241,14 +216,18 @@ var styles = StyleSheet.create({
     marginBottom: 4,
   },
   cardStockStatLabel: {
+    flex: 1,
     fontSize: 7,
     marginRight: 4,
     color: '#666',
     fontWeight: '500',
+    textAlign: 'right',
   },
   cardStockStat: {
+    flex: 1,
     fontSize: 10,
     fontWeight: 'bold',
+    textAlign: 'left',
   },
   cardStockDiffContainer: {
     flexDirection: 'row',
