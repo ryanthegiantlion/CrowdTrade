@@ -5,19 +5,34 @@ import Linking from 'Linking';
 
 var IconIonicons = require('react-native-vector-icons/Ionicons');
 
+const monthNames = [
+      "Jan", "Feb", "Mar",
+      "Apr", "May", "June", "July",
+      "Aug", "Sep", "Oct",
+      "Nov", "Dec"
+    ];
+
 class NewsItem extends Component {
   openNewsItem(url) {
     Linking.openURL(url)
   }
 
+  formatDate(date) {
+    var day = date.getDate();
+    var monthIndex = date.getMonth();
+    var year = date.getFullYear();
+    return day + ' ' + monthNames[monthIndex] + ' ' + year;
+  }
+
   render() {
+    let date = this.formatDate(new Date(this.props.date))
     return (
       <TouchableHighlight onPress={() => {this.openNewsItem(this.props.url)}}>
         <View style={styles.itemContainer}>
           <Text style={styles.title}>{this.props.title}</Text>
           <View style={styles.detailsContainer}>
             <Text style={styles.source}>{this.props.source}</Text>
-            <Text style={styles.date}>{this.props.date}</Text>
+            <Text style={styles.date}>{date}</Text>
           </View>
         </View>
       </TouchableHighlight>
@@ -39,6 +54,7 @@ export default class StockNews extends Component {
     let screenwidth = Dimensions.get('window').width;
     return (
       <View style={[styles.stockPerformanceContainer, {width: screenwidth}]}>
+        <Text style={styles.heading}>News</Text>
         <ListView contentContainerStyle={styles.list}
         dataSource={this.state.dataSource}
         renderRow={(rowData) => <NewsItem 
@@ -57,6 +73,11 @@ var styles = StyleSheet.create({
     backgroundColor: 'black',
     height: 400,
   },
+  heading: {
+    color: 'white',
+    fontWeight: 'bold',
+    padding: 8,
+  },
   itemContainer: {
     padding: 8,
     borderTopColor: '#333',
@@ -73,6 +94,8 @@ var styles = StyleSheet.create({
     color:'white',
   },
   date: {
+    flex: 1,
+    textAlign: 'right',
     color: 'white',
   },
 });

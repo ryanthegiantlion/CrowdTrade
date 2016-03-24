@@ -13,6 +13,25 @@ var graphImages = {
   image2y: require('../../store/data/trending/stock_graph/2y.jpeg'),
 }
 
+export default class TimeSpanSelector extends Component {
+  render() {
+    let active = undefined
+    if (this.props.isActive)
+    {
+      active = styles.active
+    }
+    return (
+      <TouchableHighlight 
+        style={styles.timeSpan} 
+        onPress={() => this.props.onTimeSpanPress(this.props.timeSpan)}>
+        <View style={[styles.timeSpanContainer, active]}>
+          <Text style={styles.timeSpanText}>{this.props.timeSpanLabel}</Text>
+        </View>
+      </TouchableHighlight>
+    )
+  }
+}
+
 export default class StockPerformance extends Component {
   constructor(props) {
     super(props);
@@ -22,19 +41,21 @@ export default class StockPerformance extends Component {
     }
   }
 
+  onTimeSpanPress(timeSpan) {
+    this.setState({currentTimeSpan: timeSpan})
+  }
+
   render() {
-  	let stockTextColor = this.props.hasIncreased ? styles.greenText : styles.redText;
-    let stockDiffIcon = this.props.hasIncreased ? 'arrow-up-a' : 'arrow-down-a';
     let screenwidth = Dimensions.get('window').width;
     return (
       <View style={[styles.stockPerformanceContainer, {width: screenwidth}]}>
-      	<View style={styles.timeSpanContainer}>
-      		<TouchableHighlight style={styles.timeSpan} onPress={() => this.setState({currentTimeSpan: '1w'})}><Text style={styles.timeSpanText}>1W</Text></TouchableHighlight>
-      		<TouchableHighlight style={styles.timeSpan} onPress={() => this.setState({currentTimeSpan: '1m'})}><Text style={styles.timeSpanText}>1M</Text></TouchableHighlight>
-      		<TouchableHighlight style={styles.timeSpan} onPress={() => this.setState({currentTimeSpan: '3m'})}><Text style={styles.timeSpanText}>3M</Text></TouchableHighlight>
-      		<TouchableHighlight style={styles.timeSpan} onPress={() => this.setState({currentTimeSpan: '6m'})}><Text style={styles.timeSpanText}>6M</Text></TouchableHighlight>
-      		<TouchableHighlight style={styles.timeSpan} onPress={() => this.setState({currentTimeSpan: '1y'})}><Text style={styles.timeSpanText}>1Y</Text></TouchableHighlight>
-      		<TouchableHighlight style={styles.timeSpan} onPress={() => this.setState({currentTimeSpan: '2y'})}><Text style={styles.timeSpanText}>2Y</Text></TouchableHighlight>
+      	<View style={styles.timeSpansContainer}>
+          <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='1w' timeSpanLabel='1W' isActive={this.state.currentTimeSpan == '1w'}/>
+          <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='1m' timeSpanLabel='1M' isActive={this.state.currentTimeSpan == '1m'}/>
+          <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='3m' timeSpanLabel='3M' isActive={this.state.currentTimeSpan == '3m'}/>
+          <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='6m' timeSpanLabel='6M' isActive={this.state.currentTimeSpan == '6m'}/>
+          <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='1y' timeSpanLabel='1Y' isActive={this.state.currentTimeSpan == '1y'}/>
+          <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='2y' timeSpanLabel='2Y' isActive={this.state.currentTimeSpan == '2y'}/>
       	</View>
         <Image source={graphImages["image" + this.state.currentTimeSpan]} style={[styles.graph, {width: screenwidth}]} resizeMode={Image.resizeMode.stretch}/>
       </View>
@@ -46,18 +67,36 @@ var styles = StyleSheet.create({
 
   stockPerformanceContainer: {
     flex: 1,
+    backgroundColor: 'black',
+  },
+  timeSpansContainer: {
+  	flexDirection: 'row',
+    
+    alignItems: 'center',
   },
   timeSpanContainer: {
-  	flexDirection: 'row',
-  	justifyContent: 'space-between',
+    paddingLeft: 8,
+    paddingRight: 8,
+    paddingTop: 4,
+    paddingBottom: 4,
   },
   timeSpan: {
-  	flex: 1,
+    flex: 1,
+    alignItems: 'center',
+    //marginTop: 8,
+    //marginBottom: 8,
   },
   timeSpanText: {
-
+    color: 'white',
+    //mari
+  },
+  active: {
+    borderBottomWidth: 1,
+    borderColor: 'white',
   },
   graph: {
     flex: 1,
+    padding: 20,
+    transform: [{scale: 0.95}],
   },
 });
