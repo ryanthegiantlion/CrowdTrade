@@ -4,6 +4,8 @@ var Icon = require('react-native-vector-icons/FontAwesome');
 var IconIonicons = require('react-native-vector-icons/Ionicons');
 import CardDropDown from './cardDropDown'
 
+let staticContainer = 'https://s3-eu-west-1.amazonaws.com/crowdtrade-stock-logos/v1/';
+
 class StockStatLineItem extends Component {
   render() {
     let stockTextColor = this.props.hasIncreased ? styles.greenText : styles.redText;
@@ -100,7 +102,7 @@ class CardImage extends Component {
   render() {
     return (
       <TouchableHighlight style={styles.cardImage} onPress={this.props.onToggleIsDropDownDisplayed}>
-        <Image source={{uri: this.props.image}} style={styles.cardImage} resizeMode={Image.resizeMode.cover}>
+        <Image source={{uri: staticContainer + this.props.image}} style={styles.cardImage} resizeMode={Image.resizeMode.cover}>
           <Animated.View style={[styles.cardImageTextContainer, styles.cardImageYupContainer, this.props.animatedYupStyles]}>
             <Icon name='check' style={[styles.cardImageText, styles.greenText]}/>
           </Animated.View>
