@@ -13,7 +13,7 @@ class StockStatLineItem extends Component {
         <Text style={styles.cardStockStatLabel}>
           {item.name}
         </Text>
-        <Text style={styles.cardStockStat}>
+        <Text numberOfLines={1} style={styles.cardStockStat}>
           {item.value}
         </Text>
       </View>
@@ -142,7 +142,6 @@ var styles = StyleSheet.create({
     borderBottomLeftRadius: 4,
     borderBottomRightRadius: 4,
     shadowRadius: 2,
-    shadowColor: '#999',
     shadowOpacity: 0.8,
     shadowOffset: {
       height: 1,

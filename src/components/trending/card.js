@@ -13,7 +13,7 @@ class StockStatLineItem extends Component {
         <Text style={styles.cardStockStatLabel}>
           {item.name}
         </Text>
-        <Text style={styles.cardStockStat}>
+        <Text numberOfLines={1} style={styles.cardStockStat}>
           {item.value}
         </Text>
       </View>
