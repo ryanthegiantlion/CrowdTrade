@@ -15,11 +15,20 @@ import Search from '../shared/search/index'
 
 const itemWidth = 100
 
+let staticContainer = 'https://s3-eu-west-1.amazonaws.com/crowdtrade-stock-logos/v1/';
+
 class RowItem extends Component {
+  onClick(symbol) {
+    this.props.nav.push({
+      name: 'stock',
+      symbol: symbol
+    });
+  }
+
   render() {
     return (
-      <TouchableHighlight style={styles.stockButton}>
-        <Image source={{uri: this.props.stockItem.image}} style={styles.stockImage} resizeMode={Image.resizeMode.stretch} />
+      <TouchableHighlight style={styles.stockButton} onPress={() => this.onClick(this.props.stockItem.symbol)}>
+        <Image source={{uri: staticContainer + this.props.stockItem.image}} style={styles.stockImage} resizeMode={Image.resizeMode.stretch} />
       </TouchableHighlight>
     );
   }
@@ -42,7 +51,7 @@ export default class GridView extends Component {
     return (
       <ListView contentContainerStyle={styles.list}
         dataSource={this.state.dataSource}
-        renderRow={(rowData) => <View style={[styles.itemContainer, {width: containerDimensions, height: containerDimensions}]}><RowItem stockItem={rowData}/></View>}/>
+        renderRow={(rowData) => <View style={[styles.itemContainer, {width: containerDimensions, height: containerDimensions}]}><RowItem nav={this.props.nav} stockItem={rowData}/></View>}/>
     );
   }
 }
@@ -56,7 +65,7 @@ class WatchList extends Component {
     return (
       <View style={styles.bodyContainer}>
         <Search />
-        <GridView items={this.props.stocks} itemsPerRow={4}/>
+        <GridView items={this.props.stocks} itemsPerRow={4} nav={this.props.nav}/>
       </View>
     );
   }
