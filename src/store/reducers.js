@@ -18,21 +18,41 @@ function ui(state={isMenuShowing: false, currentRoute: 'trending'}, action) {
   }
 }
 
-function trending(state={data: [], currentPosition: 0}, action) {
+function uiTrending(state={currentPosition: 0, isDropDownDisplayed: false}, action) {
   switch (action.type) {
     case actions.INCREMENT_TRENDING_CURRENT_POSITION:
       return {
-        data: state.data,
-        currentPosition: (state.currentPosition + 1) % state.data.length
+        isDropDownDisplayed: state.isDropDownDisplayed,
+        currentPosition: action.position 
+      }
+    case actions.TOGGLE_IS_TRENDING_DROPDOWN_DISPLAYED:
+      return {
+        isDropDownDisplayed: !state.isDropDownDisplayed,
+        currentPosition: state.currentPosition
       }
     default:
       return state
   }
 }
 
+function trending(state={data: [], currentPosition: 0}, action) {
+  return state
+}
+
+function watchList(state={data: []}, action) {
+  return state
+}
+
+function news(state={data: []}, action) {
+  return state
+}
+
 const rootReducer = combineReducers({
   ui,
+  uiTrending,
   trending,
+  watchList,
+  news,
 })
 
 module.exports = rootReducer;
