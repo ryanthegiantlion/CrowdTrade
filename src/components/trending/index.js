@@ -85,6 +85,13 @@ class Trending extends Component {
     })
   }
 
+  componentWillUnmount() {
+    if (this.props.isDropDownDisplayed)
+    {
+      this.props.onToggleIsDropDownDisplayed();
+    }
+  }
+
   _resetState() {
     this.state.pan.setValue({x: 0, y: 0});
     this.props.onGoTonextStock((this.props.currentPosition+1)%this.props.cards.length);
