@@ -4,7 +4,7 @@ export default function initialState() {
   var newsData = require('./data/news/news.json')
 
   return {
-    ui: {isMenuShowing: false, currentRoute: 'trending'},
+    ui: {isMenuShowing: false, currentRoute: 'watchlist'},
     uiTrending: {currentPosition: 0, isDropDownDisplayed: false},
     trending: {data: trendingData},
     watchList: {data: watchListData},

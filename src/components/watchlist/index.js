@@ -28,7 +28,7 @@ class RowItem extends Component {
   render() {
     return (
       <TouchableHighlight style={styles.stockButton} onPress={() => this.onClick(this.props.stockItem.symbol)}>
-        <Image source={{uri: staticContainer + this.props.stockItem.image}} style={styles.stockImage} resizeMode={Image.resizeMode.stretch} />
+        <Image source={{uri: staticContainer + this.props.stockItem.image}} style={styles.stockImage} resizeMode={Image.resizeMode.cover} />
       </TouchableHighlight>
     );
   }
@@ -64,7 +64,7 @@ class WatchList extends Component {
   render() {
     return (
       <View style={styles.bodyContainer}>
-        <Search />
+        <Search title='Watch list' />
         <GridView items={this.props.stocks} itemsPerRow={4} nav={this.props.nav}/>
       </View>
     );
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
   bodyContainer: {
     flex: 1,
     justifyContent: 'center',
+    backgroundColor: '#eee',
   },
   listContainer: { 
     flex: 1,
@@ -90,6 +91,16 @@ const styles = StyleSheet.create({
   stockButton: {
     height: 70,
     width: 70,
+    borderWidth: 1,
+    borderColor: '#CCC',
+    borderRadius: 2,
+    shadowColor: '#AAA',
+    //shadowRadius: 2,
+    shadowOpacity: 0.8,
+    shadowOffset: {
+      height: 1,
+      width: 0,
+    }
   },
   stockImage: {
     flex: 1,

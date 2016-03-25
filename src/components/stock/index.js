@@ -6,6 +6,7 @@ import Dimensions from 'Dimensions';
 
 var Icon = require('react-native-vector-icons/FontAwesome');
 var IconIonicons = require('react-native-vector-icons/Ionicons');
+var MaterialIcons = require('react-native-vector-icons/MaterialIcons');
 import { connect } from 'react-redux'
 import { incrementTrendingCurrentPosition, toggleIsTrendingDropDownDisplayed } from '../../store/actions'
 import Card from './card'
@@ -99,8 +100,8 @@ class Stock extends Component {
     return (
       <View style={styles.bodyContainer}>
         <View style={styles.header}>
-          <TouchableHighlight underlayColor='#EEE' onPress={() => {this.props.nav.pop()}}>
-              <Icon name='arrow-left' size={40}  />
+          <TouchableHighlight onPress={() => {this.props.nav.pop()}}>
+              <MaterialIcons style={styles.backIcon} name='arrow-back' />
           </TouchableHighlight>
           <Text style={styles.headerName}>{stock0.name}</Text>
         </View>
@@ -140,17 +141,28 @@ var styles = StyleSheet.create({
   // main container
   bodyContainer: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: 'black',
+    paddingTop: 16,
   },
 
   header: {
+    backgroundColor: 'black',
     flexDirection: 'row',
+    height: 50,
+    alignItems: 'center',
   },
 
   headerName: {
     flex: 1,
     fontSize: 20,
-    color: 'black',
+    color: 'white',
+  },
+
+  backIcon: {
+    fontSize: 20,
+    color: 'white',
+    marginLeft: 10,
+    marginRight: 10,
   },
 
   overlay: {
@@ -167,6 +179,7 @@ var styles = StyleSheet.create({
   responsiveContainer: {
     flex: 1,
     paddingBottom: buttonContainerHeight,
+    backgroundColor: 'white',
   },
 
   // text styles for page
