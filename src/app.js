@@ -22,36 +22,55 @@ import SideMenu from 'react-native-side-menu';
 import Menu from './components/menu/index';
 import Header from './components/header/index';
 import Routes from './routes';
-import Trending from './components/trending/index';
+import Stock from './components/stock/index';
 import { connect } from 'react-redux'
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
+class HomeScreen extends Component {
   render() {
+    const CurrentPage = Routes[this.props.currentRoute].Page;
     var menu = undefined;
     var overlay = undefined;
     if (this.props.isMenuShowing) {
       overlay = <View style={styles.overlay}></View>
       menu = <Menu/>
     }
-
-    const CurrentPage = Routes[this.props.currentRoute].Page;
-
+    
     // Note that the render order is important here
     // The touch events don't work on menu unless it is rendered last
     return (
-        <View style={styles.container}>
-
-              <Header onMenuToggle={this.handleMenuToggle}/>
-              <View style={styles.bodyContainer}>
-                <CurrentPage />
-              </View>
-              {overlay}
-              {menu}
+      <View style={styles.container}>      
+        <View style={styles.bodyContainer}>
+          <CurrentPage nav={this.props.nav}/>
         </View>
+        <Header/>
+        {overlay}
+        {menu}
+      </View>
+    );
+  }
+}
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  renderScene(route, nav) {
+    switch (route.name) {
+      case 'homescreen':
+        return <HomeScreen nav={nav} isMenuShowing={this.props.isMenuShowing} currentRoute={this.props.currentRoute}/>;
+      case 'stock':
+        return <Stock symbol={route.symbol} nav={nav} />;
+      default:
+        return <HomeScreen nav={nav} isMenuShowing={this.props.isMenuShowing} currentRoute={this.props.currentRoute}/>;
+    }
+  }
+
+  render() {
+    return (
+      <Navigator
+        initialRoute={{name: 'homeScreen', index: 0}}
+        renderScene={this.renderScene.bind(this)}/>      
     );
   }
 }
@@ -64,6 +83,7 @@ const styles = StyleSheet.create({
   },
   bodyContainer: {
     flex: 1,
+    marginTop: 44,
     backgroundColor: 'white',
   },
   overlay : {

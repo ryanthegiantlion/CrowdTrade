@@ -8,6 +8,7 @@
   "dependencies": {
     "react-native": "^0.20.0",
     "react-native-drawer": "^1.16.7",
+    "react-native-scrollable-tab-view": "^0.4.0",
     "react-native-side-menu": "^0.18.0",
     "react-native-vector-icons": "^1.2.1",
     "react-redux": "^4.4.1",

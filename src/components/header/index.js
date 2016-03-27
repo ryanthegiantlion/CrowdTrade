@@ -13,6 +13,7 @@ import { toggleMenu, changeRoute } from '../../store/actions'
 
 var Icon = require('react-native-vector-icons/FontAwesome');
 var IoniconIcon = require('react-native-vector-icons/Ionicons')
+var MaterialIcon = require('react-native-vector-icons/MaterialIcons');
 
 class Header extends Component {
     constructor(props) {
@@ -30,7 +31,7 @@ class Header extends Component {
           <View style={styles.header}>
             <TouchableHighlight onPress={this.props.onHandleMenuToggle}>
               <View style={styles.menuIconContainer}>
-                <IoniconIcon name="navicon-round" size={24} color="white" />
+                <MaterialIcon name="menu" size={24} color="white" />
               </View>
             </TouchableHighlight>
             <View style={styles.headerTitle}>
@@ -50,9 +51,13 @@ const styles = StyleSheet.create({
     header: {
       backgroundColor: 'black',
       flexDirection: 'row',
-      //padding: 10,
-      height: 44,
+      height: 50,
       alignItems: 'center',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      paddingTop: 20,
     },
     headerTitle: {
       flex: 1,
