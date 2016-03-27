@@ -20,6 +20,7 @@ var ScrollableTabView = require('react-native-scrollable-tab-view');
 
 const itemWidth = 100
 let screenWidth = Dimensions.get('window').width
+let screenHeight = Dimensions.get('window').height
 let imageDimension = screenWidth/2-8
 
 class RowItem extends Component {
@@ -82,20 +83,14 @@ class RowItem2 extends Component {
 
   animate(ox, oy, width, height, px, py) {
     this.setState({url: 'https://facebook.github.io/react/', isInFront: true})
-    // Animated.timing(this.state.rotate, {
-    //         toValue: 180,
-    //         duration: 2000,
-    //   }).start()
-    console.log("ox: " + ox);
-    console.log("oy: " + oy);
-    console.log("width: " + width);
-    console.log("height: " + height);
-    console.log("px: " + px);
-    console.log("py: " + py);
-    Animated.timing(
-           this.state.shift,         // Auto-multiplexed
-           {toValue: {x: 100, y: 200}, duration: 5000} // Back to zero
-         ).start(console.log('done shifting'));
+    Animated.timing(this.state.rotate, {
+            toValue: 180,
+            duration: 2000,
+      }).start()
+    // Animated.timing(
+    //        this.state.shift,         // Auto-multiplexed
+    //        {toValue: {x: 100, y: 200}, duration: 5000} // Back to zero
+    //      ).start(console.log('done shifting'));
     // Animated.timing(this.state.test, {
     //         toValue: 180,
     //         duration: 2000,
@@ -108,31 +103,28 @@ class RowItem2 extends Component {
     let card2RotateY = rotate.interpolate({inputRange: [0, 180], outputRange: ["180deg", "360deg"]});
     var card1AnimatedStyles = {transform: [{perspective: 1000},{rotateY: card1RotateY}, {translateX: test}, {translateY: shift.y}]}
     var card2AnimatedStyles = {transform: [{perspective: 1000}, {rotateY: card2RotateY}]}
-    let source = undefined
-    if (this.state.url)
-    {
-      source = {source:{uri: this.state.url}}
-    }
+    let description = this.props.newsItem.description || "Need to scrape description. Keep scrolling for an example with a description ..."
     
     return (
-      <TouchableHighlight ref="card" style={styles.newsButton} onPress={() => this.onClick(this.props.newsItem.url)}>
-        <View style={styles.imageContainer}>
+      <TouchableHighlight ref="card" style={styles.newsButton2} onPress={() => this.onClick(this.props.newsItem.url)}>
+        <View style={styles.webViewContainer}>
           <Animated.View style={[styles.card2, card2AnimatedStyles]}>
             <View style={{flex:1}}>
               <WebView
                 style={{
                   flex: 1
                 }}
-                {...source}
+                source={{uri: this.props.newsItem.url}}
                 scalesPageToFit={true}/>
             </View>
           </Animated.View> 
           <Animated.View style={[styles.card1, card1AnimatedStyles]}>
-            <View style={styles.imageContainer}>
+            <View style={styles.imageContainer2}>
               <Image source={{uri: this.props.newsItem.image}} style={styles.newsImage} resizeMode={Image.resizeMode.cover} />
               <Text style={styles.name}>{this.props.newsItem.symbol}</Text>
               <Text numberOfLines={2} style={styles.title}>{this.props.newsItem.title}</Text>
             </View>
+            <Text style={styles.description} numberOfLines={5}>{description}</Text>
           </Animated.View>
         </View>
       </TouchableHighlight>
@@ -155,9 +147,11 @@ export default class GridView2 extends Component {
     var containerDimensions = Math.floor(screenWidth/ this.props.itemsPerRow)
 
     return (
-      <ListView contentContainerStyle={styles.list}
+      <ListView contentContainerStyle={styles.list2}
+        pageSize={2}
+        horizontal={true}
         dataSource={this.state.dataSource}
-        renderRow={(rowData) => <View style={[styles.itemContainer, {width: containerDimensions, height: containerDimensions}]}><RowItem2 nav={this.props.nav} newsItem={rowData}/></View>}/>
+        renderRow={(rowData) => <View style={[styles.itemContainer, {width: containerDimensions, flex: 1}]}><RowItem2 nav={this.props.nav} newsItem={rowData}/></View>}/>
     );
   }
 }
@@ -172,9 +166,9 @@ class News extends Component {
       <View style={styles.bodyContainer}>
         <Search title='News' />
         
-        <ScrollableTabView contentProps={{bounces: false}} initialPage={0}>
+        <ScrollableTabView contentProps={{bounces: false}} initialPage={1}>
           <GridView items={this.props.news} itemsPerRow={2} nav={this.props.nav} key="ANIMATION1" tabLabel="Animation 1"/>
-          <GridView2 items={this.props.news} itemsPerRow={2} nav={this.props.nav} key="ANIMATION2" tabLabel="Animation 2"/>
+          <GridView2 items={this.props.news} itemsPerRow={1} nav={this.props.nav} key="ANIMATION2" tabLabel="Animation 2"/>
         </ScrollableTabView>
       </View>
     );
@@ -194,6 +188,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap'
   },
+  list2: {
+    // flexDirection: 'row',
+    // flexWrap: 'wrap',
+    flex: 1,
+  },
   itemContainer: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -212,7 +211,31 @@ const styles = StyleSheet.create({
       width: 0,
     }
   },
+  newsButton2: {
+    flex: 1,
+    width: screenWidth,
+    borderWidth: 1,
+    borderColor: '#CCC',
+    borderRadius: 2,
+    shadowColor: '#AAA',
+    //shadowRadius: 2,
+    shadowOpacity: 0.8,
+    shadowOffset: {
+      height: 1,
+      width: 0,
+    },
+  },
+  description: {
+    height: 100,
+    backgroundColor: 'white',
+  },
   imageContainer: {
+    flex: 1,
+  },
+  imageContainer2: {
+    flex: 1,
+  },
+  webViewContainer: {
     flex: 1,
   },
   newsImage: {
@@ -248,8 +271,8 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'red',
     backfaceVisibility: 'hidden',
+    
   },
   card2: {
     position: 'absolute',
@@ -257,6 +280,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0, 
+
   },
 });
 
