@@ -47,12 +47,17 @@ function news(state={data: []}, action) {
   return state
 }
 
+function crowdChat(state={data: []}, action) {
+  return state
+}
+
 const rootReducer = combineReducers({
   ui,
   uiTrending,
   trending,
   watchList,
   news,
+  crowdChat,
 })
 
 module.exports = rootReducer;

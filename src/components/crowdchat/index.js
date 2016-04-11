@@ -6,6 +6,7 @@ import React, {
   View,
 } from 'react-native';
 import Search from '../shared/search/index'
+import CrowdChatTabBar from './tabBar'
 var ScrollableTabView = require('react-native-scrollable-tab-view');
 
 class AskContainer extends Component {
@@ -34,7 +35,7 @@ class CrowdChat extends Component {
       return (
       <View style={styles.bodyContainer}>
         <Search title='Crowd chat' />
-        <ScrollableTabView contentProps={{bounces: false}} initialPage={0}>
+        <ScrollableTabView contentProps={{bounces: false}} initialPage={0} renderTabBar={() => <CrowdChatTabBar />}>
           <QuestionsContainer key="HOT" title='HOT' tabLabel='HOT'/>
           <QuestionsContainer key="NEW" title='NEW' tabLabel='NEW'/>
           <QuestionsContainer key="TOP" title='TOP' tabLabel='TOP'/>
