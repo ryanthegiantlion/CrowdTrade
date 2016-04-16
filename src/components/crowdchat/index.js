@@ -5,6 +5,8 @@ import React, {
   Text,
   View,
   ListView,
+  TextInput,
+  TouchableHighlight,
 } from 'react-native';
 import Search from '../shared/search/index'
 import CrowdChatTabBar from './tabBar'
@@ -14,9 +16,15 @@ var ScrollableTabView = require('react-native-scrollable-tab-view');
 
 class AskContainer extends Component {
   render() {
+    // optional submit button . . .
+    // <View style={styles.askButtonContainer}><
+    //   TouchableHighlight style={styles.askButton}>
+    //     <Text style={styles.askButtonText}>Submit</Text>
+    //   </TouchableHighlight>
+    // </View>
     return (
-      <View style={styles.questionContainer}>
-        <Text style={styles.tempHeading}>{this.props.title}</Text>
+      <View style={styles.askContainer}>
+        <TextInput autoFocus={true} multiline={true} style={styles.askInput} value="Is Facebook going to the gutters ?!?!?"/>  
       </View>
     )
   }
@@ -64,7 +72,7 @@ class CrowdChat extends Component {
       return (
       <View style={styles.bodyContainer}>
         <Search title='Crowd chat' />
-        <ScrollableTabView contentProps={{bounces: false}} initialPage={0} renderTabBar={() => <CrowdChatTabBar />}>
+        <ScrollableTabView contentProps={{bounces: false}} initialPage={3} renderTabBar={() => <CrowdChatTabBar />}>
           <QuestionsContainer chats={this.props.chats} key="HOT" title='HOT' tabLabel='HOT'/>
           <QuestionsContainer chats={this.props.chats} key="NEW" title='NEW' tabLabel='NEW'/>
           <QuestionsContainer chats={this.props.chats} key="TOP" title='TOP' tabLabel='TOP'/>
@@ -79,6 +87,10 @@ const styles = StyleSheet.create({
     bodyContainer: {
       flex: 1,
       backgroundColor: '#eee',
+    },
+
+    askContainer: {
+      flex: 1,
     },
 
     questionsContainer: {
@@ -114,6 +126,29 @@ const styles = StyleSheet.create({
     separator: {
       height: 2,
       backgroundColor: '#888',
+    },
+
+    askInput: {
+      //height: 200,
+      //width: 40,
+      color: '#666',
+      fontSize: 14,
+      flex: 1,
+      margin: 10,
+    },
+
+    askButtonContainer: {
+      flexDirection: 'row',
+    },
+
+    askButton: {
+      flex: 1,
+      borderWidth: 1,
+      margin: 8,
+    },
+
+    askButtonText: {
+      height: 20,
     },
   });
 
