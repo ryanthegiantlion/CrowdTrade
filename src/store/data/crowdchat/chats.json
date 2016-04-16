@@ -1,7 +1,112 @@
 [
-	{"id": 1, "title": "Whats up with FB stock? \nWhy do they keep dropping?", "description": "comment"}, 
-	{"id": 2, "title": "Could someone PLEASE tell me what 'futures' are???", "description": "comment"}, 
-	{"id": 3, "title": "What is a good energy stock?", "description": "comment"}, 
-	{"id": 4, "title": "Who things facebook is done?", "description": "comment"},
-	{"id": 5, "title": "Who else things that investing in Microsoft is the s***???", "description": "comment"},
+	{
+		"id": 1, 
+		"title": "Whats up with FB stock? \nWhy do they keep dropping?", 
+		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
+		"answers": [
+			{	
+				"id": 1,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "20 Mar 2016"
+			},
+			{
+				"id": 2,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "7 days ago"
+			},
+			{
+				"id": 3,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "1 day ago"
+			}
+		]
+	}, 
+	{
+		"id": 2, 
+		"title": "Could someone PLEASE tell me what 'futures' are???", 
+		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
+		"answers": [
+			{
+				"id": 4,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "1 Jan 2016"
+			},
+			{
+				"id": 5,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "Mon, 2 Jan 2016 14:43:43 GMT"
+			},
+			{
+				"id": 6,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "5 days ago"
+			}
+		]
+	}, 
+	{
+		"id": 3, 
+		"title": "What is a good energy stock?", 
+		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
+		"answers": [
+			{
+				"id": 7,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "30 April 2016"
+			},
+			{
+				"id": 8,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "Mon, 1 May 2016 14:43:43 GMT"
+			},
+			{
+				"id": 9,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "10 minutes ago"
+			}
+		]
+	}, 
+	{
+		"id": 4, 
+		"title": "Who things facebook is done?", 
+		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
+		"answers": [
+			{
+				"id": 10,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "20 Mar 2016"
+			},
+			{
+				"id": 11,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "25 Mar 2016"
+			},
+			{
+				"id": 12,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "1 day ago"
+			}
+		]
+	},
+	{
+		"id": 5, 
+		"title": "Who else things that investing in Microsoft is the s***???", 
+		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
+		"answers": [
+			{
+				"id": 13,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "30 April 2016"
+			},
+			{
+				"id": 14,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "1 May 2016"
+			},
+			{
+				"id": 15,
+				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"date": "10 minutes ago"
+			}
+		]
+	},
 ]

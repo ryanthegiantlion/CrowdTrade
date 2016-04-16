@@ -29,7 +29,6 @@ class RowItem extends Component {
   }
   
   render() {
-    console.log(this.props.newsItem.image)
     return (
       <TouchableHighlight style={styles.newsButton} onPress={() => this.onClick(this.props.newsItem.url)}>
         <View style={styles.imageContainer}>  
