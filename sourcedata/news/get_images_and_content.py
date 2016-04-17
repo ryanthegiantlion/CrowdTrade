@@ -3,7 +3,7 @@ import requests, json
 def getImage(url):
 	query = {
 	  "url": url,
-	  "key": ":1c3ec45554be406cb650192b00e322dd"
+	  "key": ":{insertkeyhere}"
 	}
 
 	r = requests.get('https://api.embedly.com/1/oembed', params=query)
@@ -19,7 +19,7 @@ def getImage(url):
 def getContent(url):
 	query = {
 	  "url": url,
-	  "key": ":1c3ec45554be406cb650192b00e322dd"
+	  "key": ":{insertkeyhere}"
 	}
 
 	r = requests.get('https://api.embedly.com/1/extract', params=query)
