@@ -16,6 +16,22 @@ def getImage(url):
 		print "f, f, f, faaa, faaaail !!!!!!!!"
 		return None
 
+def getContent(url):
+	query = {
+	  "url": url,
+	  "key": ":{insertkeyhere}"
+	}
+
+	r = requests.get('https://api.embedly.com/1/extract', params=query)
+
+	print "got content"
+	lajson = r.json()
+	if 'content' in lajson:
+		return r.json()['content']
+	else:
+		print "f, f, f, faaa, faaaail !!!!!!!!"
+		return None
+
 newsWithoutImages = open("news.json", 'r')
 newsWithImages = open("newswithimages.json", 'w')
 
@@ -26,6 +42,7 @@ newsjson = json.loads(news)
 
 for item in newsjson:
 	item['image'] = getImage(item['url'])
+	item['content'] = getContent(item['url'])
 
 newsWithImages.write(json.dumps(newsjson))
 
