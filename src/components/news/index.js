@@ -106,33 +106,10 @@ class RowItem2 extends Component {
     var card2AnimatedStyles = {transform: [{perspective: 1000}, {rotateY: card2RotateY}]}
     let description = this.props.newsItem.description || "Need to scrape description. Keep scrolling for an example with a description ..."
     
-    // <TouchableHighlight ref="card" style={styles.newsButton2} onPress={() => this.onClick(this.props.newsItem.url)}>
-    //   <View style={styles.webViewContainer}>
-    //     <Animated.View style={[styles.card2, card2AnimatedStyles]}>
-    //       <View style={{flex:1}}>
-    //         <WebView
-    //           style={{
-    //             flex: 1
-    //           }}
-    //           source={{uri: this.props.newsItem.url}}
-    //           scalesPageToFit={true}/>
-    //       </View>
-    //     </Animated.View> 
-    //     <Animated.View style={[styles.card1, card1AnimatedStyles]}>
-    //       <View style={styles.imageContainer2}>
-    //         <Image source={{uri: this.props.newsItem.image}} style={styles.newsImage} resizeMode={Image.resizeMode.cover} />
-    //         <Text style={styles.name}>{this.props.newsItem.symbol}</Text>
-    //         <Text numberOfLines={2} style={styles.title}>{this.props.newsItem.title}</Text>
-    //       </View>
-    //       <Text style={styles.description} numberOfLines={5}>{description}</Text>
-    //     </Animated.View>
-    //   </View>
-    // </TouchableHighlight>
-
     return (
       <FlipCard 
         style={styles.card}
-        friction={6}
+        friction={8}
         flipHorizontal={true}
         flipVertical={false}
         flip={false}
@@ -176,13 +153,21 @@ export default class GridView2 extends Component {
     
     var containerDimensions = Math.floor(screenWidth/ this.props.itemsPerRow)
 
+    // <ListView contentContainerStyle={styles.list2}
+    //     pageSize={2}
+    //     horizontal={true}
+    //     dataSource={this.state.dataSource}
+    //     renderRow={(rowData) => <View style={[styles.itemContainer, {width: containerDimensions, flex: 1}]}><RowItem2 nav={this.props.nav} newsItem={rowData}/></View>}/>
     return (
-      <ListView contentContainerStyle={styles.list2}
-        pageSize={2}
-        horizontal={true}
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) => <View style={[styles.itemContainer, {width: containerDimensions, flex: 1}]}><RowItem2 nav={this.props.nav} newsItem={rowData}/></View>}/>
-    );
+      <ScrollableTabView contentProps={{bounces: false}} initialPage={1} renderTabBar={() => <View/>}>
+        <RowItem2 nav={this.props.nav} newsItem={this.props.items[0]} tabLabel="0" key="0" />
+        <RowItem2 nav={this.props.nav} newsItem={this.props.items[1]} tabLabel="1" key="1" />
+        <RowItem2 nav={this.props.nav} newsItem={this.props.items[2]} tabLabel="2" key="2" />
+        <RowItem2 nav={this.props.nav} newsItem={this.props.items[3]} tabLabel="3" key="3" />
+        <RowItem2 nav={this.props.nav} newsItem={this.props.items[4]} tabLabel="4" key="4" />
+        <RowItem2 nav={this.props.nav} newsItem={this.props.items[5]} tabLabel="5" key="5" />
+      </ScrollableTabView>
+    );  
   }
 }
 
