@@ -55,6 +55,10 @@ function crowdChat(state={data: []}, action) {
   return state
 }
 
+function virtualPortfolio(state={data: []}, action) {
+  return state
+}
+
 const rootReducer = combineReducers({
   ui,
   uiTrending,
@@ -62,7 +66,8 @@ const rootReducer = combineReducers({
   watchList,
   news,
   crowdChat,
-  featuredNews
+  featuredNews,
+  virtualPortfolio
 })
 
 module.exports = rootReducer;
