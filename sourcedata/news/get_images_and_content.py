@@ -3,11 +3,12 @@ import requests, json
 def getImage(url):
 	query = {
 	  "url": url,
-	  "key": ":{insertkeyhere}"
+	  "key": ":1c3ec45554be406cb650192b00e322dd"
 	}
 
 	r = requests.get('https://api.embedly.com/1/oembed', params=query)
 
+	print "url: ", url
 	print "got image"
 	lajson = r.json()
 	if 'thumbnail_url' in lajson:
@@ -19,7 +20,7 @@ def getImage(url):
 def getContent(url):
 	query = {
 	  "url": url,
-	  "key": ":{insertkeyhere}"
+	  "key": ":1c3ec45554be406cb650192b00e322dd"
 	}
 
 	r = requests.get('https://api.embedly.com/1/extract', params=query)
@@ -32,8 +33,8 @@ def getContent(url):
 		print "f, f, f, faaa, faaaail !!!!!!!!"
 		return None
 
-newsWithoutImages = open("news.json", 'r')
-newsWithImages = open("newswithimages.json", 'w')
+newsWithoutImages = open("news_selected.json", 'r')
+newsWithImages = open("newswithimages_selected.json", 'w')
 
 news = newsWithoutImages.read()
 # print news
