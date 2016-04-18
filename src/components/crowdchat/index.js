@@ -38,7 +38,7 @@ class AnswerItem extends Component {
       <View style={styles.answerItemContainer}>
         <Text style={styles.answer}>{this.props.comment}</Text>
         <View style={styles.likeAndDateContainer}>
-          <TouchableHighlight><Icon style={styles.like} name='thumbs-up' size={12} /></TouchableHighlight>
+          <TouchableHighlight underlayColor="rgba(0,0,0,0.3)"><Icon style={styles.like} name='thumbs-up' size={12} /></TouchableHighlight>
           <Text style={styles.date}>{this.props.date}</Text>
         </View>
       </View>
@@ -79,7 +79,7 @@ class QuestionItem extends Component {
       answers = <AnswersContainer answers={this.props.answers} />
     } 
     return (
-      <TouchableHighlight onPress={() => this.toggleItem()}>
+      <TouchableHighlight onPress={() => this.toggleItem()} underlayColor="rgba(0,0,0,0.3)">
         <View style={styles.questionItemContainer}>
           <Text style={styles.number}>{this.props.id + "."}</Text>
           <View style={styles.titleAndDescriptionContainer}>
