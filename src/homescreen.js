@@ -1,11 +1,6 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- */
 'use strict';
 import React, {
   Navigator,
-  AppRegistry,
   Component,
   StyleSheet,
   Text,
@@ -24,29 +19,29 @@ import Header from './components/header/index';
 import Routes from './routes';
 import Stock from './components/stock/index';
 import { connect } from 'react-redux'
-import HomeScreen from './homescreen'
+import { toggleMenu } from './store/actions'
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-  }
-
-  renderScene(route, nav) {
-    switch (route.name) {
-      case 'homescreen':
-        return <HomeScreen nav={nav} isMenuShowing={this.props.isMenuShowing} currentRoute={this.props.currentRoute}/>;
-      case 'stock':
-        return <Stock symbol={route.symbol} nav={nav} />;
-      default:
-        return <HomeScreen nav={nav} isMenuShowing={this.props.isMenuShowing} currentRoute={this.props.currentRoute}/>;
-    }
-  }
-
+class HomeScreen extends Component {
   render() {
+    const CurrentPage = Routes[this.props.currentRoute].Page;
+    var menu = undefined;
+    var overlay = undefined;
+    if (this.props.isMenuShowing) {
+      overlay = <TouchableHighlight style={styles.overlay} underlayColor="rgba(0,0,0,0)" onPress={this.props.onHandleMenuToggle}><View></View></TouchableHighlight>
+      menu = <Menu/>
+    }
+    
+    // Note that the render order is important here
+    // The touch events don't work on menu unless it is rendered last
     return (
-      <Navigator
-        initialRoute={{name: 'homeScreen', index: 0}}
-        renderScene={this.renderScene.bind(this)}/>      
+      <View style={styles.container}>      
+        <View style={styles.bodyContainer}>
+          <CurrentPage nav={this.props.nav}/>
+        </View>
+        <Header/>
+        {overlay}
+        {menu}
+      </View>
     );
   }
 }
@@ -76,4 +71,13 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
   return state.ui
 }
-module.exports = connect(mapStateToProps)(App);
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onHandleMenuToggle: () => {
+      dispatch(toggleMenu())
+    }
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(HomeScreen);
