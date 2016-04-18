@@ -72,7 +72,7 @@ export default class StockNews extends Component {
 var styles = StyleSheet.create({
   stockPerformanceContainer: {
     backgroundColor: 'black',
-    height: 400,
+    flex: 1,
   },
   heading: {
     color: 'white',
@@ -85,18 +85,18 @@ var styles = StyleSheet.create({
     borderWidth: 1,
   },
   title: {
-    color: 'white',
+    color: '#F1F1F1',
     fontWeight: 'bold',
   },
   detailsContainer: {
     flexDirection: 'row',
   },
   source: {
-    color:'white',
+    color: '#F1F1F1',
   },
   date: {
     flex: 1,
     textAlign: 'right',
-    color: 'white',
+    color: '#F1F1F1',
   },
 });
