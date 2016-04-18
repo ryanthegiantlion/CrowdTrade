@@ -4,6 +4,7 @@ export default function initialState() {
   var newsData = require('./data/news/news.json')
   var crowdChatData = require('./data/crowdchat/chats.json')
   var featuredNews = require('./data/featurednews/featurednews.json')
+  var virtualPortfolioData = require('./data/virtualportfolio/virtualportfolio.json')
 
   return {
     ui: {isMenuShowing: false, currentRoute: 'trending'},
@@ -13,5 +14,6 @@ export default function initialState() {
     news: {data: newsData},
     crowdChat: {data: crowdChatData},
     featuredNews: {data: featuredNews},
+    virtualPortfolio: {data: virtualPortfolioData}
   }
 }
