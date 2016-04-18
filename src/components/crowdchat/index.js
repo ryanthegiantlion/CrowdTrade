@@ -52,6 +52,7 @@ class AnswersContainer extends Component {
     return (
       <View style={styles.answersContainer}>
         {answerItems}
+        <TextInput placeholder="Post your comment" multiline={true} style={styles.commentInput}/>
       </View>
     )
   }
@@ -206,6 +207,15 @@ const styles = StyleSheet.create({
       fontSize: 14,
       flex: 1,
       margin: 10,
+    },
+
+    commentInput: {
+      padding: 2,
+      borderWidth: 1,
+      height: 30,
+      fontSize: 14,
+      borderColor: '#CCC',
+      borderRadius: 4,
     },
 
     likeAndDateContainer: {
