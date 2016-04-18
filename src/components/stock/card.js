@@ -151,6 +151,7 @@ var styles = StyleSheet.create({
 
   cardImage: {
     flex: 1,
+    //height: 100,
     backgroundColor: 'white',
   },
 
@@ -216,7 +217,7 @@ var styles = StyleSheet.create({
   },
   cardStockStatLabel: {
     flex: 1,
-    fontSize: 7,
+    fontSize: 9,
     marginRight: 4,
     color: '#666',
     fontWeight: '500',
@@ -224,8 +225,8 @@ var styles = StyleSheet.create({
   },
   cardStockStat: {
     flex: 1,
-    fontSize: 10,
-    fontWeight: 'bold',
+    fontSize: 12,
+    fontWeight: '500',
     textAlign: 'left',
   },
   cardStockDiffContainer: {
@@ -244,21 +245,21 @@ var styles = StyleSheet.create({
     //height: 14,
   },
   cardStockDiffImage: {
-    fontSize: 24,
+    fontSize: 28,
     marginRight: 8,
   },
   cardStockDiffLabel: {
-    fontSize: 7,
+    fontSize: 9,
     marginRight: 2,
     paddingBottom: 2,
   },
   cardStockDiff: {
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: 'bold',
     marginRight: 6,
   },
   cardStockPercentageChange: {
-    fontSize: 7,
+    fontSize: 9,
     alignSelf: 'flex-start',
   },
 });
