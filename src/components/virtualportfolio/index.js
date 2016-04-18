@@ -12,6 +12,7 @@ import React, {
 } from 'react-native';
 import { connect } from 'react-redux'
 import Search from '../shared/search/index'
+var Icon = require('react-native-vector-icons/FontAwesome');
 
 var graphImages = {
   inc1: require('../../img/virtualportfolio/inc1.png'),
@@ -82,6 +83,54 @@ class PortFolio extends Component {
   }
 }
 
+class Footer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      showPercentage: true,
+    };
+  }
+
+  onClick() {
+    this.setState({showPercentage: !this.state.showPercentage})
+  }
+
+  render() {
+    let changeSymbol = '%'
+    let change = '3.1'
+    if (!this.state.showPercentage) {
+      changeSymbol = '$'
+      change = '2.712'
+    }
+    return (
+      <TouchableHighlight onPress={() => this.onClick()} underlayColor="rgba(0,0,0,0)">
+        <View style={styles.footer} > 
+          <View style={styles.totalAndChangeContainer}>
+            <View style={styles.totalContainer}>
+              <Text style={styles.totalLabel}>TOTAL</Text>
+              <View style={styles.totalAmountContainer}>
+                <Text style={styles.totalAmountSymbol}>$</Text>
+                <Text style={styles.totalAmount}>87.641</Text>
+              </View>
+            </View>
+            <View style={styles.changeContainer}>
+              <View style={styles.changeLabelContainer}>
+                <Text style={styles.changeLabel}>Growth</Text>
+                <Icon name='sort-up' style={styles.changeLabelSymbol}/>
+              </View>
+              <View style={styles.changeAmountContainer}>
+                <Text style={styles.changeSymbol}>{changeSymbol}</Text>
+                <Text style={styles.change}>{change}</Text>
+              </View>
+            </View>
+          </View>
+        </View>
+      </TouchableHighlight>
+    );
+  }
+}
+
 export default class VirtualPortfolio extends Component {
   constructor(props) {
     super(props);
@@ -91,7 +140,7 @@ export default class VirtualPortfolio extends Component {
     return (
       <View style={styles.bodyContainer}>
         <View style={styles.listContainer}><PortFolio items={this.props.portfolio} nav={this.props.nav}/></View>
-        <View style={styles.footer}></View>
+        <Footer />
       </View>
     );
   }
@@ -107,10 +156,6 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 20,
     marginRight: 20,
-  },
-  footer: {
-    height: 50,
-    backgroundColor: 'black',
   },
   separator: {
     height: 1,
@@ -195,8 +240,102 @@ const styles = StyleSheet.create({
   redBackground: {
     backgroundColor: '#b31b3d'
   },
-
+  footer: {
+    paddingTop: 10,
+    paddingBottom: 14,
+    paddingLeft: 14,
+    paddingRight: 14,
+    backgroundColor: 'black',  
+  },
+  totalAndChangeContainer: {
+    borderBottomWidth: 1,
+    borderColor: '#888',
+    flexDirection: 'row',
+    paddingBottom: 4,
+  },
+  totalContainer: {
+    flex: 1,
+  },
+  changeContainer: {
+    flex: 1,
+  },
+  totalLabel: {
+    fontSize: 8,
+    color: '#bababa',
+    fontWeight: 'bold',
+  },
+  totalAmountContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end'
+  },
+  totalAmountSymbol: {
+    fontWeight: 'bold',
+    fontSize: 8,
+    color: '#bababa',
+    marginBottom: 2,
+    marginRight: 2,
+  },
+  totalAmount: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  changeLabelContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+  },
+  changeLabel: {
+    fontSize: 8,
+    color: '#bababa',
+    fontWeight: 'bold',
+  },
+  changeLabelSymbol: {
+    fontSize: 8,
+    color: '#bababa',
+    fontWeight: 'bold',
+    marginLeft: 2,
+    //paddingTop: 4,  
+  },
+  changeAmountContainer: {
+    flexDirection: 'row',
+    alignItems: 'flex-end'
+  },
+  changeSymbol: {
+    fontWeight: 'bold',
+    fontSize: 8,
+    color: '#bababa',
+    marginBottom: 2,
+    marginRight: 2,
+  },
+  change: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
 });
+
+
+// <View style={styles.footer}>
+//   <View style={styles.totalAndChangeContainer}>
+//     <View style={styles.totalContainer}>
+//       <Text style={styles.totalLabel}>TOTAL</Text>
+//       <View style={styles.totalAmountContainer}>
+//         <Text style={styles.totalAmountSymbol}>$</Text>
+//         <Text style={styles.totalAmount}>87.641</Text>
+//       </View>
+//     </View>
+//     <View style={styles.changeContainer}>
+//       <View style={styles.changeLabelContainer}>
+//         <Text style={styles.changeLabel}>Growth</Text>
+//         <Icon name='sort-up' style={styles.changeLabelSymbol}/>
+//       </View>
+//       <View style={styles.changeAmountContainer}>
+//         <Text style={styles.changeSymbol}>%</Text>
+//         <Text style={styles.change}>3.1</Text>
+//       </View>
+//     </View>
+//   </View>
+// </View>
 
 function mapStateToProps(state) {
   return {portfolio: state.virtualPortfolio.data}
