@@ -26,7 +26,7 @@ class AskContainer extends Component {
     // autoFocus={true}
     return (
       <View style={styles.askContainer}>
-        <TextInput multiline={true} style={styles.askInput} value="Is Facebook going to the gutters ?!?!?"/>  
+        <TextInput placeholder="Is Facebook going to the gutters ?!?!?" multiline={true} style={styles.askInput}/>  
       </View>
     )
   }
