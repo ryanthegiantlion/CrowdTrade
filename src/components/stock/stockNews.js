@@ -85,18 +85,18 @@ var styles = StyleSheet.create({
     borderWidth: 1,
   },
   title: {
-    color: 'white',
+    color: '#F1F1F1',
     fontWeight: 'bold',
   },
   detailsContainer: {
     flexDirection: 'row',
   },
   source: {
-    color:'white',
+    color: '#F1F1F1',
   },
   date: {
     flex: 1,
     textAlign: 'right',
-    color: 'white',
+    color: '#F1F1F1',
   },
 });
