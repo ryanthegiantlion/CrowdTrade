@@ -10,11 +10,6 @@
 				"date": "20 Mar 2016"
 			},
 			{
-				"id": 2,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-				"date": "7 days ago"
-			},
-			{
 				"id": 3,
 				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 				"date": "1 day ago"
@@ -30,11 +25,6 @@
 				"id": 4,
 				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 				"date": "1 Jan 2016"
-			},
-			{
-				"id": 5,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-				"date": "Mon, 2 Jan 2016 14:43:43 GMT"
 			},
 			{
 				"id": 6,
@@ -74,11 +64,6 @@
 				"id": 10,
 				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
 				"date": "20 Mar 2016"
-			},
-			{
-				"id": 11,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-				"date": "25 Mar 2016"
 			},
 			{
 				"id": 12,

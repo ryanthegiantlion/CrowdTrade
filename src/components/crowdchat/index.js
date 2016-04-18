@@ -26,7 +26,7 @@ class AskContainer extends Component {
     // autoFocus={true}
     return (
       <View style={styles.askContainer}>
-        <TextInput multiline={true} style={styles.askInput} value="Is Facebook going to the gutters ?!?!?"/>  
+        <TextInput placeholder="Is Facebook going to the gutters ?!?!?" multiline={true} style={styles.askInput}/>  
       </View>
     )
   }
@@ -38,7 +38,7 @@ class AnswerItem extends Component {
       <View style={styles.answerItemContainer}>
         <Text style={styles.answer}>{this.props.comment}</Text>
         <View style={styles.likeAndDateContainer}>
-          <TouchableHighlight><Icon style={styles.like} name='thumbs-up' size={12} /></TouchableHighlight>
+          <TouchableHighlight underlayColor="rgba(0,0,0,0.3)"><Icon style={styles.like} name='thumbs-up' size={12} /></TouchableHighlight>
           <Text style={styles.date}>{this.props.date}</Text>
         </View>
       </View>
@@ -52,6 +52,7 @@ class AnswersContainer extends Component {
     return (
       <View style={styles.answersContainer}>
         {answerItems}
+        <TextInput placeholder="Post your comment" multiline={true} style={styles.commentInput}/>
       </View>
     )
   }
@@ -79,7 +80,7 @@ class QuestionItem extends Component {
       answers = <AnswersContainer answers={this.props.answers} />
     } 
     return (
-      <TouchableHighlight onPress={() => this.toggleItem()}>
+      <TouchableHighlight onPress={() => this.toggleItem()} underlayColor="rgba(0,0,0,0.3)">
         <View style={styles.questionItemContainer}>
           <Text style={styles.number}>{this.props.id + "."}</Text>
           <View style={styles.titleAndDescriptionContainer}>
@@ -206,6 +207,15 @@ const styles = StyleSheet.create({
       fontSize: 14,
       flex: 1,
       margin: 10,
+    },
+
+    commentInput: {
+      padding: 2,
+      borderWidth: 1,
+      height: 30,
+      fontSize: 14,
+      borderColor: '#CCC',
+      borderRadius: 4,
     },
 
     likeAndDateContainer: {

@@ -214,7 +214,7 @@ class Trending extends Component {
           <View style={styles.buttonsContainer}>
             <View style={styles.buttonContainer}>
               <TouchableHighlight style={[styles.button]} underlayColor='#EEE' onPress={() => {this.handleNopePress()}}>
-                <View>
+                <View style={styles.buttonInnerContainer}>
                   <Text style={[styles.buttonLabel, styles.redText]}>Say No</Text>
                   <Text style={[styles.buttonPercentage, styles.redText]}>{stock0.noPercent}</Text>
                 </View>
@@ -222,7 +222,7 @@ class Trending extends Component {
             </View>
             <View style={styles.buttonContainer}>
               <TouchableHighlight style={[styles.button]} underlayColor='#EEE' onPress={() => {this.handleYupPress()}}>
-                <View>
+                <View style={styles.buttonInnerContainer}>
                   <Text style={[styles.buttonLabel, styles.greenText]}>Say Yes</Text>
                   <Text style={[styles.buttonPercentage, styles.greenText]}>{stock0.yesPercent}</Text>
                 </View>
@@ -331,6 +331,10 @@ var styles = StyleSheet.create({
   buttonPercentage: {
     fontSize: 24,
     fontWeight: 'bold',
+  },
+  buttonInnerContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
 
