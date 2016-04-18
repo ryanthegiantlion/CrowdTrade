@@ -2,6 +2,7 @@ import React, { ListView, StyleSheet, Text, View, Animated, Component, Touchable
 
 import Dimensions from 'Dimensions';
 import Linking from 'Linking';
+var ScrollableTabView = require('react-native-scrollable-tab-view');
 
 var IconIonicons = require('react-native-vector-icons/Ionicons');
 
