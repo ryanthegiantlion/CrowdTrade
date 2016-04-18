@@ -5,12 +5,13 @@ import Dimensions from 'Dimensions';
 var IconIonicons = require('react-native-vector-icons/Ionicons');
 
 var graphImages = {
-  image1w: require('../../store/data/trending/stock_graph/1w.jpeg'),
-  image1m: require('../../store/data/trending/stock_graph/1m.jpeg'),
-  image3m: require('../../store/data/trending/stock_graph/3m.jpeg'),
-  image6m: require('../../store/data/trending/stock_graph/6m.jpeg'),
-  image1y: require('../../store/data/trending/stock_graph/1y.jpeg'),
-  image2y: require('../../store/data/trending/stock_graph/2y.jpeg'),
+  image1d: require('../../store/data/trending/stock_graph/1d.png'),
+  image1w: require('../../store/data/trending/stock_graph/1w.png'),
+  image1m: require('../../store/data/trending/stock_graph/1m.png'),
+  //image3m: require('../../store/data/trending/stock_graph/3m.jpeg'),
+  image6m: require('../../store/data/trending/stock_graph/6m.png'),
+  image1y: require('../../store/data/trending/stock_graph/1y.png'),
+  //image2y: require('../../store/data/trending/stock_graph/2y.jpeg'),
 }
 
 export default class TimeSpanSelector extends Component {
@@ -37,7 +38,7 @@ export default class StockPerformance extends Component {
     super(props);
 
     this.state = {
-      currentTimeSpan: '1w'
+      currentTimeSpan: '1d'
     }
   }
 
@@ -50,12 +51,11 @@ export default class StockPerformance extends Component {
     return (
       <View style={[styles.stockPerformanceContainer, {width: screenwidth}]}>
       	<View style={styles.timeSpansContainer}>
-          <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='1w' timeSpanLabel='1W' isActive={this.state.currentTimeSpan == '1w'}/>
-          <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='1m' timeSpanLabel='1M' isActive={this.state.currentTimeSpan == '1m'}/>
-          <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='3m' timeSpanLabel='3M' isActive={this.state.currentTimeSpan == '3m'}/>
+          <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='1d' timeSpanLabel='1d' isActive={this.state.currentTimeSpan == '1d'}/>
+          <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='1w' timeSpanLabel='1w' isActive={this.state.currentTimeSpan == '1w'}/>
+          <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='1m' timeSpanLabel='1m' isActive={this.state.currentTimeSpan == '1m'}/>
           <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='6m' timeSpanLabel='6M' isActive={this.state.currentTimeSpan == '6m'}/>
           <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='1y' timeSpanLabel='1Y' isActive={this.state.currentTimeSpan == '1y'}/>
-          <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='2y' timeSpanLabel='2Y' isActive={this.state.currentTimeSpan == '2y'}/>
       	</View>
         <Image source={graphImages["image" + this.state.currentTimeSpan]} style={[styles.graph, {width: screenwidth}]} resizeMode={Image.resizeMode.stretch}/>
       </View>

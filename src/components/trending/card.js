@@ -216,7 +216,7 @@ var styles = StyleSheet.create({
     marginBottom: 4,
   },
   cardStockStatLabel: {
-    flex: 1,
+    width: 40,
     fontSize: 7,
     marginRight: 4,
     color: '#666',
@@ -224,10 +224,9 @@ var styles = StyleSheet.create({
     textAlign: 'right',
   },
   cardStockStat: {
-    flex: 1,
+    width: 50,
     fontSize: 10,
     fontWeight: 'bold',
-    textAlign: 'left',
   },
   cardStockDiffContainer: {
     flexDirection: 'row',
