@@ -72,7 +72,7 @@ export default class StockNews extends Component {
 var styles = StyleSheet.create({
   stockPerformanceContainer: {
     backgroundColor: 'black',
-    height: 400,
+    flex: 1,
   },
   heading: {
     color: 'white',

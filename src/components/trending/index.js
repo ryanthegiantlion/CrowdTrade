@@ -116,22 +116,29 @@ class Trending extends Component {
   }
 
   onToggleIsDropDownDisplayed() {
-    this.props.onToggleIsDropDownDisplayed();
+    
     if (this.state.dropDownOffset._value == 0)
     {
+      this.setState({overlay:true});
       Animated.timing(this.state.dropDownOffset, {
-              toValue: 120,
+              toValue: 60,
               duration: 200,
               delay: 100,
-        }).start(function() {this.setState({overlay:true});}.bind(this))
+        }).start(function() {
+          
+          this.props.onToggleIsDropDownDisplayed();
+        }.bind(this))
     }
     else
     {
+      this.setState({overlay:false});
       Animated.timing(this.state.dropDownOffset, {
               toValue: 0,
               duration: 200,
               delay: 100,
-        }).start(function() {this.setState({overlay:false});}.bind(this))
+        }).start(function() {    
+          this.props.onToggleIsDropDownDisplayed();
+        }.bind(this))
     }
   }
 
@@ -144,8 +151,8 @@ class Trending extends Component {
 
     // card 0 animation
     let rotate = pan.x.interpolate({inputRange: [-240, 0, 240], outputRange: ["-30deg", "0deg", "30deg"]});
-    let cardBottom = dropDownOffset.interpolate({inputRange: [0, 80], outputRange: [0, -80]})
-    let stockDetailHeight = dropDownOffset.interpolate({inputRange: [0, 80], outputRange: [80, 160]})
+    let cardBottom = dropDownOffset.interpolate({inputRange: [0, 80], outputRange: [0, -40]})
+    let stockDetailHeight = dropDownOffset.interpolate({inputRange: [0, 80], outputRange: [80, 240]})
 
     let animatedCardStyles = {transform: [{translateX}, {translateY}, {rotate}], bottom: cardBottom};
     let animatedStockDetailHeight = {height: stockDetailHeight}
