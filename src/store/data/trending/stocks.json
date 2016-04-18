@@ -19,7 +19,9 @@
     "yearHigh": "696.44",
     "image": "AMZN.jpg",
     "nopes": "40.1 K",
-    "likes": "36.8 K"
+    "likes": "36.8 K",
+    "yesPercent": "32%",
+    "noPercent": "68%"
   },
   {
     "yearLow": "42.05",
@@ -41,7 +43,9 @@
     "yearHigh": "64.00",
     "image": "SBUX.jpg",
     "nopes": "12.6 K",
-    "likes": "38.8 K"
+    "likes": "38.8 K",
+    "yesPercent": "55%",
+    "noPercent": "45%"
   },
   {
     "yearLow": "39.7200",
@@ -63,7 +67,9 @@
     "yearHigh": "56.8500",
     "image": "MSFT.jpg",
     "nopes": "90.6 K",
-    "likes": "93.7 K"
+    "likes": "93.7 K",
+    "yesPercent": "30%",
+    "noPercent": "70%"
   },
   {
     "yearLow": "92.000",
@@ -85,7 +91,9 @@
     "yearHigh": "134.540",
     "image": "AAPL.jpg",
     "nopes": "23.4 K",
-    "likes": "57.9 K"
+    "likes": "57.9 K",
+    "yesPercent": "70%",
+    "noPercent": "30%"
   },
   {
     "yearLow": "57.20",
@@ -107,7 +115,9 @@
     "yearHigh": "95.06",
     "image": "BABA.jpg",
     "nopes": "78.1 K",
-    "likes": "10.6 K"
+    "likes": "10.6 K",
+    "yesPercent": "90%",
+    "noPercent": "10%"
   },
   {
     "yearLow": "100.00",
@@ -129,7 +139,9 @@
     "yearHigh": "223.95",
     "image": "BIDU.jpg",
     "nopes": "35.7 K",
-    "likes": "95.1 K"
+    "likes": "95.1 K",
+    "yesPercent": "28%",
+    "noPercent": "72%"
   },
   {
     "yearLow": "102.10",
@@ -151,7 +163,9 @@
     "yearHigh": "155.50",
     "image": "BA.jpg",
     "nopes": "91.0 K",
-    "likes": "18.6 K"
+    "likes": "18.6 K",
+    "yesPercent": "21%",
+    "noPercent": "79%"
   },
   {
     "yearLow": "34.52",
@@ -173,7 +187,9 @@
     "yearHigh": "60.95",
     "image": "C.jpg",
     "nopes": "10.9 K",
-    "likes": "67.0 K"
+    "likes": "67.0 K",
+    "yesPercent": "39%",
+    "noPercent": "61%"
   },
   {
     "yearLow": "69.58",
@@ -195,7 +211,9 @@
     "yearHigh": "112.20",
     "image": "CVX.jpg",
     "nopes": "33.5 K",
-    "likes": "92.3 K"
+    "likes": "92.3 K",
+    "yesPercent": "59%",
+    "noPercent": "41%"
   },
   {
     "yearLow": "22.4600",
@@ -217,7 +235,9 @@
     "yearHigh": "29.9000",
     "image": "CSCO.jpg",
     "nopes": "77.9 K",
-    "likes": "99.7 K"
+    "likes": "99.7 K",
+    "yesPercent": "83%",
+    "noPercent": "17%"
   },
   {
     "yearLow": "86.25",
@@ -239,7 +259,9 @@
     "yearHigh": "122.08",
     "image": "DIS.jpg",
     "nopes": "17.8 K",
-    "likes": "16.4 K"
+    "likes": "16.4 K",
+    "yesPercent": "18%",
+    "noPercent": "82%"
   },
   {
     "yearLow": "66.55",
@@ -261,7 +283,9 @@
     "yearHigh": "90.09",
     "image": "XOM.jpg",
     "nopes": "73.6 K",
-    "likes": "83.1 K"
+    "likes": "83.1 K",
+    "yesPercent": "40%",
+    "noPercent": "60%"
   },
   {
     "yearLow": "53.01",
@@ -283,7 +307,9 @@
     "yearHigh": "76.92",
     "image": "EA.jpg",
     "nopes": "48.4 K",
-    "likes": "83.3 K"
+    "likes": "83.3 K",
+    "yesPercent": "46%",
+    "noPercent": "44%"
   },
   {
     "yearLow": "72.00",
@@ -305,7 +331,9 @@
     "yearHigh": "117.59",
     "image": "FB.jpg",
     "nopes": "29.3 K",
-    "likes": "1.8 K"
+    "likes": "1.8 K",
+    "yesPercent": "20%",
+    "noPercent": "80%"
   },
   {
     "yearLow": "2.15",
@@ -327,7 +355,9 @@
     "yearHigh": "7.85",
     "image": "GRPN.jpg",
     "nopes": "9.2 K",
-    "likes": "32.7 K"
+    "likes": "32.7 K",
+    "yesPercent": "35%",
+    "noPercent": "65%"
   },
   {
     "yearLow": "27.640",
@@ -349,6 +379,8 @@
     "yearHigh": "50.200",
     "image": "HAL.jpg",
     "nopes": "58.1 K",
-    "likes": "87.1 K"
+    "likes": "87.1 K",
+    "yesPercent": "85%",
+    "noPercent": "15%"
   }
 ]

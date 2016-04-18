@@ -214,15 +214,19 @@ class Trending extends Component {
           <View style={styles.buttonsContainer}>
             <View style={styles.buttonContainer}>
               <TouchableHighlight style={[styles.button]} underlayColor='#EEE' onPress={() => {this.handleNopePress()}}>
-                  <Icon name='close' size={40} style={styles.redText} />
-              </TouchableHighlight>
-              <Text style={[styles.likeNopeText, styles.redText]}>{stock0.nopes}</Text>
+                <View>
+                  <Text style={[styles.buttonLabel, styles.redText]}>Say No</Text>
+                  <Text style={[styles.buttonPercentage, styles.redText]}>{stock0.noPercent}</Text>
+                </View>
+              </TouchableHighlight>          
             </View>
             <View style={styles.buttonContainer}>
               <TouchableHighlight style={[styles.button]} underlayColor='#EEE' onPress={() => {this.handleYupPress()}}>
-                  <Icon name='check' size={40} style={styles.greenText}/>
-              </TouchableHighlight>
-              <Text style={[styles.likeNopeText, styles.greenText]}>{stock0.likes}</Text>
+                <View>
+                  <Text style={[styles.buttonLabel, styles.greenText]}>Say Yes</Text>
+                  <Text style={[styles.buttonPercentage, styles.greenText]}>{stock0.yesPercent}</Text>
+                </View>
+              </TouchableHighlight>    
             </View>
           </View>
           {overlay}
@@ -321,12 +325,13 @@ var styles = StyleSheet.create({
     padding: 8,
     borderRadius: 40,
   },
-  likeNopeText: {
-    marginTop: 4,
-    fontSize: 8,
+  buttonLabel: {
+    fontSize: 12
+  },
+  buttonPercentage: {
+    fontSize: 24,
     fontWeight: 'bold',
   },
-
 });
 
 function mapStateToProps(state) {
