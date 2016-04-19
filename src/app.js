@@ -52,25 +52,6 @@ class App extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    paddingTop: 16,
-    flex: 1,
-    backgroundColor: 'black'
-  },
-  bodyContainer: {
-    flex: 1,
-    marginTop: 44,
-    backgroundColor: 'white',
-  },
-  overlay : {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 64,
-    bottom: 0,
-    backgroundColor: 'black',
-    opacity: 0.4,
-  }
 });
 
 function mapStateToProps(state) {

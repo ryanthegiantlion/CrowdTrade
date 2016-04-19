@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   },
   bodyContainer: {
     flex: 1,
-    marginTop: 44,
+    marginTop: 64,
     backgroundColor: 'white',
   },
   overlay : {

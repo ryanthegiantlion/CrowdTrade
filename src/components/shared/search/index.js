@@ -16,7 +16,6 @@ export default class Search extends Component {
       let searchBarWidth = window.width * 2 / 3
       return (
         <View style={styles.searchBarContainer}>
-          <Text style={styles.title}>{this.props.title}</Text>
           <View style={[styles.searchBar, {width: searchBarWidth}]}>
             <MaterialIconsIcon name='search' style={styles.searchBarIcon}/>
             <TextInput
@@ -35,18 +34,14 @@ const styles = StyleSheet.create({
   searchBarContainer: {
     backgroundColor: 'black',
     alignItems: 'center',
-    paddingBottom: 10,
-  },
-  title: {
-    fontSize: 18,
-    color: 'white',
-    marginBottom: 10,
+    paddingTop: 8,
+    paddingBottom: 12,
   },
   searchBar: {
     flexDirection: 'row',
     height: 20,
     backgroundColor: 'white',
-    borderRadius: 10,
+    borderRadius: 14,
     paddingLeft: 4,
     alignItems: 'center',
   },

@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     header: {
       backgroundColor: 'black',
       flexDirection: 'row',
-      height: 56,
+      height: 80,
       alignItems: 'center',
       position: 'absolute',
       top: 0,
@@ -64,11 +64,11 @@ const styles = StyleSheet.create({
       alignItems: 'center',
     },
     image: {
-      height: 36,
-      width: 180,
+      height: 44,
+      width: 220,
     },
     menuIconContainer: {
-      height: 44,
+      height: 50,
       width: 40,
       alignItems: 'center',
       justifyContent: 'center',
