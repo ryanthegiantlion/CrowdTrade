@@ -123,7 +123,7 @@ var styles = StyleSheet.create({
   },
   dotContainer: {
     position: 'absolute',
-    bottom: 6,
+    bottom: 4,
     right: 0,
     left: 0,
     height: 16,

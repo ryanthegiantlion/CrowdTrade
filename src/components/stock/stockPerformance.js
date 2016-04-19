@@ -57,7 +57,7 @@ export default class StockPerformance extends Component {
           <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='6m' timeSpanLabel='6M' isActive={this.state.currentTimeSpan == '6m'}/>
           <TimeSpanSelector onTimeSpanPress={this.onTimeSpanPress.bind(this)} timeSpan='1y' timeSpanLabel='1Y' isActive={this.state.currentTimeSpan == '1y'}/>
       	</View>
-        <Image source={graphImages["image" + this.state.currentTimeSpan]} style={[styles.graph, {width: screenwidth}]} resizeMode={Image.resizeMode.stretch}/>
+        <Image source={graphImages["image" + this.state.currentTimeSpan]} style={[styles.graph, {width: screenwidth}]} resizeMode={Image.resizeMode.contain}/>
       </View>
     )
   }
@@ -68,6 +68,7 @@ var styles = StyleSheet.create({
   stockPerformanceContainer: {
     flex: 1,
     backgroundColor: 'black',
+    paddingBottom: 10,
   },
   timeSpansContainer: {
   	flexDirection: 'row',
@@ -97,6 +98,5 @@ var styles = StyleSheet.create({
   graph: {
     flex: 1,
     padding: 20,
-    transform: [{scale: 0.95}],
   },
 });
