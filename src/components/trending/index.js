@@ -43,12 +43,11 @@ class Trending extends Component {
       onMoveShouldSetResponderCapture: () => {
         return !this.props.isDropDownDisplayed
       },
-      onMoveShouldSetPanResponderCapture: () => {
-        return !this.props.isDropDownDisplayed
+      onMoveShouldSetPanResponderCapture: (e, gestureState) => {
+        return !this.props.isDropDownDisplayed && gestureState.dx != 0 && gestureState.dy != 0
       },
 
       onPanResponderGrant: (e, gestureState) => {
-        console.log('grant')
         this.state.pan.setOffset({x: this.state.pan.x._value, y: this.state.pan.y._value});
         this.state.pan.setValue({x: 0, y: 0});
         this.state.isUserDragging = true;
@@ -59,7 +58,6 @@ class Trending extends Component {
       ]),
 
       onPanResponderRelease: (e, {vx, vy}) => {
-        console.log('release')
         this.state.isUserDragging = false;
         this.state.pan.flattenOffset();
         var velocity;
