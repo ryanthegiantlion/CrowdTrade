@@ -39,20 +39,20 @@ const styles = StyleSheet.create({
   },
   searchBar: {
     flexDirection: 'row',
-    height: 20,
+    height: 24,
     backgroundColor: 'white',
     borderRadius: 14,
     paddingLeft: 4,
     alignItems: 'center',
   },
   searchBarIcon: {
-    fontSize: 18,
+    fontSize: 20,
     backgroundColor: 'rgba(0,0,0,0)',
   },
   searchBarInput: {
     flex: 1,
-    height: 20,
-    fontSize: 12,
+    height: 24,
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });
