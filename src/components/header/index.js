@@ -37,7 +37,7 @@ class Header extends Component {
             <View style={styles.headerTitle}>
               <Image style={styles.image} source={require('./img/logo.jpg')} />
             </View>
-            <TouchableHighlight onPress={this.props.onSettingsPress}>
+            <TouchableHighlight>
               <View style={styles.menuIconContainer}>
                 <IoniconIcon name="gear-a" size={24} color="white" />
               </View>
