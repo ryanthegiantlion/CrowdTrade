@@ -314,20 +314,20 @@ var styles = StyleSheet.create({
     alignItems: 'center',
   },
   button: {
-    width: 80,
-    height: 80,
+    width: 100,
+    height: 100,
     alignItems: 'center',
     justifyContent: 'center',
     borderColor: '#CCCCCC',
     borderWidth: 6,
     padding: 8,
-    borderRadius: 40,
+    borderRadius: 50,
   },
   buttonLabel: {
-    fontSize: 12
+    fontSize: 16
   },
   buttonPercentage: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: 'bold',
   },
   buttonInnerContainer: {
