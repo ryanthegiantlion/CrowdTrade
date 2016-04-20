@@ -31,7 +31,7 @@ class Header extends Component {
           <View style={styles.header}>
             <TouchableHighlight onPress={this.props.onHandleMenuToggle}>
               <View style={styles.menuIconContainer}>
-                <MaterialIcon name="menu" size={24} color="white" />
+                <MaterialIcon name="menu" size={30} color="white" />
               </View>
             </TouchableHighlight>
             <View style={styles.headerTitle}>
@@ -39,7 +39,7 @@ class Header extends Component {
             </View>
             <TouchableHighlight>
               <View style={styles.menuIconContainer}>
-                <IoniconIcon name="gear-a" size={24} color="white" />
+                <IoniconIcon name="gear-a" size={30} color="white" />
               </View>
             </TouchableHighlight>
           </View>
