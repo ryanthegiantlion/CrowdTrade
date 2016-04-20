@@ -147,7 +147,7 @@ class CrowdChat extends Component {
     return (
     <View style={styles.bodyContainer}>
       <Search title='Crowd chat' />
-      <ScrollableTabView contentProps={{bounces: false, keyboardShouldPersistTaps: true}} initialPage={3} renderTabBar={() => <CrowdChatTabBar />}>
+      <ScrollableTabView contentProps={{bounces: false, keyboardShouldPersistTaps: true}} initialPage={0} renderTabBar={() => <CrowdChatTabBar />}>
         <QuestionsContainer chats={this.props.chats} key="HOT" title='HOT' tabLabel='HOT'/>
         <QuestionsContainer chats={this.props.newChats} key="NEW" title='NEW' tabLabel='NEW'/>
         <QuestionsContainer chats={this.props.chats} key="TOP" title='TOP' tabLabel='TOP'/>
