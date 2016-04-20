@@ -4,7 +4,7 @@ var Icon = require('react-native-vector-icons/FontAwesome');
 var IconIonicons = require('react-native-vector-icons/Ionicons');
 import CardDropDown from './cardDropDown'
 
-let staticContainer = 'https://s3-eu-west-1.amazonaws.com/crowdtrade-stock-logos/v1/';
+let staticContainer = 'https://s3-eu-west-1.amazonaws.com/crowdtrade-stock-logos/v2/';
 
 class StockStatLineItem extends Component {
   render() {
