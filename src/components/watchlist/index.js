@@ -123,7 +123,7 @@ function mapStateToProps(state) {
     }
   } else {
     return {
-      stocks: dataSource.cloneWithRows(state.watchList.data.filter((item) => item.symbol.startsWith(state.ui.searchFilter) || item.name.startsWith(state.ui.searchFilter)))
+      stocks: dataSource.cloneWithRows(state.watchList.data.filter((item) => item.symbol.toLowerCase().startsWith(state.ui.searchFilter.toLowerCase()) || item.name.toLowerCase().startsWith(state.ui.searchFilter.toLowerCase())))
     }
   }
 }
