@@ -58,6 +58,7 @@ export default class GridView extends Component {
 
     return (
       <ListView contentContainerStyle={styles.list}
+        pageSize = {8}
         dataSource={this.props.items}
         renderRow={(rowData) => <View style={[styles.itemContainer, {width: containerDimensions, height: containerDimensions}]}><RowItem nav={this.props.nav} newsItem={rowData}/></View>}/>
     );
