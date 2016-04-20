@@ -186,7 +186,7 @@ var styles = StyleSheet.create({
   },
 
   stockDetailsPlaceHolder: {
-    height: 80,
+    height: 90,
   },
   cardStockDetailsContainer: {
     backgroundColor: '#FFF',
