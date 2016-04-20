@@ -4,6 +4,7 @@ export const TOGGLE_MENU = "TOGGLE_MENU"
 export const CHANGE_ROUTE = 'CHANGE_ROUTE'
 export const INCREMENT_TRENDING_CURRENT_POSITION = 'INCREMENT_TRENDING_CURRENT_POSITION'
 export const TOGGLE_IS_TRENDING_DROPDOWN_DISPLAYED = 'TOGGLE_IS_TRENDING_DROPDOWN_DISPLAYED'
+export const ADD_QUESTION = "ADD_QUESTION"
 
 // action creators
 
@@ -30,5 +31,12 @@ export function incrementTrendingCurrentPosition(position) {
 export function toggleIsTrendingDropDownDisplayed() {
   return {
     type: TOGGLE_IS_TRENDING_DROPDOWN_DISPLAYED
+  }
+}
+
+export function addQuestion(text) {
+  return {
+    type: ADD_QUESTION,
+    text: text
   }
 }

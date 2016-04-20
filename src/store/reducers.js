@@ -51,7 +51,45 @@ function featuredNews(state={data: []}, action) {
   return state
 }
 
+// "id": 5,
+//     "isNew": false, 
+//     "title": "Who else things that investing in Microsoft is the s***???", 
+//     "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
+//     "answers": [
+//       {
+//         "id": 13,
+//         "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+//         "date": "30 April 2016"
+//       },
+//       {
+//         "id": 14,
+//         "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+//         "date": "1 May 2016"
+//       },
+//       {
+//         "id": 15,
+//         "comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+//         "date": "10 minutes ago"
+//       }
+//     ]
+
 function crowdChat(state={data: []}, action) {
+  switch (action.type) {
+    case actions.ADD_QUESTION:
+      var last = state.data[state.data.length-1]
+      return Object.assign({}, state, {
+        data: [
+          {
+            "id": last.id+1,
+            "isNew": true,
+            "title": action.text,
+            "description": action.text,
+            "answers": []
+          },
+          ...state.data]})
+    default:
+      return state
+  }
   return state
 }
 
