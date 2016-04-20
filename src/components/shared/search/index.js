@@ -7,28 +7,34 @@ import React, {
   View,
   Dimensions,
 } from 'react-native';
+import { updateSearchFilter } from '../../../store/actions'
+import { connect } from 'react-redux'
 
 var MaterialIconsIcon = require('react-native-vector-icons/MaterialIcons');
 
-export default class Search extends Component {
-    render() {
-      let window = Dimensions.get('window')
-      let searchBarWidth = window.width * 2 / 3
-      return (
-        <View style={styles.searchBarContainer}>
-          <View style={[styles.searchBar, {width: searchBarWidth}]}>
-            <MaterialIconsIcon name='search' style={styles.searchBarIcon}/>
-            <TextInput
-              placeholder='Search Company / Symbol'
-              placeholderTextColor='#666'
-              style={styles.searchBarInput}/>
-          </View>
+class Search extends Component {
+  componentWillUnmount() {
+    this.props.onUpdateSearchFilter('')
+  }
+
+  render() {
+    let window = Dimensions.get('window')
+    let searchBarWidth = window.width * 2 / 3
+    return (
+      <View style={styles.searchBarContainer}>
+        <View style={[styles.searchBar, {width: searchBarWidth}]}>
+          <MaterialIconsIcon name='search' style={styles.searchBarIcon}/>
+          <TextInput
+            value={this.props.searchFilter}
+            onChangeText={(text) => this.props.onUpdateSearchFilter(text)} 
+            placeholder='Search Company / Symbol'
+            placeholderTextColor='#666'
+            style={styles.searchBarInput}/>
         </View>
-      );
-    }
+      </View>
+    );
+  }
 }
-
-
 
 const styles = StyleSheet.create({
   searchBarContainer: {
@@ -56,3 +62,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+function mapStateToProps(state) {
+  return {
+    searchFilter: state.ui.searchFilter,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onUpdateSearchFilter: (text) => {
+      dispatch(updateSearchFilter(text))
+    },
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Search);

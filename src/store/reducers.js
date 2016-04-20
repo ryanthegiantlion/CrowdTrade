@@ -1,17 +1,25 @@
 import { combineReducers } from 'redux'
 import * as actions from './actions';
 
-function ui(state={isMenuShowing: false, currentRoute: 'trending'}, action) {
+function ui(state={isMenuShowing: false, currentRoute: 'trending', searchFilter: ''}, action) {
   switch (action.type) {
     case actions.TOGGLE_MENU:
       return {
         isMenuShowing: !state.isMenuShowing,
-        currentRoute: state.currentRoute
+        currentRoute: state.currentRoute,
+        searchFilter: state.searchFilter
       }
     case actions.CHANGE_ROUTE:
       return {
         isMenuShowing: false,
-        currentRoute: action.route
+        currentRoute: action.route,
+        searchFilter: state.searchFilter
+      }
+    case actions.UPDATE_SEARCH_FILTER: 
+      return {
+        isMenuShowing: state.isMenuShowing,
+        currentRoute: state.currentRoute,
+        searchFilter: action.text
       }
     default:
       return state

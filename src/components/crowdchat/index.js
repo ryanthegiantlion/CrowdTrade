@@ -297,9 +297,16 @@ const dataSource = new ListView.DataSource({
 });
 
 function mapStateToProps(state) {
-  return {
-    chats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew)),
-    newChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => item.isNew)),
+  if (state.ui.searchFilter.length == 0) {
+    return {
+      chats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew)),
+      newChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => item.isNew))
+    }
+  } else {
+    return {
+      chats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew && item.title.indexOf(state.ui.searchFilter) != -1)),
+      newChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => item.isNew && item.title.indexOf(state.ui.searchFilter) != -1))
+    }
   }
 }
 

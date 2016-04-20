@@ -38,10 +38,10 @@ export default class GridView extends Component {
   constructor(props) {
     super(props);
 
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(this.props.items),
-    };
+    // var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    // this.state = {
+    //   dataSource: ds.cloneWithRows(this.props.items),
+    // };
   }
 
   render() {
@@ -50,8 +50,8 @@ export default class GridView extends Component {
 
     return (
       <ListView contentContainerStyle={styles.list}
-        dataSource={this.state.dataSource}
-        renderRow={(rowData) => <View style={[styles.itemContainer, {width: containerDimensions, height: containerDimensions}]}><RowItem nav={this.props.nav} stockItem={rowData}/></View>}/>
+        dataSource={this.props.items}
+        renderRow={(rowData) => <View key={rowData.symbol} style={[styles.itemContainer, {width: containerDimensions, height: containerDimensions}]}><RowItem nav={this.props.nav} stockItem={rowData}/></View>}/>
     );
   }
 }
@@ -107,8 +107,24 @@ const styles = StyleSheet.create({
   },
 });
 
+// function mapStateToProps(state) {
+//   return {stocks: state.watchList.data}
+//}
+
+const dataSource = new ListView.DataSource({
+  rowHasChanged: (r1, r2) => r1 !== r2,
+});
+
 function mapStateToProps(state) {
-  return {stocks: state.watchList.data}
+  if (state.ui.searchFilter.length == 0) {
+    return {
+      stocks: dataSource.cloneWithRows(state.watchList.data),
+    }
+  } else {
+    return {
+      stocks: dataSource.cloneWithRows(state.watchList.data.filter((item) => item.symbol.startsWith(state.ui.searchFilter) || item.name.startsWith(state.ui.searchFilter)))
+    }
+  }
 }
 
 module.exports = connect(mapStateToProps)(WatchList);

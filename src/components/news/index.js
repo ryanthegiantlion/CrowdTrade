@@ -46,10 +46,10 @@ export default class GridView extends Component {
   constructor(props) {
     super(props);
 
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(this.props.items),
-    };
+    // var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    // this.state = {
+    //   dataSource: ds.cloneWithRows(this.props.items),
+    // };
   }
 
   render() {
@@ -58,7 +58,7 @@ export default class GridView extends Component {
 
     return (
       <ListView contentContainerStyle={styles.list}
-        dataSource={this.state.dataSource}
+        dataSource={this.props.items}
         renderRow={(rowData) => <View style={[styles.itemContainer, {width: containerDimensions, height: containerDimensions}]}><RowItem nav={this.props.nav} newsItem={rowData}/></View>}/>
     );
   }
@@ -143,16 +143,16 @@ export default class GridView2 extends Component {
   constructor(props) {
     super(props);
 
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(this.props.items),
-    };
+    // var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
+    // this.state = {
+    //   dataSource: ds.cloneWithRows(this.props.items),
+    // };
   }
 
   render() {
     
     var containerDimensions = Math.floor(screenWidth/ this.props.itemsPerRow)
-
+    var rowItems = this.props.items.map((item, index) => <RowItem2 nav={this.props.nav} newsItem={item} tabLabel={index} key={index} />)
     // <ListView contentContainerStyle={styles.list2}
     //     pageSize={2}
     //     horizontal={true}
@@ -160,12 +160,7 @@ export default class GridView2 extends Component {
     //     renderRow={(rowData) => <View style={[styles.itemContainer, {width: containerDimensions, flex: 1}]}><RowItem2 nav={this.props.nav} newsItem={rowData}/></View>}/>
     return (
       <ScrollableTabView contentProps={{bounces: false}} initialPage={1} renderTabBar={() => <View/>}>
-        <RowItem2 nav={this.props.nav} newsItem={this.props.items[0]} tabLabel="0" key="0" />
-        <RowItem2 nav={this.props.nav} newsItem={this.props.items[1]} tabLabel="1" key="1" />
-        <RowItem2 nav={this.props.nav} newsItem={this.props.items[2]} tabLabel="2" key="2" />
-        <RowItem2 nav={this.props.nav} newsItem={this.props.items[3]} tabLabel="3" key="3" />
-        <RowItem2 nav={this.props.nav} newsItem={this.props.items[4]} tabLabel="4" key="4" />
-        <RowItem2 nav={this.props.nav} newsItem={this.props.items[5]} tabLabel="5" key="5" />
+        {rowItems}
       </ScrollableTabView>
     );  
   }
@@ -182,7 +177,7 @@ class News extends Component {
         <Search title='News' />
         
         <ScrollableTabView contentProps={{bounces: false}} initialPage={1}>
-          <GridView items={this.props.news} itemsPerRow={2} nav={this.props.nav} key="ANIMATION1" tabLabel="Animation 1"/>
+          <GridView items={this.props.newsPaged} itemsPerRow={2} nav={this.props.nav} key="ANIMATION1" tabLabel="Animation 1"/>
           <GridView2 items={this.props.news} itemsPerRow={1} nav={this.props.nav} key="ANIMATION2" tabLabel="Animation 2"/>
         </ScrollableTabView>
       </View>
@@ -294,8 +289,22 @@ const styles = StyleSheet.create({
   },
 });
 
+const dataSource = new ListView.DataSource({
+  rowHasChanged: (r1, r2) => r1 !== r2,
+});
+
 function mapStateToProps(state) {
-  return {news: state.featuredNews.data}
+  if (state.ui.searchFilter.length == 0) {
+    return {
+      newsPaged: dataSource.cloneWithRows(state.featuredNews.data), 
+      news: state.featuredNews.data
+    }
+  } else {
+    return {
+      newsPaged: dataSource.cloneWithRows(state.featuredNews.data.filter((newsItem) => newsItem.symbol.startsWith(state.ui.searchFilter) || newsItem.companyName.startsWith(state.ui.searchFilter))),
+      news: state.featuredNews.data.filter((newsItem) => newsItem.symbol.startsWith(state.ui.searchFilter) || newsItem.companyName.startsWith(state.ui.searchFilter))
+    }
+  }
 }
 
 module.exports = connect(mapStateToProps)(News);

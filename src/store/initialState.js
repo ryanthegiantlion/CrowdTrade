@@ -7,7 +7,7 @@ export default function initialState() {
   var virtualPortfolioData = require('./data/virtualportfolio/virtualportfolio.json')
 
   return {
-    ui: {isMenuShowing: false, currentRoute: 'trending'},
+    ui: {isMenuShowing: false, currentRoute: 'trending', searchFilter: ''},
     uiTrending: {currentPosition: 0, isDropDownDisplayed: false},
     trending: {data: trendingData},
     watchList: {data: watchListData},
