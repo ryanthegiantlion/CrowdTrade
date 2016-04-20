@@ -56,12 +56,13 @@ const styles = StyleSheet.create({
       top: 80,
     },
     menuItem: {
-      padding: 8,
+      padding: 12,
       borderTopColor: '#333',
       borderWidth: 1,
     },
     menuItemText: {
       color: 'white',
+      fontSize: 16,
     },
   });
 
