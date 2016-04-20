@@ -202,7 +202,7 @@ var styles = StyleSheet.create({
   },
   cardStockStatsContainer: {
     flexDirection: 'row',
-    height: 30,
+    height: 36,
     //flex: 2,
     borderBottomWidth: 1,
     borderColor: '#BBB',
@@ -216,23 +216,24 @@ var styles = StyleSheet.create({
     marginBottom: 4,
   },
   cardStockStatLabel: {
-    flex: 1,
-    fontSize: 9,
+    width: 60,
+    fontSize: 12,
     marginRight: 4,
     color: '#666',
     fontWeight: '500',
     textAlign: 'right',
+    
   },
   cardStockStat: {
-    flex: 1,
-    fontSize: 12,
+    width: 50,
+    fontSize: 14,
     fontWeight: '500',
     textAlign: 'left',
   },
   cardStockDiffContainer: {
     flexDirection: 'row',
     //flex: 3,
-    height: 50,
+    height: 60,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -245,21 +246,21 @@ var styles = StyleSheet.create({
     //height: 14,
   },
   cardStockDiffImage: {
-    fontSize: 28,
+    fontSize: 40,
     marginRight: 8,
   },
   cardStockDiffLabel: {
-    fontSize: 9,
+    fontSize: 12,
     marginRight: 2,
     paddingBottom: 2,
   },
   cardStockDiff: {
-    fontSize: 14,
+    fontSize: 16,
     fontWeight: 'bold',
     marginRight: 6,
   },
   cardStockPercentageChange: {
-    fontSize: 9,
+    fontSize: 12,
     alignSelf: 'flex-start',
   },
 });
