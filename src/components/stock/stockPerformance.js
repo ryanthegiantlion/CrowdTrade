@@ -8,10 +8,8 @@ var graphImages = {
   image1d: require('../../store/data/trending/stock_graph/1d.png'),
   image1w: require('../../store/data/trending/stock_graph/1w.png'),
   image1m: require('../../store/data/trending/stock_graph/1m.png'),
-  //image3m: require('../../store/data/trending/stock_graph/3m.jpeg'),
   image6m: require('../../store/data/trending/stock_graph/6m.png'),
   image1y: require('../../store/data/trending/stock_graph/1y.png'),
-  //image2y: require('../../store/data/trending/stock_graph/2y.jpeg'),
 }
 
 export default class TimeSpanSelector extends Component {
@@ -67,8 +65,8 @@ var styles = StyleSheet.create({
 
   stockPerformanceContainer: {
     flex: 1,
-    backgroundColor: 'black',
     paddingBottom: 10,
+    backgroundColor: 'black',
   },
   timeSpansContainer: {
   	flexDirection: 'row',

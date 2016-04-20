@@ -95,19 +95,12 @@ class CardImage extends Component {
 
 export default class Card extends Component {
   render() {
-    let cardImage=<CardImage {...this.props}/>
-    if (this.props.isDropDownDisplayed) {
-      cardImage=<CardDropDown {...this.props} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed} news={this.props.news}/>
-    }
+
     return (
-      <Animated.View style={[styles.cardContainer, this.props.animatedCardContainerStyles]}>
-        <Animated.View style={[styles.card, this.props.animatedCardStyles]} {...this.props.panResponder}>
+        <View style={styles.card}>
+          <CardDropDown {...this.props} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed} news={this.props.news}/>
           <StockDetails {...this.props}/>
-          {cardImage}
-          <Animated.View style={[styles.stockDetailsPlaceHolder, this.props.animatedStockDetailHeight]}>
-          </Animated.View>
-        </Animated.View>
-      </Animated.View>
+        </View>
     );
   }
 }
@@ -122,21 +115,8 @@ var styles = StyleSheet.create({
     color: '#b5173a',
   },
 
-  cardContainer: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
-    justifyContent: 'flex-end',
-  },
-
   card: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    bottom: 0,
-    right: 0,
+    flex: 1,
     borderWidth: 1,
     borderColor: '#999',
     borderBottomLeftRadius: 4,
@@ -159,16 +139,6 @@ var styles = StyleSheet.create({
     position: 'absolute',
     opacity: 0,
   },
-  cardImageYupContainer : {
-    top: 20,
-    left: 20,
-    transform:[{rotate: '-10deg'}],
-  },
-  cardImageNopeContainer : {
-    top: 20,
-    right: 20,
-    transform:[{rotate: '10deg'}],
-  },
   cardImageText: {
     fontSize: 50,
     fontWeight: 'bold',
@@ -184,17 +154,9 @@ var styles = StyleSheet.create({
     padding: 4,
     paddingLeft: 8,
   },
-
-  stockDetailsPlaceHolder: {
-    height: 80,
-  },
   cardStockDetailsContainer: {
     backgroundColor: '#FFF',
     //height: 80,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
     paddingLeft: 12,
     paddingRight: 12,
     borderRadius: 4,
@@ -202,18 +164,18 @@ var styles = StyleSheet.create({
   },
   cardStockStatsContainer: {
     flexDirection: 'row',
-    height: 36,
+    height: 44,
     //flex: 2,
     borderBottomWidth: 1,
     borderColor: '#BBB',
-    alignItems: 'flex-end',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   cardStockStatContainer: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'flex-end',
-    marginBottom: 4,
+    alignItems: 'center',
   },
   cardStockStatLabel: {
     width: 60,
@@ -222,7 +184,6 @@ var styles = StyleSheet.create({
     color: '#666',
     fontWeight: '500',
     textAlign: 'right',
-    
   },
   cardStockStat: {
     width: 50,
@@ -233,7 +194,7 @@ var styles = StyleSheet.create({
   cardStockDiffContainer: {
     flexDirection: 'row',
     //flex: 3,
-    height: 60,
+    height: 70,
     justifyContent: 'center',
     alignItems: 'center',
   },
