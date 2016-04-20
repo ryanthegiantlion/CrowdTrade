@@ -1,59 +1,84 @@
 [
 	{
 		"id": 1,
-		"isNew": true, 
-		"title": "Whats up with FB stock? \nWhy do they keep dropping?", 
-		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
-		"answers": [
-			{	
-				"id": 1,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-				"date": "20 Mar 2016"
-			},
-			{
-				"id": 3,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-				"date": "1 day ago"
-			}
-		]
-	}, 
-	{
-		"id": 2,
 		"isNew": false, 
 		"title": "Could someone PLEASE tell me what 'futures' are???", 
-		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
+		"description": "Sorry I know it sounds stupid, but im really new to trading and trying to explain to my girl what futures are, any help?!?!",
 		"answers": [
 			{
-				"id": 4,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"id": 1,
+				"comment": "Basically it’s like something you buy from the company at an agreed price but delivered and paid for later",
 				"date": "1 Jan 2016"
 			},
 			{
-				"id": 6,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"id": 2,
+				"comment": "It’s a share or commodity you buy now but pay for later and receive it later",
 				"date": "5 days ago"
+			},
+			{
+				"id": 3,
+				"comment": "Thanks for the help!",
+				"date": "3 days ago"
 			}
 		]
-	}, 
+	},
+	{
+		"id": 2,
+		"isNew": false, 
+		"title": "GoPro… Is now the time?!?! Need help quick!", 
+		"description": "Just saw the news on GoPro and how it crashed, should I buy now, or wait?",
+		"answers": [
+			{
+				"id": 4,
+				"comment": "It depends on what youre looking for. Fast return? Safety? High risk??",
+				"date": "30 April 2016"
+			},
+			{
+				"id": 5,
+				"comment": "Word of advice… NO The portfolio sucks and is not diverse enough, thousands of competitors in china selling for cheaper, and the company hasn’t been able to differentiate itself or diversify in the last 3 years….",
+				"date": "1 May 2016"
+			},
+			{
+				"id": 6,
+				"comment": "I bought at 9 and now it’s 12, still think it will go higher",
+				"date": "10 minutes ago"
+			},
+			{
+				"id": 7,
+				"comment": "I bought at 9 and now it’s 12, still think it will go higher",
+				"date": "10 minutes ago"
+			},
+			{
+				"id": 8,
+				"comment": "NONONONONONONO!!!",
+				"date": "10 minutes ago"
+			},
+			{
+				"id": 9,
+				"comment": "Put in a bit of cash and take the chance, its an interesting company and if they diversify successfully you could make a killing. But don’t take big chances",
+				"date": "10 minutes ago"
+			}
+		]
+	},
 	{
 		"id": 3,
 		"isNew": false, 
 		"title": "What is a good energy stock?", 
-		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
+		"description": "Newbie here! Always thought investing in alternate energy would be a good idea, btu have no idea of what the best companies are… any help?",
 		"answers": [
 			{
-				"id": 7,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"id": 10,
+				"comment": "I like Engie, they are cheap(ish) and they have good lans for the future",
 				"date": "30 April 2016"
 			},
 			{
-				"id": 8,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"id": 11,
+				"comment": "What do you consider an “energy” stock?",
 				"date": "Mon, 1 May 2016 14:43:43 GMT"
 			},
 			{
-				"id": 9,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"id": 12,
+				"comment": "A good alternate energy option in my opinion would be Norsk Hydro, also was a Goldman Sachs pick for 2015",
 				"date": "10 minutes ago"
 			}
 		]
@@ -61,42 +86,177 @@
 	{
 		"id": 4,
 		"isNew": false, 
-		"title": "Who things facebook is done?", 
-		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
+		"title": "Is Facebook over or still a good option?", 
+		"description": "Been thinking of buying FB shares now that they have had IPO for a while but im really unsure…",
 		"answers": [
 			{
-				"id": 10,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"id": 13,
+				"comment": "It’s steady I can say that much",
 				"date": "20 Mar 2016"
 			},
 			{
-				"id": 12,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"id": 14,
+				"comment": "It depends, I just read a really interesting article called content collapse and basically Facebook is trying to prevent this. So if they succeed then yes the stock is good, if they don’t then I would opt for something else maybe Sina Corp in china",
+				"date": "1 day ago"
+			},
+			{
+				"id": 15,
+				"comment": "I bought it and don’t regret it, although I did get it long ago",
+				"date": "1 day ago"
+			},
+			{
+				"id": 16,
+				"comment": "I don’t think so, but then again I don’t use facebook",
+				"date": "1 day ago"
+			},
+			{
+				"id": 17,
+				"comment": "^^How can you not use Facebook hahahaha",
+				"date": "1 day ago"
+			},
+			{
+				"id": 18,
+				"comment": "^^all about IG dude",
 				"date": "1 day ago"
 			}
 		]
 	},
 	{
 		"id": 5,
+		"isNew": true, 
+		"title": "Thought FB was good… why does it keep dropping????", 
+		"description": "Super new to investing, thought FB was good, but why does it keep??? I just bought it and it wont stop going down!!",
+		"answers": [
+			{	
+				"id": 19,
+				"comment": "It’s steadiness relies on the Social Ecosphere (So the more other apps grow the more Facebook dies and so investors pull out…",
+				"date": "20 Mar 2016"
+			},
+			{
+				"id": 20,
+				"comment": "Lol that is most certainly not the reason at all hahahaha its because it isn’t going to meet its projections",
+				"date": "1 day ago"
+			},
+			{
+				"id": 21,
+				"comment": "Who remembers when it first got IPO!?! What a fiasco",
+				"date": "1 day ago"
+			},
+			{
+				"id": 22,
+				"comment": "To be honest I never thought it would ever get past 100",
+				"date": "1 day ago"
+			}
+		]
+	}, 
+	{
+		"id": 6,
 		"isNew": false, 
-		"title": "Who else things that investing in Microsoft is the s***???", 
-		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
+		"title": "Just started investing. Should I put money into China?", 
+		"description": "I know people have been saying stay out of china, but I see some companies like Sina Corp are actually doing well, would it be ok to go into those companies?",
 		"answers": [
 			{
-				"id": 13,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"id": 23,
+				"comment": "Remember that the Chinese market is still up over 60% this year. The government continues to make policies that are keeping the market artificially high. Chinese growth is expected to slow significantly over the coming years. Investing in China at this point is an extremely risky place to be. Wouldn't recommend taking on a lot of exposure at this point. Buying China is like buying a lottery ticket right now.",
+				"date": "1 Jan 2016"
+			},
+			{
+				"id": 24,
+				"comment": "I feel around this time would be safe to pick up a few Chinese stocks. Diversity is usually good. However, if you still want to eat tomorrow, I'd be careful where you place your bets.",
+				"date": "5 days ago"
+			},
+			{
+				"id": 25,
+				"comment": "I have a question for someone in this thread. I thought you have to be a Chinese citizen to buy Chinese stocks? Like, when I opened my vanguard account, you have to be a US citizen? Can an American even purchase Chinese stocks?",
+				"date": "3 days ago"
+			},
+			{
+				"id": 26,
+				"comment": "I was looking at HOLI which sells on the nasdaq and seems to have great financials. Also, there's always the option of going for an emerging market ETF that has big portion of the portfolio dedicated to stocks in china. (XEC.TO)",
+				"date": "3 days ago"
+			},
+			{
+				"id": 27,
+				"comment": "The SEC doesn't operate in China. I see no reason to trust numbers Chinese companies put out for their financials.",
+				"date": "3 days ago"
+			},
+			{
+				"id": 28,
+				"comment": "Only if you want to hop along for Mr. Toad's wild ride. Also, the Chinese don't share the American/Western commitment to, uh, honest accounting practices.",
+				"date": "3 days ago"
+			},
+			{
+				"id": 29,
+				"comment": "But I mean like, if I wanted to by the actual chinese stocks that a chinese citizen buys, that wouldn't be possible right?",
+				"date": "3 days ago"
+			},
+			{
+				"id": 30,
+				"comment": "I'd recommend buying on the HK market. Although the volatility is lacking at least you can withdraw your winnings.",
+				"date": "3 days ago"
+			}
+
+		]
+	}, 
+	{
+		"id": 7,
+		"isNew": false, 
+		"title": "Why are so many people boycotting Nestle", 
+		"description": "",
+		"answers": [
+			{
+				"id": 31,
+				"comment": "Because they have some pretty evil business practices in 3rd world countries, especially in Africa. \nIn Africa, they have a program to give free (at first) baby food to mothers who can't afford to buy it. Then, after the mothers stop producing milk naturally from their breasts, Nestlé stops providing it for free and charges ridiculous prices for the baby food. Since their breasts no longer produce milk, the mothers are forced to pay for the food if they want their child to live.",
 				"date": "30 April 2016"
 			},
 			{
-				"id": 14,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-				"date": "1 May 2016"
+				"id": 32,
+				"comment": "1: They use slave labor to make their chocolate \n2: They buy water rights from drought stricken areas to bottle up and sell \n3: They make noodles with extremely high lead content, which can lead to health problems",
+				"date": "Mon, 1 May 2016 14:43:43 GMT"
 			},
 			{
-				"id": 15,
-				"comment": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+				"id": 33,
+				"comment": "Lol I actually never knew they had such a big amount of products… I thought they just did chocolate!",
 				"date": "10 minutes ago"
 			}
 		]
-	}
+	}, 
+	{
+		"id": 8,
+		"isNew": false, 
+		"title": "Thoughts on VW?", 
+		"description": "They dropped about 18% from emission scandal, is it a good time to buy?",
+		"answers": [
+			{
+				"id": 34,
+				"comment": "They're on the hook for a fine up to $18 Billion. I'd stay away. $TM is currently in my portfolio along with $GM. I think they are both better options for the short and long term.",
+				"date": "30 April 2016"
+			},
+			{
+				"id": 35,
+				"comment": "Matthias Müller just named CEO. He was the head of Porsche. Company continues to move fast.",
+				"date": "Mon, 1 May 2016 14:43:43 GMT"
+			},
+			{
+				"id": 36,
+				"comment": "Volkswagen's 'brand damage' won't be as bad as you think. There's already rumors that pretty much every other large car manufacturer cheats on emissions tests as well. I'd say wait a couple of months before buying.",
+				"date": "10 minutes ago"
+			},
+			{
+				"id": 37,
+				"comment": "20% drop in one day, pshh that's nothing. My SUNE dropped 25% in one day, then 20% the next day again. Then another 15% the next day. All for nothing really. 20% is just the beginning. But in 4 years they'll be better off than they are today.",
+				"date": "10 minutes ago"
+			},
+			{
+				"id": 38,
+				"comment": "No. This couod seriously hurt sales. And possible billions in fines. It's not bouncing back anytime soon IMO. Let it settle and check back in a year.",
+				"date": "10 minutes ago"
+			},
+			{
+				"id": 39,
+				"comment": "no its NOT a good time to buy! this is not one of those trades. This one is different. Evidence shows that deliberately installed the software to beat the test. The EPA is not going to like that one bit",
+				"date": "10 minutes ago"
+			}
+		]
+	}, 
 ]
