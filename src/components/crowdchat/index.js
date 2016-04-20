@@ -99,21 +99,29 @@ class QuestionItem extends Component {
   }
 
   render() {
-    let firstAnswer = undefined
+    let description = undefined
     let answers = undefined
-    if (!this.state.isExpanded && this.props.answers.length > 0) {
-      firstAnswer = <Text style={styles.description}>{this.props.answers[0].comment.substring(0, 50) + "..."}</Text>
-    }
-    else if (this.state.isExpanded) {
+    let separator = undefined
+    
+    if (this.state.isExpanded) {
       answers = <AnswersContainer answers={this.props.answers} />
-    } 
+      description = <Text style={styles.description}>{this.props.description}</Text>
+      
+      if (this.props.description) {
+        separator = <View style={styles.questionAnswerSeparator}></View>
+      }
+    }
+    else if (this.props.description) {
+      description = <Text style={styles.description}>{this.props.description.substring(0, 100) + "..."}</Text>
+    }
     return (
       <TouchableHighlight onPress={() => this.toggleItem()} underlayColor="rgba(0,0,0,0.3)">
         <View style={styles.questionItemContainer}>
           <Text style={styles.number}>{this.props.rowID + "."}</Text>
           <View style={styles.titleAndDescriptionContainer}>
             <Text style={styles.title}>{this.props.title}</Text>
-            {firstAnswer}
+            {description}
+            {separator}
             {answers}
           </View>
         </View>
@@ -226,6 +234,13 @@ const styles = StyleSheet.create({
     separator: {
       height: 2,
       backgroundColor: '#888',
+    },
+
+    questionAnswerSeparator: {
+      height: 1,
+      backgroundColor: '#AAA',
+      marginBottom: 10,
+      marginTop: 10,
     },
 
     askInput: {

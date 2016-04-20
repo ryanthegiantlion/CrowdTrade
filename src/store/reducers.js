@@ -91,7 +91,7 @@ function crowdChat(state={data: []}, action) {
             "id": last.id+1,
             "isNew": true,
             "title": action.text,
-            "description": action.text,
+            "description": '',
             "answers": []
           },
           ...state.data]})
