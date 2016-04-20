@@ -1,6 +1,7 @@
 [
 	{
-		"id": 1, 
+		"id": 1,
+		"isNew": true, 
 		"title": "Whats up with FB stock? \nWhy do they keep dropping?", 
 		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
 		"answers": [
@@ -17,7 +18,8 @@
 		]
 	}, 
 	{
-		"id": 2, 
+		"id": 2,
+		"isNew": false, 
 		"title": "Could someone PLEASE tell me what 'futures' are???", 
 		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
 		"answers": [
@@ -34,7 +36,8 @@
 		]
 	}, 
 	{
-		"id": 3, 
+		"id": 3,
+		"isNew": false, 
 		"title": "What is a good energy stock?", 
 		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
 		"answers": [
@@ -56,7 +59,8 @@
 		]
 	}, 
 	{
-		"id": 4, 
+		"id": 4,
+		"isNew": false, 
 		"title": "Who things facebook is done?", 
 		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
 		"answers": [
@@ -73,7 +77,8 @@
 		]
 	},
 	{
-		"id": 5, 
+		"id": 5,
+		"isNew": false, 
 		"title": "Who else things that investing in Microsoft is the s***???", 
 		"description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit ...",
 		"answers": [
@@ -93,5 +98,5 @@
 				"date": "10 minutes ago"
 			}
 		]
-	},
+	}
 ]

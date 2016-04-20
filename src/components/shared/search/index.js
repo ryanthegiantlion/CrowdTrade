@@ -7,57 +7,74 @@ import React, {
   View,
   Dimensions,
 } from 'react-native';
+import { updateSearchFilter } from '../../../store/actions'
+import { connect } from 'react-redux'
 
 var MaterialIconsIcon = require('react-native-vector-icons/MaterialIcons');
 
-export default class Search extends Component {
-    render() {
-      let window = Dimensions.get('window')
-      let searchBarWidth = window.width * 2 / 3
-      return (
-        <View style={styles.searchBarContainer}>
-          <Text style={styles.title}>{this.props.title}</Text>
-          <View style={[styles.searchBar, {width: searchBarWidth}]}>
-            <MaterialIconsIcon name='search' style={styles.searchBarIcon}/>
-            <TextInput
-              placeholder='Search Company / Symbol'
-              placeholderTextColor='#666'
-              style={styles.searchBarInput}/>
-          </View>
+class Search extends Component {
+  componentWillUnmount() {
+    this.props.onUpdateSearchFilter('')
+  }
+
+  render() {
+    let window = Dimensions.get('window')
+    let searchBarWidth = window.width * 2 / 3
+    return (
+      <View style={styles.searchBarContainer}>
+        <View style={[styles.searchBar, {width: searchBarWidth}]}>
+          <MaterialIconsIcon name='search' style={styles.searchBarIcon}/>
+          <TextInput
+            value={this.props.searchFilter}
+            onChangeText={(text) => this.props.onUpdateSearchFilter(text)} 
+            placeholder='Search Company / Symbol'
+            placeholderTextColor='#666'
+            style={styles.searchBarInput}/>
         </View>
-      );
-    }
+      </View>
+    );
+  }
 }
-
-
 
 const styles = StyleSheet.create({
   searchBarContainer: {
     backgroundColor: 'black',
     alignItems: 'center',
-    paddingBottom: 10,
-  },
-  title: {
-    fontSize: 18,
-    color: 'white',
-    marginBottom: 10,
+    paddingTop: 8,
+    paddingBottom: 12,
   },
   searchBar: {
     flexDirection: 'row',
-    height: 20,
+    height: 24,
     backgroundColor: 'white',
-    borderRadius: 10,
+    borderRadius: 14,
     paddingLeft: 4,
     alignItems: 'center',
   },
   searchBarIcon: {
-    fontSize: 18,
+    fontSize: 20,
     backgroundColor: 'rgba(0,0,0,0)',
   },
   searchBarInput: {
     flex: 1,
-    height: 20,
-    fontSize: 12,
+    height: 24,
+    fontSize: 16,
     fontWeight: 'bold',
   },
 });
+
+function mapStateToProps(state) {
+  return {
+    searchFilter: state.ui.searchFilter,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onUpdateSearchFilter: (text) => {
+      dispatch(updateSearchFilter(text))
+    },
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Search);

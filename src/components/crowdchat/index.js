@@ -6,16 +6,32 @@ import React, {
   View,
   ListView,
   TextInput,
+  TouchableOpacity,
   TouchableHighlight,
 } from 'react-native';
 import Search from '../shared/search/index'
 import CrowdChatTabBar from './tabBar'
 import { connect } from 'react-redux'
+import { addQuestion } from '../../store/actions'
 var ScrollableTabView = require('react-native-scrollable-tab-view');
 var Icon = require('react-native-vector-icons/FontAwesome');
 
 
 class AskContainer extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      askText: '',
+    };
+  }
+
+  onAddQuestion()
+  {
+    this.props.onAddQuestion(this.state.askText);
+    this.setState({askText: ''})
+  }
+
   render() {
     // optional submit button . . .
     // <View style={styles.askButtonContainer}><
@@ -26,7 +42,15 @@ class AskContainer extends Component {
     // autoFocus={true}
     return (
       <View style={styles.askContainer}>
-        <TextInput placeholder="Is Facebook going to the gutters ?!?!?" multiline={true} style={styles.askInput}/>  
+        <TextInput
+          value={this.state.askText}
+          onChangeText={(text) => this.setState({askText: text})} 
+          placeholder="Is Facebook going to the gutters ?!?!?" 
+          multiline={true} 
+          style={styles.askInput}/>  
+        <TouchableOpacity style={styles.askButton} onPress={() => this.onAddQuestion()}>
+          <View style={{flex: 1}}><Text style={styles.askButtonText}>Submit</Text></View>
+        </TouchableOpacity>
       </View>
     )
   }
@@ -52,7 +76,10 @@ class AnswersContainer extends Component {
     return (
       <View style={styles.answersContainer}>
         {answerItems}
-        <TextInput placeholder="Post your comment" multiline={true} style={styles.commentInput}/>
+        <View style={styles.commentInputContainer}>
+          <TextInput placeholder="Post your comment" multiline={true} style={styles.commentInput}/>
+          <TouchableOpacity style={styles.commentButton}><Text style={styles.commentButtonText}>Post</Text></TouchableOpacity>
+        </View>
       </View>
     )
   }
@@ -68,24 +95,25 @@ class QuestionItem extends Component {
   }
 
   toggleItem() {
-    console.log("fgdgd dfgd fdg dfg ")
     this.setState({isExpanded: !this.state.isExpanded})
   }
 
   render() {
-    let description = <Text style={styles.description}>{this.props.description}</Text>
+    let firstAnswer = undefined
     let answers = undefined
-    if (this.state.isExpanded) {
-      description = undefined
+    if (!this.state.isExpanded && this.props.answers.length > 0) {
+      firstAnswer = <Text style={styles.description}>{this.props.answers[0].comment.substring(0, 50) + "..."}</Text>
+    }
+    else if (this.state.isExpanded) {
       answers = <AnswersContainer answers={this.props.answers} />
     } 
     return (
       <TouchableHighlight onPress={() => this.toggleItem()} underlayColor="rgba(0,0,0,0.3)">
         <View style={styles.questionItemContainer}>
-          <Text style={styles.number}>{this.props.id + "."}</Text>
+          <Text style={styles.number}>{this.props.rowID + "."}</Text>
           <View style={styles.titleAndDescriptionContainer}>
             <Text style={styles.title}>{this.props.title}</Text>
-            {description}
+            {firstAnswer}
             {answers}
           </View>
         </View>
@@ -98,18 +126,18 @@ class QuestionsContainer extends Component {
   constructor(props) {
     super(props)
 
-    var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2});
-    this.state = {
-      dataSource: ds.cloneWithRows(this.props.chats),
-    };
+    // var ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 != r2});
+    // this.state = {
+    //   dataSource: ds.cloneWithRows(this.props.chats),
+    // };
   }
 
   render() {
     return (
       <View style={styles.questionsContainer}>
         <ListView
-          dataSource={this.state.dataSource}
-          renderRow={(rowData) => <QuestionItem {...rowData} />}
+          dataSource={this.props.chats}
+          renderRow={(rowData, sectionID, rowID) => <QuestionItem rowID={parseInt(rowID)+1} {...rowData} />}
           renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}/>
       </View>
     )
@@ -118,19 +146,19 @@ class QuestionsContainer extends Component {
 
 class CrowdChat extends Component {
 
-    render() {
-      return (
-      <View style={styles.bodyContainer}>
-        <Search title='Crowd chat' />
-        <ScrollableTabView contentProps={{bounces: false}} initialPage={0} renderTabBar={() => <CrowdChatTabBar />}>
-          <QuestionsContainer chats={this.props.chats} key="HOT" title='HOT' tabLabel='HOT'/>
-          <QuestionsContainer chats={this.props.chats} key="NEW" title='NEW' tabLabel='NEW'/>
-          <QuestionsContainer chats={this.props.chats} key="TOP" title='TOP' tabLabel='TOP'/>
-          <AskContainer key="ASK" title='ASK' tabLabel='ASK'/>
-        </ScrollableTabView>
-      </View>
-      );
-    }
+  render() {
+    return (
+    <View style={styles.bodyContainer}>
+      <Search title='Crowd chat' />
+      <ScrollableTabView contentProps={{bounces: false, keyboardShouldPersistTaps: true}} initialPage={0} renderTabBar={() => <CrowdChatTabBar />}>
+        <QuestionsContainer chats={this.props.chats} key="HOT" title='HOT' tabLabel='HOT'/>
+        <QuestionsContainer chats={this.props.newChats} key="NEW" title='NEW' tabLabel='NEW'/>
+        <QuestionsContainer chats={this.props.chats} key="TOP" title='TOP' tabLabel='TOP'/>
+        <AskContainer onAddQuestion={this.props.onAddQuestion} key="ASK" title='ASK' tabLabel='ASK'/>
+      </ScrollableTabView>
+    </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -209,13 +237,36 @@ const styles = StyleSheet.create({
       margin: 10,
     },
 
+    commentInputContainer: {
+      borderColor: '#CCC',
+      borderWidth: 1,
+      borderRadius: 4,
+    },
+
     commentInput: {
       padding: 2,
-      borderWidth: 1,
+      //borderWidth: 1,
       height: 30,
       fontSize: 14,
+      //borderColor: '#CCC',
+      //borderRadius: 4,
+    },
+
+    commentButton: {
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      top: 0,
+      justifyContent: 'center',
+      alignItems: 'center',
       borderColor: '#CCC',
+      borderWidth: 1,
       borderRadius: 4,
+    },
+    commentButtonText: {
+      marginTop: 4,
+      marginRight: 8,
+      marginLeft: 8,
     },
 
     likeAndDateContainer: {
@@ -223,24 +274,48 @@ const styles = StyleSheet.create({
     },
 
     askButtonContainer: {
-      flexDirection: 'row',
+      
     },
 
     askButton: {
-      flex: 1,
+      flexDirection: 'row',
       borderWidth: 1,
-      margin: 8,
+      margin: 10,
+      height: 28,
+      padding: 4,
+      borderRadius: 4,
     },
 
     askButtonText: {
-      height: 20,
+      flex: 1,
+      textAlign: 'center',
     },
   });
 
+const dataSource = new ListView.DataSource({
+  rowHasChanged: (r1, r2) => r1 !== r2,
+});
+
 function mapStateToProps(state) {
-  return {
-    chats: state.crowdChat.data,
+  if (state.ui.searchFilter.length == 0) {
+    return {
+      chats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew)),
+      newChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => item.isNew))
+    }
+  } else {
+    return {
+      chats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew && item.title.indexOf(state.ui.searchFilter) != -1)),
+      newChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => item.isNew && item.title.indexOf(state.ui.searchFilter) != -1))
+    }
   }
 }
 
-module.exports = connect(mapStateToProps)(CrowdChat);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onAddQuestion: (text) => {
+      dispatch(addQuestion(text))
+    }
+  }
+}
+
+module.exports = connect(mapStateToProps, mapDispatchToProps)(CrowdChat);

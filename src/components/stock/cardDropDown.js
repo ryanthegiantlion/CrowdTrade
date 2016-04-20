@@ -14,7 +14,8 @@ export default class CardDropDown extends Component {
 
     this.state = {
       pan: new Animated.ValueXY(),
-      bottom: new Animated.Value(Dimensions.get('window').height),
+      bottom: new Animated.Value(Dimensions.get('window').height), 
+      currentTab: 0,
     }
   }
 
@@ -51,7 +52,6 @@ export default class CardDropDown extends Component {
       ]),
 
       onPanResponderRelease: (e, {vx, vy}) => {
-        console.log('release')
         this.state.pan.flattenOffset();
         var velocity;
 
@@ -87,12 +87,24 @@ export default class CardDropDown extends Component {
     let translateY = this.state.pan.y.interpolate({inputRange: [-400, 0], outputRange: [-400, 0], extrapolate: 'clamp'});
     //var animatedDropDownStyles = {transform: [{translateY: translateY}], bottom: this.state.bottom}
     var animatedDropDownStyles = {}
+    if (this.state.currentTab == 0) {
+      var dot1Opacity = {opacity: 0.6}
+      var dot2Opacity = {opacity: 0.3}
+    }
+    else {
+      var dot1Opacity = {opacity: 0.3}
+      var dot2Opacity = {opacity: 0.6}
+    }
     return (
       <Animated.View style={[styles.cardDropDown, animatedDropDownStyles]} {...this._panResponder.panHandlers}>
-        <ScrollableTabView contentProps={{bounces: false}} initialPage={0} locked={false} renderTabBar={() => <View/>}>
+        <ScrollableTabView onChangeTab={(tab) => this.setState({currentTab: tab.i})} contentProps={{bounces: false}} initialPage={0} locked={false} renderTabBar={() => <View/>}>
           <StockPerformance {...this.props} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>
-          <StockNews news={this.props.news} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>
+          <StockNews news={this.props.news} onToggleIsDropDownDisplayed={this.props.onToggleIsDropDownDisplayed}/>  
         </ScrollableTabView>
+        <View style={styles.dotContainer}>
+          <View style={[styles.dot, dot1Opacity]}></View>
+          <View style={[styles.dot, dot2Opacity]}></View>
+        </View>
       </Animated.View>
     )
   }
@@ -108,5 +120,23 @@ var styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   horizontalScrollView: {
+  },
+  dotContainer: {
+    position: 'absolute',
+    bottom: 4,
+    right: 0,
+    left: 0,
+    height: 16,
+    backgroundColor: 'rgba(0,0,0,0)',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  dot: {
+    height: 8,
+    width: 8,
+    marginLeft: 4,
+    marginRight: 4,
+    backgroundColor: 'white',
+    borderRadius: 4,
   },
 });
