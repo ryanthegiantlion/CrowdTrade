@@ -63,6 +63,7 @@ export default class StockNews extends Component {
             date={rowData.date} 
             source={rowData.source}
             url={rowData.url}/>}/>
+        <View style={{height: 20}}></View>
       </View>
     )
   }

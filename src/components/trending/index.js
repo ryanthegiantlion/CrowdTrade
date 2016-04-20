@@ -149,8 +149,8 @@ class Trending extends Component {
 
     // card 0 animation
     let rotate = pan.x.interpolate({inputRange: [-240, 0, 240], outputRange: ["-30deg", "0deg", "30deg"]});
-    let cardBottom = dropDownOffset.interpolate({inputRange: [0, 80], outputRange: [0, -40]})
-    let stockDetailHeight = dropDownOffset.interpolate({inputRange: [0, 80], outputRange: [80, 240]})
+    let cardBottom = dropDownOffset.interpolate({inputRange: [0, 80], outputRange: [0, -80]})
+    let stockDetailHeight = dropDownOffset.interpolate({inputRange: [0, 80], outputRange: [90, 290]})
 
     let animatedCardStyles = {transform: [{translateX}, {translateY}, {rotate}], bottom: cardBottom};
     let animatedStockDetailHeight = {height: stockDetailHeight}

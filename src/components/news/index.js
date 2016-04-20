@@ -302,8 +302,8 @@ function mapStateToProps(state) {
     }
   } else {
     return {
-      newsPaged: dataSource.cloneWithRows(state.featuredNews.data.filter((newsItem) => newsItem.symbol.startsWith(state.ui.searchFilter) || newsItem.companyName.startsWith(state.ui.searchFilter))),
-      news: state.featuredNews.data.filter((newsItem) => newsItem.symbol.startsWith(state.ui.searchFilter) || newsItem.companyName.startsWith(state.ui.searchFilter))
+      newsPaged: dataSource.cloneWithRows(state.featuredNews.data.filter((newsItem) => newsItem.symbol.toLowerCase().startsWith(state.ui.searchFilter.toLowerCase()) || newsItem.companyName.toLowerCase().startsWith(state.ui.searchFilter.toLowerCase()))),
+      news: state.featuredNews.data.filter((newsItem) => newsItem.symbol.toLowerCase().startsWith(state.ui.searchFilter.toLowerCase()) || newsItem.companyName.toLowerCase().startsWith(state.ui.searchFilter.toLowerCase()))
     }
   }
 }

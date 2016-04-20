@@ -304,8 +304,8 @@ function mapStateToProps(state) {
     }
   } else {
     return {
-      chats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew && item.title.indexOf(state.ui.searchFilter) != -1)),
-      newChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => item.isNew && item.title.indexOf(state.ui.searchFilter) != -1))
+      chats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew && item.title.toLowerCase().indexOf(state.ui.searchFilter.toLowerCase()) != -1)),
+      newChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => item.isNew && item.title.toLowerCase().indexOf(state.ui.searchFilter.toLowerCase()) != -1))
     }
   }
 }
