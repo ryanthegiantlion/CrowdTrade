@@ -76,7 +76,10 @@ class AnswersContainer extends Component {
     return (
       <View style={styles.answersContainer}>
         {answerItems}
-        <TextInput placeholder="Post your comment" multiline={true} style={styles.commentInput}/>
+        <View style={styles.commentInputContainer}>
+          <TextInput placeholder="Post your comment" multiline={true} style={styles.commentInput}/>
+          <TouchableOpacity style={styles.commentButton}><Text style={styles.commentButtonText}>Post</Text></TouchableOpacity>
+        </View>
       </View>
     )
   }
@@ -234,13 +237,36 @@ const styles = StyleSheet.create({
       margin: 10,
     },
 
+    commentInputContainer: {
+      borderColor: '#CCC',
+      borderWidth: 1,
+      borderRadius: 4,
+    },
+
     commentInput: {
       padding: 2,
-      borderWidth: 1,
+      //borderWidth: 1,
       height: 30,
       fontSize: 14,
+      //borderColor: '#CCC',
+      //borderRadius: 4,
+    },
+
+    commentButton: {
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      top: 0,
+      justifyContent: 'center',
+      alignItems: 'center',
       borderColor: '#CCC',
+      borderWidth: 1,
       borderRadius: 4,
+    },
+    commentButtonText: {
+      marginTop: 4,
+      marginRight: 8,
+      marginLeft: 8,
     },
 
     likeAndDateContainer: {
