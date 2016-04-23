@@ -160,7 +160,7 @@ export default class GridView2 extends Component {
     //     dataSource={this.state.dataSource}
     //     renderRow={(rowData) => <View style={[styles.itemContainer, {width: containerDimensions, flex: 1}]}><RowItem2 nav={this.props.nav} newsItem={rowData}/></View>}/>
     return (
-      <ScrollableTabView contentProps={{bounces: false}} initialPage={1} renderTabBar={() => <View/>}>
+      <ScrollableTabView contentProps={{bounces: false}} initialPage={0} renderTabBar={() => <View/>}>
         {rowItems}
       </ScrollableTabView>
     );  
@@ -176,11 +176,7 @@ class News extends Component {
     return (
       <View style={styles.bodyContainer}>
         <Search title='News' />
-        
-        <ScrollableTabView contentProps={{bounces: false}} initialPage={1}>
-          <GridView items={this.props.newsPaged} itemsPerRow={2} nav={this.props.nav} key="ANIMATION1" tabLabel="Animation 1"/>
-          <GridView2 items={this.props.news} itemsPerRow={1} nav={this.props.nav} key="ANIMATION2" tabLabel="Animation 2"/>
-        </ScrollableTabView>
+        <GridView2 items={this.props.news} itemsPerRow={1} nav={this.props.nav} key="ANIMATION2" tabLabel="Animation 2"/>
       </View>
     );
   }
