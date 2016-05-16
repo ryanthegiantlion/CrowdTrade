@@ -81,7 +81,6 @@ class AnswersContainer extends Component {
 
   onAddComment()
   {
-    console.log('on add comment');
     this.props.onAddComment(this.state.comment);
     this.setState({comment: ''})
   }
