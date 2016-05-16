@@ -8,11 +8,13 @@ import React, {
   TextInput,
   TouchableOpacity,
   TouchableHighlight,
+  DeviceEventEmitter,
+  Dimensions,
 } from 'react-native';
 import Search from '../shared/search/index'
 import CrowdChatTabBar from './tabBar'
 import { connect } from 'react-redux'
-import { addQuestion } from '../../store/actions'
+import { addQuestion, addComment } from '../../store/actions'
 var ScrollableTabView = require('react-native-scrollable-tab-view');
 var Icon = require('react-native-vector-icons/FontAwesome');
 
@@ -71,14 +73,33 @@ class AnswerItem extends Component {
 }
 
 class AnswersContainer extends Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      comment: '',
+    };
+  }
+
+  onAddComment()
+  {
+    this.props.onAddComment(this.state.comment);
+    this.setState({comment: ''})
+  }
+
   render() {
     let answerItems = this.props.answers.map((item) => <AnswerItem key={item.id} comment={item.comment} date={item.date} />);
     return (
       <View style={styles.answersContainer}>
         {answerItems}
         <View style={styles.commentInputContainer}>
-          <TextInput placeholder="Post your comment" multiline={true} style={styles.commentInput}/>
-          <TouchableOpacity style={styles.commentButton}><Text style={styles.commentButtonText}>Post</Text></TouchableOpacity>
+          <TextInput 
+            value={this.state.comment}
+            onChangeText={(text) => this.setState({comment: text})} 
+            placeholder="Post your comment" 
+            multiline={true} 
+            style={styles.commentInput}/>
+          <TouchableOpacity style={styles.commentButton} onPress={() => this.onAddComment()}><View style={{flex:1}}><Text style={styles.commentButtonText}>Post</Text></View></TouchableOpacity>
         </View>
       </View>
     )
@@ -104,7 +125,7 @@ class QuestionItem extends Component {
     let separator = undefined
     
     if (this.state.isExpanded) {
-      answers = <AnswersContainer answers={this.props.answers} />
+      answers = <AnswersContainer onAddComment={(text) => this.props.onAddComment(this.props.id, text)} answers={this.props.answers} />
       description = <Text style={styles.description}>{this.props.description}</Text>
       
       if (this.props.description) {
@@ -144,8 +165,10 @@ class QuestionsContainer extends Component {
     return (
       <View style={styles.questionsContainer}>
         <ListView
+          keyboardDismissMode= 'on-drag'
+          keyboardShouldPersistTaps={true}
           dataSource={this.props.chats}
-          renderRow={(rowData, sectionID, rowID) => <QuestionItem rowID={parseInt(rowID)+1} {...rowData} />}
+          renderRow={(rowData, sectionID, rowID) => <QuestionItem onAddComment={this.props.onAddComment} rowID={parseInt(rowID)+1} {...rowData} />}
           renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}/>
       </View>
     )
@@ -153,17 +176,39 @@ class QuestionsContainer extends Component {
 }
 
 class CrowdChat extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      visibleHeight: Dimensions.get('window').height
+    }
+  }
+
+  componentWillMount () {
+    DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
+    DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
+  }
+
+  keyboardWillShow (e) {
+    let newSize = Dimensions.get('window').height - e.endCoordinates.height
+    this.setState({visibleHeight: newSize})
+  }
+
+  keyboardWillHide (e) {
+    this.setState({visibleHeight: Dimensions.get('window').height})
+  }
 
   render() {
     return (
     <View style={styles.bodyContainer}>
-      <Search title='Crowd chat' />
-      <ScrollableTabView contentProps={{bounces: false, keyboardShouldPersistTaps: true}} initialPage={0} renderTabBar={() => <CrowdChatTabBar />}>
-        <QuestionsContainer chats={this.props.chats} key="HOT" title='HOT' tabLabel='HOT'/>
-        <QuestionsContainer chats={this.props.newChats} key="NEW" title='NEW' tabLabel='NEW'/>
-        <QuestionsContainer chats={this.props.chats} key="TOP" title='TOP' tabLabel='TOP'/>
-        <AskContainer onAddQuestion={this.props.onAddQuestion} key="ASK" title='ASK' tabLabel='ASK'/>
-      </ScrollableTabView>
+      <View style={[styles.resizeContainer, {height: this.state.visibleHeight - 80}]}>
+        <Search title='Crowd chat' />
+        <ScrollableTabView contentProps={{bounces: false, keyboardShouldPersistTaps: true}} initialPage={0} renderTabBar={() => <CrowdChatTabBar />}>
+          <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.hotChats} key="HOT" title='HOT' tabLabel='HOT'/>
+          <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.newChats} key="NEW" title='NEW' tabLabel='NEW'/>
+          <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.topChats} key="TOP" title='TOP' tabLabel='TOP'/>
+          <AskContainer onAddQuestion={this.props.onAddQuestion} key="ASK" title='ASK' tabLabel='ASK'/>
+        </ScrollableTabView>
+      </View>
     </View>
     );
   }
@@ -172,6 +217,10 @@ class CrowdChat extends Component {
 const styles = StyleSheet.create({
     bodyContainer: {
       flex: 1,
+      backgroundColor: '#eee',
+    },
+
+    resizeContainer: {
       backgroundColor: '#eee',
     },
 
@@ -314,12 +363,14 @@ const dataSource = new ListView.DataSource({
 function mapStateToProps(state) {
   if (state.ui.searchFilter.length == 0) {
     return {
-      chats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew)),
+      hotChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew).sort((a, b) => a.hotOrder - b.hotOrder)),
+      topChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew).sort((a, b) => a.topOrder - b.topOrder)),
       newChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => item.isNew))
     }
   } else {
     return {
-      chats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew && item.title.toLowerCase().indexOf(state.ui.searchFilter.toLowerCase()) != -1)),
+      hotChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew && item.title.toLowerCase().indexOf(state.ui.searchFilter.toLowerCase()) != -1).sort((a, b) => a.hotOrder - b.hotOrder)),
+      topChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew && item.title.toLowerCase().indexOf(state.ui.searchFilter.toLowerCase()) != -1).sort((a, b) => a.topOrder - b.topOrder)),
       newChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => item.isNew && item.title.toLowerCase().indexOf(state.ui.searchFilter.toLowerCase()) != -1))
     }
   }
@@ -329,6 +380,9 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onAddQuestion: (text) => {
       dispatch(addQuestion(text))
+    },
+    onAddComment: (questionId, text) => {
+      dispatch(addComment(questionId, text))
     }
   }
 }
