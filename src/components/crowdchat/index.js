@@ -81,6 +81,7 @@ class AnswersContainer extends Component {
 
   onAddComment()
   {
+    console.log('on add comment');
     this.props.onAddComment(this.state.comment);
     this.setState({comment: ''})
   }
@@ -97,7 +98,7 @@ class AnswersContainer extends Component {
             placeholder="Post your comment" 
             multiline={true} 
             style={styles.commentInput}/>
-          <TouchableOpacity style={styles.commentButton} onPress={() => this.onAddComment()}><View><Text style={styles.commentButtonText}>Post</Text></View></TouchableOpacity>
+          <TouchableOpacity style={styles.commentButton} onPress={() => this.onAddComment()}><View style={{flex:1}}><Text style={styles.commentButtonText}>Post</Text></View></TouchableOpacity>
         </View>
       </View>
     )
@@ -163,6 +164,7 @@ class QuestionsContainer extends Component {
     return (
       <View style={styles.questionsContainer}>
         <ListView
+          keyboardShouldPersistTaps={true}
           dataSource={this.props.chats}
           renderRow={(rowData, sectionID, rowID) => <QuestionItem onAddComment={this.props.onAddComment} rowID={parseInt(rowID)+1} {...rowData} />}
           renderSeparator={(sectionID, rowID) => <View key={`${sectionID}-${rowID}`} style={styles.separator} />}/>
