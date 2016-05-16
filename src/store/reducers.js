@@ -95,6 +95,27 @@ function crowdChat(state={data: []}, action) {
             "answers": []
           },
           ...state.data]})
+    case actions.ADD_COMMENT:
+      var questionIndex = state.data.findIndex((item) => item.id == action.questionId);
+      return Object.assign({}, state, 
+        {currentMaxAnswerId: state.currentMaxAnswerId+1},
+        {
+          data: state.data.map((question, index) => {
+            if (index === questionIndex) {
+              return Object.assign({}, question, {
+                answers: [
+                  ...question.answers,
+                  {
+                    "id": state.currentMaxAnswerId,
+                    "comment": action.text,
+                    "date": "1 minute ago"
+                  }
+                ]
+              })
+            }
+            return question
+          })
+        })
     default:
       return state
   }
