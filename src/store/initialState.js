@@ -12,7 +12,7 @@ export default function initialState() {
     trending: {data: trendingData},
     watchList: {data: watchListData},
     news: {data: newsData},
-    crowdChat: {data: crowdChatData, currentMaxAnswerId: 40},
+    crowdChat: {data: crowdChatData, currentMaxAnswerId: 40, currentMaxQuestionId: 8},
     featuredNews: {data: featuredNews},
     virtualPortfolio: {data: virtualPortfolioData}
   }
