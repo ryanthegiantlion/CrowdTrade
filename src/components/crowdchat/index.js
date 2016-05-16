@@ -8,6 +8,8 @@ import React, {
   TextInput,
   TouchableOpacity,
   TouchableHighlight,
+  DeviceEventEmitter,
+  Dimensions,
 } from 'react-native';
 import Search from '../shared/search/index'
 import CrowdChatTabBar from './tabBar'
@@ -163,6 +165,7 @@ class QuestionsContainer extends Component {
     return (
       <View style={styles.questionsContainer}>
         <ListView
+          keyboardDismissMode= 'on-drag'
           keyboardShouldPersistTaps={true}
           dataSource={this.props.chats}
           renderRow={(rowData, sectionID, rowID) => <QuestionItem onAddComment={this.props.onAddComment} rowID={parseInt(rowID)+1} {...rowData} />}
@@ -173,17 +176,39 @@ class QuestionsContainer extends Component {
 }
 
 class CrowdChat extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      visibleHeight: Dimensions.get('window').height
+    }
+  }
+
+  componentWillMount () {
+    DeviceEventEmitter.addListener('keyboardWillShow', this.keyboardWillShow.bind(this))
+    DeviceEventEmitter.addListener('keyboardWillHide', this.keyboardWillHide.bind(this))
+  }
+
+  keyboardWillShow (e) {
+    let newSize = Dimensions.get('window').height - e.endCoordinates.height
+    this.setState({visibleHeight: newSize})
+  }
+
+  keyboardWillHide (e) {
+    this.setState({visibleHeight: Dimensions.get('window').height})
+  }
 
   render() {
     return (
     <View style={styles.bodyContainer}>
-      <Search title='Crowd chat' />
-      <ScrollableTabView contentProps={{bounces: false, keyboardShouldPersistTaps: true}} initialPage={0} renderTabBar={() => <CrowdChatTabBar />}>
-        <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.hotChats} key="HOT" title='HOT' tabLabel='HOT'/>
-        <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.newChats} key="NEW" title='NEW' tabLabel='NEW'/>
-        <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.topChats} key="TOP" title='TOP' tabLabel='TOP'/>
-        <AskContainer onAddQuestion={this.props.onAddQuestion} key="ASK" title='ASK' tabLabel='ASK'/>
-      </ScrollableTabView>
+      <View style={[styles.resizeContainer, {height: this.state.visibleHeight - 80}]}>
+        <Search title='Crowd chat' />
+        <ScrollableTabView contentProps={{bounces: false, keyboardShouldPersistTaps: true}} initialPage={0} renderTabBar={() => <CrowdChatTabBar />}>
+          <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.hotChats} key="HOT" title='HOT' tabLabel='HOT'/>
+          <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.newChats} key="NEW" title='NEW' tabLabel='NEW'/>
+          <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.topChats} key="TOP" title='TOP' tabLabel='TOP'/>
+          <AskContainer onAddQuestion={this.props.onAddQuestion} key="ASK" title='ASK' tabLabel='ASK'/>
+        </ScrollableTabView>
+      </View>
     </View>
     );
   }
@@ -192,6 +217,10 @@ class CrowdChat extends Component {
 const styles = StyleSheet.create({
     bodyContainer: {
       flex: 1,
+      backgroundColor: '#eee',
+    },
+
+    resizeContainer: {
       backgroundColor: '#eee',
     },
 
