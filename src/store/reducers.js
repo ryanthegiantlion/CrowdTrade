@@ -85,18 +85,21 @@ function crowdChat(state={data: []}, action) {
   switch (action.type) {
     case actions.ADD_QUESTION:
       var last = state.data[state.data.length-1]
-      return Object.assign({}, state, {
-        data: [
-          {
-            "id": last.id+1,
-            "topOrder": null,
-            "hotOrder": null,
-            "isNew": true,
-            "title": action.text,
-            "description": '',
-            "answers": []
-          },
-          ...state.data]})
+      return Object.assign({}, state, 
+        {currentMaxQuestionId: state.currentMaxQuestionId+1},
+        {
+          data: [
+            {
+              "id": state.currentMaxQuestionId,
+              "topOrder": null,
+              "hotOrder": null,
+              "isNew": true,
+              "title": action.text,
+              "description": '',
+              "answers": []
+            },
+            ...state.data]
+          })
     case actions.ADD_COMMENT:
       var questionIndex = state.data.findIndex((item) => item.id == action.questionId);
       return Object.assign({}, state, 
