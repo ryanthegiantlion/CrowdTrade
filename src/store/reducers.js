@@ -89,6 +89,8 @@ function crowdChat(state={data: []}, action) {
         data: [
           {
             "id": last.id+1,
+            "topOrder": null,
+            "hotOrder": null,
             "isNew": true,
             "title": action.text,
             "description": '',

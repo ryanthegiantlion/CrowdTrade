@@ -1,7 +1,9 @@
 [
 	{
 		"id": 1,
-		"isNew": false, 
+		"isNew": false,
+		"topOrder": 1,
+		"hotOrder": 3,
 		"title": "Could someone PLEASE tell me what 'futures' are???", 
 		"description": "Sorry I know it sounds stupid, but im really new to trading and trying to explain to my girl what futures are, any help?!?!",
 		"answers": [
@@ -24,7 +26,9 @@
 	},
 	{
 		"id": 2,
-		"isNew": false, 
+		"isNew": false,
+		"topOrder": 2,
+		"hotOrder": 5,
 		"title": "GoPro… Is now the time?!?! Need help quick!", 
 		"description": "Just saw the news on GoPro and how it crashed, should I buy now, or wait?",
 		"answers": [
@@ -62,7 +66,9 @@
 	},
 	{
 		"id": 3,
-		"isNew": false, 
+		"isNew": false,
+		"topOrder": 3,
+		"hotOrder": 4,
 		"title": "What is a good energy stock?", 
 		"description": "Newbie here! Always thought investing in alternate energy would be a good idea, btu have no idea of what the best companies are… any help?",
 		"answers": [
@@ -85,7 +91,9 @@
 	}, 
 	{
 		"id": 4,
-		"isNew": false, 
+		"isNew": false,
+		"topOrder": 4,
+		"hotOrder": 6,
 		"title": "Is Facebook over or still a good option?", 
 		"description": "Been thinking of buying FB shares now that they have had IPO for a while but im really unsure…",
 		"answers": [
@@ -123,7 +131,9 @@
 	},
 	{
 		"id": 5,
-		"isNew": true, 
+		"isNew": true,
+		"topOrder": null,
+		"hotOrder": null,
 		"title": "Thought FB was good… why does it keep dropping????", 
 		"description": "Super new to investing, thought FB was good, but why does it keep??? I just bought it and it wont stop going down!!",
 		"answers": [
@@ -151,7 +161,9 @@
 	}, 
 	{
 		"id": 6,
-		"isNew": false, 
+		"isNew": false,
+		"topOrder": 5,
+		"hotOrder": 7,
 		"title": "Just started investing. Should I put money into China?", 
 		"description": "I know people have been saying stay out of china, but I see some companies like Sina Corp are actually doing well, would it be ok to go into those companies?",
 		"answers": [
@@ -200,7 +212,9 @@
 	}, 
 	{
 		"id": 7,
-		"isNew": false, 
+		"isNew": false,
+		"topOrder": 6,
+		"hotOrder": 1,
 		"title": "Why are so many people boycotting Nestle", 
 		"description": "",
 		"answers": [
@@ -223,7 +237,9 @@
 	}, 
 	{
 		"id": 8,
-		"isNew": false, 
+		"isNew": false,
+		"topOrder": 7,
+		"hotOrder": 2,
 		"title": "Thoughts on VW?", 
 		"description": "They dropped about 18% from emission scandal, is it a good time to buy?",
 		"answers": [

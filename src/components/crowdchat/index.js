@@ -179,9 +179,9 @@ class CrowdChat extends Component {
     <View style={styles.bodyContainer}>
       <Search title='Crowd chat' />
       <ScrollableTabView contentProps={{bounces: false, keyboardShouldPersistTaps: true}} initialPage={0} renderTabBar={() => <CrowdChatTabBar />}>
-        <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.chats} key="HOT" title='HOT' tabLabel='HOT'/>
+        <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.hotChats} key="HOT" title='HOT' tabLabel='HOT'/>
         <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.newChats} key="NEW" title='NEW' tabLabel='NEW'/>
-        <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.chats} key="TOP" title='TOP' tabLabel='TOP'/>
+        <QuestionsContainer onAddComment={this.props.onAddComment} chats={this.props.topChats} key="TOP" title='TOP' tabLabel='TOP'/>
         <AskContainer onAddQuestion={this.props.onAddQuestion} key="ASK" title='ASK' tabLabel='ASK'/>
       </ScrollableTabView>
     </View>
@@ -334,12 +334,14 @@ const dataSource = new ListView.DataSource({
 function mapStateToProps(state) {
   if (state.ui.searchFilter.length == 0) {
     return {
-      chats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew)),
+      hotChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew).sort((a, b) => a.hotOrder - b.hotOrder)),
+      topChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew).sort((a, b) => a.topOrder - b.topOrder)),
       newChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => item.isNew))
     }
   } else {
     return {
-      chats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew && item.title.toLowerCase().indexOf(state.ui.searchFilter.toLowerCase()) != -1)),
+      hotChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew && item.title.toLowerCase().indexOf(state.ui.searchFilter.toLowerCase()) != -1).sort((a, b) => a.hotOrder - b.hotOrder)),
+      topChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => !item.isNew && item.title.toLowerCase().indexOf(state.ui.searchFilter.toLowerCase()) != -1).sort((a, b) => a.topOrder - b.topOrder)),
       newChats: dataSource.cloneWithRows(state.crowdChat.data.filter((item) => item.isNew && item.title.toLowerCase().indexOf(state.ui.searchFilter.toLowerCase()) != -1))
     }
   }
